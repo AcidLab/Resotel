@@ -38,7 +38,7 @@
                      <a class="nav-link" data-scroll="true" href="javascript:void(0)">Inscription</a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" data-scroll="true" data-toggle="modal" data-target="#loginModal" href="#">S'identifier</a>
+                     <a class="nav-link" data-scroll="true"  href="{{route('login')}}">S'identifier</a>
                   </li>
                </ul>
             </div>
