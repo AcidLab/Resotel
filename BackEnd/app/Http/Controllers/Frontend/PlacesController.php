@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
-use App\Models\Next;
+use App\Http\Controllers\Controller;
+use App\Models\Place;
 use View;
 use Redirect;
 use Session;
 
-class NextsController extends Controller
+class PlacesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +18,9 @@ class NextsController extends Controller
      */
     public function index()
     {
-        $nexts = Next::all();
-        $view = View::make('nexts.index');
-        $view->nexts = $nexts;
+        $view = View::make('places.index');
+        $places = Place::all();
+        $view->places = $places;
         return $view;
     }
 
@@ -63,9 +64,9 @@ class NextsController extends Controller
      */
     public function edit($id)
     {
-        $view = View::make('nexts.edit');
-        $next = Next::find($id);
-        $view->next = $next;
+        $place = Place::find($id);
+        $view=View::make('places.edit');
+        $view->place = $place;
         return $view;
     }
 
@@ -76,22 +77,22 @@ class NextsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateNext(Request $request, $id)
+    public function updatePlace(Request $request, $id)
     {
-        $next = Next::find($id);
-        $next->title = $request->input('title');
+        $place = Place::find($id);
+        $place->title = $request->input('title');
         if($request->input('description')){
-            $next->description = $request->input('description');
+            $place->description = $request->input('description');
         }
         if($request->file('picture_path')){
 
             $file = $request->file('picture_path');
-            $filename = $file->store(config('files.nexts_path'),'public');
-            $next->picture_path = asset($filename);  
+            $filename = $file->store(config('files.places_path'),'public');
+            $place->picture_path = asset($filename);  
         }
-        $next->save();
-        $request->session()->flash('success','Elément mis à jour avec succés ! ');
-        return Redirect::to(route('nexts.index'));
+        $place->save();
+        $request->session()->flash('success','Place mise à jour avec succés ! ');
+        return Redirect::to(route('places.index'));
     }
 
     /**

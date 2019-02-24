@@ -12,26 +12,26 @@
 */
 
 //Carousels routes
-Route::resource('sliders','SlidersController');
-Route::post('update_slider/{id}',array('as'=>'slider.set','uses'=>'SlidersController@updateSlider'));
-Route::get('delete_slider/{id}',array('as'=>'slider.remove','uses'=>'SlidersController@deleteSlider'));
+Route::resource('sliders','Frontend\SlidersController');
+Route::post('update_slider/{id}',array('as'=>'slider.set','uses'=>'Frontend\SlidersController@updateSlider'));
+Route::get('delete_slider/{id}',array('as'=>'slider.remove','uses'=>'Frontend\SlidersController@deleteSlider'));
 //---------------
 //About routes
-Route::resource('abouts','AboutsController');
-Route::post('update_about/{id}',array('as'=>'about.set','uses'=>'AboutsController@updateAbout'));
+Route::resource('abouts','Frontend\AboutsController');
+Route::post('update_about/{id}',array('as'=>'about.set','uses'=>'Frontend\AboutsController@updateAbout'));
 //---------------
 //Partners routes
-Route::resource('partners','PartnersController');
-Route::post('update_partner/{id}',array('as'=>'partner.set','uses'=>'PartnersController@updatePartner'));
-Route::get('delete_partner/{id}',array('as'=>'partner.remove','uses'=>'PartnersController@deletePartner'));
+Route::resource('partners','Frontend\PartnersController');
+Route::post('update_partner/{id}',array('as'=>'partner.set','uses'=>'Frontend\PartnersController@updatePartner'));
+Route::get('delete_partner/{id}',array('as'=>'partner.remove','uses'=>'Frontend\PartnersController@deletePartner'));
 //---------------
 //Nexts routes
-Route::resource('nexts','NextsController');
-Route::post('update_next/{id}',array('as'=>'next.set','uses'=>'NextsController@updateNext'));
+Route::resource('nexts','Frontend\NextsController');
+Route::post('update_next/{id}',array('as'=>'next.set','uses'=>'Frontend\NextsController@updateNext'));
 //---------------
 //Places routes
-Route::resource('places','PlacesController');
-Route::post('update_place/{id}',array('as'=>'place.set','uses'=>'PlacesController@updatePlace'));
+Route::resource('places','Frontend\PlacesController');
+Route::post('update_place/{id}',array('as'=>'place.set','uses'=>'Frontend\PlacesController@updatePlace'));
 //---------------
 
 Route::get('/', function () {
@@ -41,4 +41,4 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'Frontend\HomeController@index')->name('home');

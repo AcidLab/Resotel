@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
-use App\Models\Place;
+use App\Models\About;
+use App\Http\Controllers\Controller;
 use View;
 use Redirect;
 use Session;
 
-class PlacesController extends Controller
+class AboutsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +18,9 @@ class PlacesController extends Controller
      */
     public function index()
     {
-        $view = View::make('places.index');
-        $places = Place::all();
-        $view->places = $places;
+        $abouts = About::all();
+        $view = View::make('abouts.index');
+        $view->abouts = $abouts;
         return $view;
     }
 
@@ -30,7 +31,7 @@ class PlacesController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -63,10 +64,7 @@ class PlacesController extends Controller
      */
     public function edit($id)
     {
-        $place = Place::find($id);
-        $view=View::make('places.edit');
-        $view->place = $place;
-        return $view;
+        //
     }
 
     /**
@@ -76,22 +74,15 @@ class PlacesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updatePlace(Request $request, $id)
+    public function updateAbout(Request $request, $id)
     {
-        $place = Place::find($id);
-        $place->title = $request->input('title');
-        if($request->input('description')){
-            $place->description = $request->input('description');
-        }
-        if($request->file('picture_path')){
-
-            $file = $request->file('picture_path');
-            $filename = $file->store(config('files.places_path'),'public');
-            $place->picture_path = asset($filename);  
-        }
-        $place->save();
-        $request->session()->flash('success','Place mise à jour avec succés ! ');
-        return Redirect::to(route('places.index'));
+        $about = About::find($id);
+        $about->icon_class=$request->input('icon_class');
+        $about->title = $request->input('title');
+        $about->content = $request->input('content');
+        $about->save();
+        $request->session()->flash('success','Elément mis à jour avec succés ! ');
+        return Redirect::to(route('abouts.index'));
     }
 
     /**
