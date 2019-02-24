@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class About extends Model
+{
+    use SoftDeletes;
+    protected $table = "abouts";
+    protected $dates=['deleted_at'];
+    public $timestamps = true;
+}

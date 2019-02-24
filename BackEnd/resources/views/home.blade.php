@@ -1,0 +1,15 @@
+@extends('layouts.app')
+@section('title')
+Administration
+@endsection
+@section('css-includes')
+@endsection
+@section('row-title')
+Administration
+@endsection
+@section('add-button')
+@endsection
+@section('content')
+@endsection
+@section('js-includes')
+@endsection
