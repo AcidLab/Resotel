@@ -8,7 +8,9 @@ use App\Models\About;
 use App\Models\Next;
 use App\Models\Place;
 use App\Models\Partner;
+use App\Models\Contact;
 use View;
+use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
 {
@@ -42,5 +44,18 @@ class HomeController extends Controller
         $view->partners = $partners;
         return $view;
 
+    }
+
+    public function sendMessage(Request $request){
+
+        $contact = new Contact;
+        $contact->name = $request->input('name');
+        $contact->email = $request->input('email');
+        $contact->phone = $request->input('phone');
+        $contact->agency_name = $request->input('agency_name');
+        $contact->message = $request->input('message');
+        $contact->save();
+        return Redirect::to(route('home')); 
+        
     }
 }

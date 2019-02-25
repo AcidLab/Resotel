@@ -25,6 +25,8 @@ Route::get('contact',array('as'=>'contact','uses'=>function(){
     return view('showcase.contact');
 }));
 
+Route::post('send_message',array('as'=>'message.send','uses'=>'HomeController@sendMessage'));
+
 
 Route::get('/pricing', function () {
     return view('showcase.pricing');

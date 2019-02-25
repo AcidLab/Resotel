@@ -9,27 +9,28 @@
                      <p>
                      	Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualise customer directed convergence without revolutionary ROI.
                      </p>
-                     <form class="contact-form">
+                     <form class="contact-form" method="POST" action="{{route('message.send')}}">
+                        @csrf
                         <div class="row">
                            <div class="col-md-6">
                               <label>Nom</label>
-                              <input class="form-control" placeholder="Nom">
+                              <input class="form-control" placeholder="Nom" required name="name">
                            </div>
                            <div class="col-md-6">
                               <label>Email</label>
-                              <input class="form-control" placeholder="Email">
+                              <input type="email" class="form-control" placeholder="Email" required name="email">
                            </div>
                            <div class="col-md-6">
                               <label>Nom de l'agence</label>
-                              <input class="form-control" placeholder="Nom de l'agence">
+                              <input class="form-control" placeholder="Nom de l'agence" required name="agency_name">
                            </div>
                            <div class="col-md-6">
                               <label>Téléphone</label>
-                              <input class="form-control" placeholder="Téléphone">
+                              <input class="form-control" placeholder="Téléphone" type="number" required name="phone">
                            </div>
                         </div>
                         <label>Message</label>
-                        <textarea class="form-control" rows="4" placeholder="Racontez-nous vos pensées et vos sentiments ..."></textarea>
+                        <textarea class="form-control" rows="4" placeholder="Racontez-nous vos pensées et vos sentiments ..." required name="message"></textarea>
                         <div class="row">
                            <div class="col-md-4 offset-md-4">
                               <button class="btn btn-info btn-lg btn-fill">Envoyez</button>

@@ -33,11 +33,16 @@ Route::post('update_next/{id}',array('as'=>'next.set','uses'=>'Frontend\NextsCon
 Route::resource('places','Frontend\PlacesController');
 Route::post('update_place/{id}',array('as'=>'place.set','uses'=>'Frontend\PlacesController@updatePlace'));
 //---------------
+//contacts routes
+Route::resource('contacts','Frontend\ContactsController');
+
+//---------------
 
 Route::get('/', function () {
     return Redirect::to(route('home'));
     
 });
+
 
 Auth::routes();
 

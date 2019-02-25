@@ -181,6 +181,13 @@
                             </a>     
                         </li>
 
+                        <li class="element {{preg_match('/contact/',\Request::route()->getName()) ? 'active' : ''}} "> 
+                            <a class=" waves-effect waves-dark {{preg_match('/contact/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('contacts.index')}}" aria-expanded="false">
+                                <i class="ti-email"></i>
+                                <span class="hide-menu"> Contacts </span>
+                            </a>     
+                        </li>
+
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
