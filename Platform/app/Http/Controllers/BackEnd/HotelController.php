@@ -136,6 +136,7 @@ class HotelController extends Controller
         else{
 
         }
+        return $all;
     }
 
     
