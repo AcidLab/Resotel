@@ -16,7 +16,15 @@ Route::get('/',function(){
 
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::get('home',array('as'=>'home','uses'=>function(){
-    return view('showcase.home');
+
+    if (Auth::user()) {
+        return view('platform.home');
+    }
+
+    else {
+        return view('showcase.home');
+    }
+    
 }));
 Route::get('partners',array('as'=>'partners','uses'=>function(){
     return view('showcase.partners');
@@ -31,6 +39,10 @@ Route::post('send_message',array('as'=>'message.send','uses'=>'HomeController@se
 Route::get('/pricing', function () {
     return view('showcase.pricing');
 });
+
+Route::get('search',array('as'=>'search','uses'=>function(){
+    return view('platform.search');
+}));
 
 
 Auth::routes();

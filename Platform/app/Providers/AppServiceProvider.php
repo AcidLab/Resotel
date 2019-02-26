@@ -25,11 +25,14 @@ class AppServiceProvider extends ServiceProvider
         $places = Place::all();
         $sliders = Slider::all();
         $partners = Partner::all();
+
+        $random = rand(0, count($sliders)-1);
         View::share('abouts',$abouts);
         View::share('nexts',$nexts);
         View::share('places',$places);
         View::share('sliders',$sliders);
         View::share('partners',$partners);
+        View::share('random',$random);
     }
 
     /**

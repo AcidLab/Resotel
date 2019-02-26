@@ -34,12 +34,23 @@
                   <li class="nav-item">
                      <a class="nav-link" data-scroll="true" href="{{route('contact')}}">Contact</a>
                   </li>
+
+                  @if (Auth::user())
+                  <li class="nav-item">
+                     <a class="nav-link" data-scroll="true" href="javascript:void(0)">{{Auth::user()->name}}</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" data-scroll="true"  href="{{route('logout')}}">Déconnexion</a>
+                  </li>
+                  @else
                   <li class="nav-item">
                      <a class="nav-link" data-scroll="true" href="javascript:void(0)">Inscription</a>
                   </li>
                   <li class="nav-item">
                      <a class="nav-link" data-scroll="true"  href="{{route('login')}}">S'identifier</a>
                   </li>
+                  @endif
+                  
                </ul>
             </div>
          </div>
@@ -186,6 +197,7 @@
    <script src="{{asset('assets/js/jquery-ui-1.12.1.custom.min.js')}}" type="text/javascript"></script>
    <script src="{{asset('assets/js/tether.min.js')}}" type="text/javascript"></script>
    <script src="{{asset('assets/js/bootstrap.min.js')}}" type="text/javascript"></script>
+   <script src="{{asset('assets/js/bootstrap-select.js')}}"></script>
    <!-- Control Center for Paper Kit: parallax effects, scripts for the example pages etc -->
    <script src="{{asset('assets/js/paper-kit.js?v=2.0.1')}}"></script>
    @yield('js')
