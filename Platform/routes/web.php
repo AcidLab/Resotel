@@ -44,6 +44,7 @@ Route::get('search',array('as'=>'search','uses'=>function(){
     return view('platform.search');
 }));
 
+Route::post('search_hotel',array('as'=>'hotel.search','uses'=>'HotelController@search'));
 
 Auth::routes();
 

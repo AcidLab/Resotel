@@ -12,31 +12,27 @@
                                 <br>
                                 
                             </div>
-                            <div class="col-md-10 offset-md-1">
+                            <div class="col-md-10 offset-md-1"> 
                                 <div class=" card-raised card-form-horizontal no-transition">
                                     <div class="card-block">
-                                        <form method="" action="">
-
+                                        <form method="POST" action="">
+                                             {{csrf_field()}}
                                         <div class="row">
                                                 <div class="col-md-8">
                                                     <div class="form-group">
-                                                        <input type="text" value="" placeholder="Recherche" class="form-control" style="height:47px;"/>
+                                                        <input type="text" name="word" value="" placeholder="Recherche" class="form-control" style="height:47px;"/>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-4">
                                                 <div class="form-group" style="width:100% !important;">
-                                    <select class="selectpicker" data-style="btn btn-default btn-block btn-large">
+                                    <select class="selectpicker" name="city" data-style="btn btn-default btn-block btn-large">
                                         <option disabled selected> Ou ?</option>
-                                        <option value="1">Tunis </option>
-                                        <option value="1">Hammamet</option>
-                                        <option value="1">Sousse</option>
-                                        <option value="1">Monastir</option>
-                                        <option value="1">Bizerte </option>
-                                        <option value="1">Tozeur</option>
-                                        <option value="1">Zarzis </option>
-                                        <option value="1">Ong jmal</option>
-                                        <option value="1">Tatouine</option>
+                                          @if(Auth::user())
+                                             @foreach($cities as $row)
+                                                <option value="{{$row->id}}">{{$row->label}}</option>
+                                             @endforeach
+                                          @endif
                                    </select>
                                 </div>
                                                 </div>
@@ -47,12 +43,12 @@
                                             <div class="row" style="margin-top:20px;">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <input type="date" value="" placeholder="Date d'arrivée" class="form-control" />
+                                                        <input type="date" name="arrival_date" value="" placeholder="Date d'arrivée" class="form-control" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <input type="date" value="" placeholder="Date de départ" class="form-control" />
+                                                        <input type="date" name="check_out_date" value="" placeholder="Date de départ" class="form-control" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -100,7 +96,7 @@
 
 
                                                 <div class="col-md-3">
-                                                    <a class="btn btn-info btn-block" href="{{route('search')}}#result"><i class="nc-icon nc-zoom-split"></i> &nbsp; Recherche</a>
+                                                    <button type="submit" class="btn btn-info btn-block" ><i class="nc-icon nc-zoom-split"></i> &nbsp; Recherche</button>
                                                 </div>
                                             </div>
 

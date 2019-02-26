@@ -116,4 +116,21 @@ class HotelController extends Controller
 
         }
     }
+
+    public function preSearch($w,$c,$arr_d,$c_o_d){
+        if($w == '' && $c == '' && $arr_d == '' && $c_o_d == ''){
+            
+
+        }
+    }
+
+    public function search(Request $request){
+
+        $word = $request->input('word');
+        $city = $request->input('city');
+        $arrival_date=$request->input('arrival_date');
+        $chek_out_date = $request->input('check_out_date');
+        
+
+    }
 }

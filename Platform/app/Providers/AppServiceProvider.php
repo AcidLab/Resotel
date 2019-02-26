@@ -10,6 +10,7 @@ use App\Models\About;
 use App\Models\Next;
 use App\Models\Place;
 use App\Models\Partner;
+use App\Models\City;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
         $places = Place::all();
         $sliders = Slider::all();
         $partners = Partner::all();
+        $cities = City::all();
 
         $random = rand(0, count($sliders)-1);
         View::share('abouts',$abouts);
@@ -33,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
         View::share('sliders',$sliders);
         View::share('partners',$partners);
         View::share('random',$random);
+        View::share('cities',$cities);
     }
 
     /**
