@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
-use App\Hotel;
-use App\Room;
+use App\Models\Hotel;
+use App\Models\Room;
+use App\Models\Booking;
 use App\Http\Controllers\Controller;
 
 class HotelController extends Controller
@@ -118,19 +119,24 @@ class HotelController extends Controller
     }
 
     public function preSearch($w,$c,$arr_d,$c_o_d){
+        $all = array();
+        $rooms_number = 0;
         if($w == '' && $c == '' && $arr_d == '' && $c_o_d == ''){
-            
+            $hotels = Hotel::all();
+            foreach($hotels as $row){
+                $bookings=Booking::where([['status','=',1],['hotel_id','=',$row->id]])->get();
+                foreach($bookings as $key){
+                    $rooms_number += $key->rooms_number;
+                }
+                if($rooms_number < sizeof($row->rooms){
+                    $all[]=$row;
+                }
+            }
+        }
+        else{
 
         }
     }
 
-    public function search(Request $request){
-
-        $word = $request->input('word');
-        $city = $request->input('city');
-        $arrival_date=$request->input('arrival_date');
-        $chek_out_date = $request->input('check_out_date');
-        
-
-    }
+    
 }
