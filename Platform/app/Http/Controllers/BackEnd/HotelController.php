@@ -128,7 +128,7 @@ class HotelController extends Controller
                 foreach($bookings as $key){
                     $rooms_number += $key->rooms_number;
                 }
-                if($rooms_number < sizeof($row->rooms){
+                if($rooms_number < count($row->rooms)){
                     $all[]=$row;
                 }
             }
