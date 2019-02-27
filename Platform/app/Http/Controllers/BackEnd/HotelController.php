@@ -7,6 +7,7 @@ use App\Models\Hotel;
 use App\Models\Room;
 use App\Models\Booking;
 use App\Http\Controllers\Controller;
+use View;
 
 class HotelController extends Controller
 {
@@ -120,13 +121,18 @@ class HotelController extends Controller
 
     public function preSearch($w,$c,$arr_d,$c_o_d){
         $all = array();
+        $temp_two = array();
+        $temp = array();
+        $todayDate = date('Y-m-d');
         $rooms_number = 0;
         if($w == '' && $c == '' && $arr_d == '' && $c_o_d == ''){
             $hotels = Hotel::all();
             foreach($hotels as $row){
-                $bookings=Booking::where([['status','=',1],['hotel_id','=',$row->id]])->get();
+                
+                $bookings=Booking::where([['status','=',1],['hotel_id','=',$row->id],['departure_date','>',$todayDate]])->get();
                 foreach($bookings as $key){
-                    $rooms_number += $key->rooms_number;
+                    //$dateDiff = strtotime($todayDate) - strtotime($key->departure_date);
+                        $rooms_number += $key->rooms_number;
                 }
                 if($rooms_number < count($row->rooms)){
                     $all[]=$row;
@@ -134,9 +140,64 @@ class HotelController extends Controller
             }
         }
         else{
+           
+            
+            $keywords = explode(' ',$w);
+            
+            foreach($keywords as $row){
+               $hotels = Hotel::where([['keywords','like','%'.$row.'%'],['city_id','=',$c]])->orderBy('id','asc')->get();
+                foreach($hotels as $key=>$hotel){
+                    if($key==0){
+                        $temp_two[] = $hotel;
+                    }
+                    else{
+                        if($hotel->id != $temp_two[count($temp_two) - 1]->id){
+                            $temp_two[]=$hotel;
+                        }
+                    }
+                }
+               foreach($temp_two as $t){
+                 if($arr_d != '' &&  $c_o_d != ''){
+                    $bookings=Booking::where([['status','=',1],['hotel_id','=',$t->id],['departure_date','>=',$c_o_d],['arrival_date','<=',$arr_d]])->orderBy('id','asc')->get();
+
+                 }
+                 else if($arr_d == ''){
+                    $bookings=Booking::where([['status','=',1],['hotel_id','=',$t->id],['departure_date','>=',$c_o_d],['arrival_date','<=',date('Y-m-d')->modify('+1 day')]])->orderBy('id','asc')->get();
+                 }
+                 else if($c_o_d == ''){
+                    $bookings=Booking::where([['status','=',1],['hotel_id','=',$t->id],['departure_date','>=',$todayDate],['arrival_date','<=',$arr_d]])->orderBy('id','asc')->get();
+
+                 }
+                 foreach($bookings as $key){
+                        $rooms_number += $key->rooms_number;
+                }
+                if($rooms_number < count($t->rooms)){
+                    $temp[]=$t;
+                }
+
+
+
+               }
+
+               
+            }
+            
+            
 
         }
-        return $all;
+        foreach($temp as $key=>$row){
+            if($key==0){
+                $all[]=$row;
+            }
+            else{
+                if($row->id != $all[count($all) - 1 ]->id){
+                    $all[]=$row;
+                }
+            }
+        }
+        $view=View::make('platform.search');
+        $view->all = $all;
+        return $view;
     }
 
     

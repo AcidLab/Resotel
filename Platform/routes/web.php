@@ -34,6 +34,9 @@ Route::get('contact',array('as'=>'contact','uses'=>function(){
 }));
 
 Route::post('send_message',array('as'=>'message.send','uses'=>'HomeController@sendMessage'));
+Route::get('search_page',function(){
+    return view('platform.search');
+});
 
 
 Route::get('/pricing', function () {
@@ -44,7 +47,7 @@ Route::get('search',array('as'=>'search','uses'=>function(){
     return view('platform.search');
 }));
 
-Route::post('search_hotel',array('as'=>'hotel.search','uses'=>'HotelController@search'));
+Route::post('search_hotel',array('as'=>'hotel.search','uses'=>'SearchlController@search'));
 
 Auth::routes();
 

@@ -28,15 +28,9 @@
                                                 <div class="form-group" style="width:100% !important;">
                                     <select class="selectpicker" data-style="btn btn-default btn-block btn-large">
                                         <option disabled selected> Ou ?</option>
-                                        <option value="1">Tunis </option>
-                                        <option value="1">Hammamet</option>
-                                        <option value="1">Sousse</option>
-                                        <option value="1">Monastir</option>
-                                        <option value="1">Bizerte </option>
-                                        <option value="1">Tozeur</option>
-                                        <option value="1">Zarzis </option>
-                                        <option value="1">Ong jmal</option>
-                                        <option value="1">Tatouine</option>
+                                        @foreach($cities as $row)
+										<option value="{{$row->id}}">{{$row->label}}</option>
+										@endforeach
                                    </select>
                                 </div>
                                                 </div>
@@ -379,6 +373,7 @@
 
                     <div class="col-md-9">
                         <div class="Hotels">
+							@foreach($all as $row)
                             <div class="row">
                                 <div class="col-md-4 col-sm-16">
 									<div class="card card-product card-plain">
@@ -393,8 +388,8 @@
                                 <div class="col-md-4 col-sm-26">
                                             <div class="card-block">
 												<div class="card-description">
-													<h5 class="card-title">Hotel el Mouradi Monastir </h5>
-													<p class="card-description">110 $</p>
+													<h5 class="card-title">{{$row->name}} </h5>
+													<p class="card-description"></p>
 												</div>
 												<div class="price">
 													<h5>prix</h5>
@@ -403,82 +398,17 @@
 											</div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-4 col-sm-16">
-									<div class="card card-product card-plain">
-										<div class="card-image">
-											<a href="#paper-kit">
-												<img src="{{asset('assets\img\zodiac.jpg')}}" alt="Rounded Image" class="img-rounded img-responsive">
-											</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-16">
-											<div class="card-block">
-												<div class="card-description">
-													<h5 class="card-title">Hotel Zodiac Hammamet</h5>
-													<p class="card-description">100 $</p>
-												</div>
-												<div class="price">
-													<h5>prix</h5>
-                                                    <a href="#" class="btn btn-info">Découvrir</a>
-												</div>
-											</div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4 col-sm-16">
-									<div class="card card-product card-plain">
-										<div class="card-image">
-											<a href="#paper-kit">
-												<img src="{{asset('assets\img\badira.jpg')}}" alt="Rounded Image" class="img-rounded img-responsive">
-											</a>
-											
-										</div>
-									</div>
-                                </div>
-                                <div class="col-md-4 col-sm-16">
-                                 <div class="card-block">
-												<div class="card-description">
-													<h5 class="card-title">Hotel Badira Hammamet</h5>
-													<p class="card-description">100 $</p>
-												</div>
-												<div class="price">
-													<h5>prix</h5>
-                                                    <a href="#" class="btn btn-info">Découvrir</a>
-												</div>
-							    </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4 col-sm-16">
-									<div class="card card-product card-plain">
-										<div class="card-image">
-											<a href="#paper-kit">
-												<img src="{{asset('assets\img\lella.jpg')}}" alt="Rounded Image" class="img-rounded img-responsive">
-											</a>
-										</div>
-									</div>
-                                </div>
-                                <div class="col-md-4 col-sm-16">
-                                   <div class="card-block">
-												<div class="card-description">
-													<h5 class="card-title">Hotel Lella Baya and Thalasso</h5>
-													<p class="card-description">100 $</p>
-												</div>
-												<div class="price">
-													<h5>prix</h5>
-                                                    <a href="#" class="btn btn-info">Découvrir</a>
-												</div>
-								    </div>
-                                </div>
-                            </div>
+							@endforeach
+                            
+                            
+                            
                             <div class="row">
                                 
                             </div>
                             
                                 
                                  <div class="col-md-3 offset-md-4">
-                                      <button rel="tooltip" title="This is a morphing button" class="btn btn-round btn-outline-default" id="successBtn" data-toggle="morphing" data-rotation-color="gray">Load more...</button>
+                                      
                                  </div>
                             </div>
                         </div>

@@ -11,6 +11,7 @@ use App\Models\Next;
 use App\Models\Place;
 use App\Models\Partner;
 use App\Models\City;
+use App\Http\Controllers\FrontEnd\SearchController;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -45,6 +46,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind('App\Http\Controllers\SearchlController',function($app){
+            return new SearchController;
+        });
     }
 }
