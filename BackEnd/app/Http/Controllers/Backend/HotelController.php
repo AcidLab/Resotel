@@ -3,12 +3,58 @@
 namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
-use App\Hotel;
+use App\Models\Hotel;
 use App\Room;
 use App\Http\Controllers\Controller;
+use Redirect;
+use View;
 
 class HotelController extends Controller
 {
+    public function index(){
+        $hotels = Hotel::all();
+        $view = View::make('hotels.index');
+        $view->hotels = $hotels;
+        return $view;
+    }
+    public function hotelCreatePage($status,$object){
+        $status = $status;
+
+        switch($status) { 
+            case '0': {
+
+                return view ('hotels.create.hotel');
+                break;
+
+            }
+
+            case '1' : {
+                if ($object->hotel) {
+                    $hotel = Hotel::find($object->hotel->id);
+                    if ($hotel) {
+                        return view ('hotels.create.contract');
+                    }
+
+                    else {
+                        return view ('hotels.create.hotel');
+                    }
+                }
+
+                else {
+                    return view ('hotels.create.hotel');
+                }
+                break;
+            }
+
+            default: {
+                return view ('hotels.create.hotel');
+                break;
+            }
+        }
+        
+        
+    }
+    
     public function addHotel (Request $request)
     {
     	$name = $request->input('name');

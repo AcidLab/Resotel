@@ -37,6 +37,10 @@ Route::post('update_place/{id}',array('as'=>'place.set','uses'=>'Frontend\Places
 Route::resource('contacts','Frontend\ContactsController');
 
 //---------------
+//Hotels routes
+Route::resource('hotels','Backend\HotelController');
+Route::get('create_hotel/{status}',array('as'=>'hotel.createPage','uses'=>'Backend\HotelController@hotelCreatePage'));
+//---------------
 
 Route::get('/', function () {
     return Redirect::to(route('home'));

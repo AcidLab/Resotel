@@ -181,6 +181,13 @@
                             </a>     
                         </li>
 
+                        <li class="element {{preg_match('/hotel/',\Request::route()->getName()) ? 'active' : ''}} "> 
+                            <a class=" waves-effect waves-dark {{preg_match('/hotel/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('hotels.index')}}" aria-expanded="false">
+                                <i class="ti-home"></i>
+                                <span class="hide-menu"> Hôtels </span>
+                            </a>     
+                        </li>
+
                         <li class="element {{preg_match('/contact/',\Request::route()->getName()) ? 'active' : ''}} "> 
                             <a class=" waves-effect waves-dark {{preg_match('/contact/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('contacts.index')}}" aria-expanded="false">
                                 <i class="ti-email"></i>

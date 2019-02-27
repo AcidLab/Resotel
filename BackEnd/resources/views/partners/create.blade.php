@@ -16,7 +16,7 @@ Création d'un partenaire
                 <h4 class="m-b-0 text-white">Informations</h4>
             </div>
             <div class="card-body">
-            <form action="{{action('PartnersController@store')}}" method="POST" enctype="multipart/form-data" >
+            <form action="{{route('partners.store')}}" method="POST" enctype="multipart/form-data" >
                 <div class="form-body">
                     <h3 class="card-title">Informations du partenaire</h3>
                     <hr>
