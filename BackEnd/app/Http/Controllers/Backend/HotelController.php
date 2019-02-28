@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Models\Hotel;
-use App\Room;
+use App\Models\City;
 use App\Http\Controllers\Controller;
 use Redirect;
 use View;
@@ -17,42 +17,87 @@ class HotelController extends Controller
         $view->hotels = $hotels;
         return $view;
     }
-    public function hotelCreatePage($status,$object){
-        $status = $status;
+    public function hotelFirstCreatePage(){
+        return $this->hotelReturnCreatePage(0,null);
+    }
+    public function hotelReturnCreatePage($status,$object){
+        //$status = $status;
 
         switch($status) { 
             case '0': {
 
-                return view ('hotels.create.hotel');
+                $view = View::make('hotels.create.hotel');
+                $cities = City::all();
+                $view->cities = $cities;
+                return $view;
                 break;
 
             }
 
             case '1' : {
-                if ($object->hotel) {
-                    $hotel = Hotel::find($object->hotel->id);
-                    if ($hotel) {
-                        return view ('hotels.create.contract');
-                    }
-
-                    else {
-                        return view ('hotels.create.hotel');
+                if($object){
+                    if ($object->hotel) {
+                        $hotel = Hotel::find($object->hotel->id);
+                        if ($hotel) {
+                            
+                            $view=View::make('hotels.create.contract');
+                            return $view;
+                        }
+    
+                        else {
+                            $view=View::make('hotels.create.hotel');
+                            $cities = City::all();
+                            $view->cities = $cities;
+                            return $view;
+                        }
                     }
                 }
+               
 
                 else {
-                    return view ('hotels.create.hotel');
+                    $view=View::make('hotels.create.hotel');
+                    $cities = City::all();
+                    $view->cities = $cities;
+                    return $view;
                 }
                 break;
             }
 
+            
+
             default: {
-                return view ('hotels.create.hotel');
+                $view=View::make('hotels.create.hotel');
+                $cities = City::all();
+                $view->cities = $cities;
+                return $view;
                 break;
             }
         }
         
         
+    }
+
+    public function store(Request $request){
+        $hotel = new Hotel;
+        $hotel->name=$request->input('name');
+        $hotel->postal_code = $request->input('postal_code');
+        $hotel->city_id = $request->input('city_id');
+        $hotel->address = $request->input('address');
+        $hotel->local_stars_number = $request->input('local_stars_number');
+        $hotel->to_stars_number = $request->input('to_stars_number');
+        $hotel->beds_number = $request->input('beds_number');
+        $hotel->save();
+        while(!$hotel){}
+        $hotel->keywords = $hotel->name.' '.$hotel->postal_code.' '.$hotel->city->label.' '.$hotel->address.' '.$hotel->local_stars_number.' '.$hotel->to_stars_number.' '.$hotel->beds_number ;
+        $hotel->save();
+        while(!$hotel){}
+        //return $hotel;
+        $object=array('hotel'=>$hotel);
+        $test = json_encode($object);
+        //return json_encode($object);
+        //return $this->hotelReturnCreatePage(1,$test);
+        return view('hotels.create.contract');
+
     }
     
     public function addHotel (Request $request)

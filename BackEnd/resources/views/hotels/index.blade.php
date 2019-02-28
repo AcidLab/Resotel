@@ -8,7 +8,7 @@ Hôtels
 Gestion des hôtels
 @endsection
 @section('add-button')
-<a  class="btn btn-info d-none d-lg-block m-l-15" href="{{route('hotel.createPage',1)}}"><i class="fa fa-plus-circle"></i> Créer </a>
+<a  class="btn btn-info d-none d-lg-block m-l-15" href="{{route('hotel.createPage')}}"><i class="fa fa-plus-circle"></i> Créer </a>
 @endsection
 @section('content')
 @endsection

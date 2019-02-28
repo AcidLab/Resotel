@@ -39,8 +39,10 @@ Route::resource('contacts','Frontend\ContactsController');
 //---------------
 //Hotels routes
 Route::resource('hotels','Backend\HotelController');
-Route::get('create_hotel/{status}',array('as'=>'hotel.createPage','uses'=>'Backend\HotelController@hotelCreatePage'));
+Route::get('create_hotel',array('as'=>'hotel.createPage','uses'=>'Backend\HotelController@hotelFirstCreatePage'));
+//Route::post('store_hotel',array('as'=>'hotel.store','uses'=>'Backend\HotelController@storeHotel'));
 //---------------
+Route::resource('contracts','Backend\ContractsController');
 
 Route::get('/', function () {
     return Redirect::to(route('home'));

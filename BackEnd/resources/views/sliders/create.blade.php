@@ -16,7 +16,7 @@ Création d'un élément carousel
                 <h4 class="m-b-0 text-white">Informations</h4>
             </div>
             <div class="card-body">
-            <form action="{{action('SlidersController@store')}}" method="POST" enctype="multipart/form-data" >
+            <form action="{{action('Frontend\SlidersController@store')}}" method="POST" enctype="multipart/form-data" >
                 <div class="form-body">
                     <h3 class="card-title">Informations de l'élément</h3>
                     <hr>
