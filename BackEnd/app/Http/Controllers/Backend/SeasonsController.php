@@ -4,14 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Backend\HotelController;
-use App\Models\Contract;
-use View;
-use Redirect;
 
-
-
-class ContractsController extends Controller
+class SeasonsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,16 +35,7 @@ class ContractsController extends Controller
      */
     public function store(Request $request)
     {
-        $contract = new Contract;
-        $contract->date_from = $request->input('date_from');
-        $contract->date_to = $request->input('date_to');
-        $contract->devise = $request->input('devise');
-        $contract->destination = $request->input('destination');
-        $contract->hotel_id = $request->input('hotel_id');
-        $contract->save();
-        while(!$contract){}
-        $controller = new HotelController ;
-        return $controller->hotelReturnCreatePage(2,$contract);
+        //
     }
 
     /**

@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 use App\Models\Hotel;
 use App\Models\City;
+use App\Models\Contract;
+use App\Models\Season;
 use App\Http\Controllers\Controller;
-use Redirect;
 use View;
 
 class HotelController extends Controller
@@ -16,12 +17,12 @@ class HotelController extends Controller
         $view = View::make('hotels.index');
         $view->hotels = $hotels;
         return $view;
+        //return $this->hotelReturnCreatePage(0,null);
     }
     public function hotelFirstCreatePage(){
         return $this->hotelReturnCreatePage(0,null);
     }
     public function hotelReturnCreatePage($status,$object){
-        //$status = $status;
 
         switch($status) { 
             case '0': {
@@ -35,12 +36,13 @@ class HotelController extends Controller
             }
 
             case '1' : {
-                if($object){
-                    if ($object->hotel) {
-                        $hotel = Hotel::find($object->hotel->id);
+               
+                    if ($object) {
+                        $hotel = Hotel::find($object->id);
                         if ($hotel) {
                             
                             $view=View::make('hotels.create.contract');
+                            $view->hotel = $hotel;
                             return $view;
                         }
     
@@ -51,7 +53,7 @@ class HotelController extends Controller
                             return $view;
                         }
                     }
-                }
+                
                
 
                 else {
@@ -61,6 +63,31 @@ class HotelController extends Controller
                     return $view;
                 }
                 break;
+            }
+
+            case '2' : {
+                if($object){
+                    $contract= Contract::find($object->id);
+                    if($contract){
+                        $view = View::make('hotels.create.season');
+                        $view->contract = $contract;
+                        $view->seasons_number = $contract->seasons_number;
+                        return $view;
+                    }
+                    else {
+                            $view=View::make('hotels.create.hotel');
+                            $cities = City::all();
+                            $view->cities = $cities;
+                            return $view;
+                    }
+                    
+                }
+                else {
+                    $view=View::make('hotels.create.hotel');
+                            $cities = City::all();
+                            $view->cities = $cities;
+                            return $view;  
+                }
             }
 
             
@@ -76,6 +103,7 @@ class HotelController extends Controller
         
         
     }
+
 
     public function store(Request $request){
         $hotel = new Hotel;
@@ -95,8 +123,36 @@ class HotelController extends Controller
         $object=array('hotel'=>$hotel);
         $test = json_encode($object);
         //return json_encode($object);
-        //return $this->hotelReturnCreatePage(1,$test);
-        return view('hotels.create.contract');
+        return $this->hotelReturnCreatePage(1,$hotel);
+        //return view('hotels.create.contract');
+
+    }
+
+    public function storeContract (Request $request){
+        $contract = new Contract;
+        $contract->date_from = $request->input('date_from');
+        $contract->date_to = $request->input('date_to');
+        $contract->devise = $request->input('devise');
+        $contract->destination = $request->input('destination');
+        $contract->seasons_number = $request->input('seasons_number');
+        $contract->hotel_id = $request->input('hotel_id');
+        $contract->save();
+        while(!$contract){}
+        return $this->hotelReturnCreatePage(2,$contract);
+    }
+
+    public function storeSeason(Request $request){
+        
+        $number_of_seasons = count($request->except(['contract_id','_token']))  / 2 ;
+        for($j=0;$j<$number_of_seasons;$j++){
+            
+            $season = new Season;
+            $season->contract_id = $request->input('contract_id');
+            $season->start_date = $request->input('start_date_'.$j);
+            $season->end_date = $request->input('end_date_'.$j);
+            $season->save();
+        }
+        return $this->hotelReturnCreatePage(0,null);
 
     }
     

@@ -15,16 +15,18 @@ Création d'un contrat
                 <h4 class="m-b-0 text-white">Informations</h4>
             </div>
             <div class="card-body">
-            <form action="{{ action('Backend\ContractsController@store') }}" method="POST">
+            <form action="{{route('hotel.createContract')}}" method="POST">
                 <div class="form-body">
                     <h3 class="card-title">Informations du contrat</h3>
                     <hr>
+                    
                     {{csrf_field()}}
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">De : </label>
                                 <input type="date" required name="date_from" class="form-control"/>
+                                <input type="text" name="hotel_id" hidden required value="{{$hotel->id}}"/>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -36,17 +38,24 @@ Création d'un contrat
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label">Devise : </label>
                                 <input type="text" required placeholder="Devise" name="devise" class="form-control"/>
                             </div> 
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label">Destination : </label>
                                 <input type="text" required placeholder="destination" name="destination" class="form-control"/>
+                            </div> 
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Nombre de saisons : </label>
+                                <input type="number" min="1" required placeholder="Nombre de saisons : " name="seasons_number" class="form-control"/>
                             </div> 
                         </div>
                     </div>
@@ -68,4 +77,7 @@ Création d'un contrat
 </diV>
 @endsection
 @section('js-includes')
+<script>
+
+</script>
 @endsection

@@ -40,14 +40,35 @@ Route::resource('contacts','Frontend\ContactsController');
 //Hotels routes
 Route::resource('hotels','Backend\HotelController');
 Route::get('create_hotel',array('as'=>'hotel.createPage','uses'=>'Backend\HotelController@hotelFirstCreatePage'));
-//Route::post('store_hotel',array('as'=>'hotel.store','uses'=>'Backend\HotelController@storeHotel'));
+Route::post('create_contract',array('as'=>'hotel.createHotel','uses'=>'Backend\HotelController@store'));
+
 //---------------
-Route::resource('contracts','Backend\ContractsController');
+//Contracts routes
+Route::resource('Hotels','Backend\ContractsController');
+Route::post('create_season',array('as'=>'hotel.createContract','uses'=>'Backend\HotelController@storeContract'));
+//---------------
+//Seasons routes
+Route::resource('seasons','Backend\SeasonsController');
+Route::post('create_room',array('as'=>'hotel.createSeason','uses'=>'Backend\HotelController@storeSeason'));
+
+//---------------
+
 
 Route::get('/', function () {
     return Redirect::to(route('home'));
     
 });
+//Security routes
+Route::get('create_contract',function(){
+    return Redirect::to(route('hotel.createPage'));
+});
+Route::get('create_season',function(){
+    return Redirect::to(route('hotel.createPage'));
+});
+Route::get('create_room',function(){
+    return Redirect::to(route('hotel.createPage'));
+});
+//----------------
 
 
 Auth::routes();

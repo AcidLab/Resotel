@@ -15,7 +15,7 @@ Création d'un hôtel
                 <h4 class="m-b-0 text-white">Informations</h4>
             </div>
             <div class="card-body">
-            <form action="{{ action('Backend\HotelController@store') }}" method="POST">
+            <form action="{{ route('hotel.createHotel') }}" method="POST">
                 <div class="form-body">
                     <h3 class="card-title">Informations de l'hôtel</h3>
                     <hr>
@@ -58,19 +58,19 @@ Création d'un hôtel
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label">Nombre d'étoiles local :</label>
-                                <input type="number" name="local_stars_number" required class="form-control" min="1"/>
+                                <input type="number" placeholder="Nomber d'étoiles local" name="local_stars_number" required class="form-control" min="1"/>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label">Nombre d'étoiles externe :</label>
-                                <input type="number" name="to_stars_number" required class="form-control" min="1"/>
+                                <input type="number" placeholder="Nomber d'étoiles externe" name="to_stars_number" required class="form-control" min="1"/>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label">Nombre de lits :</label>
-                                <input type="number" name="beds_number" required class="form-control" min="1"/>
+                                <input type="number" placeholder="Nomber de lits" name="beds_number" required class="form-control" min="1"/>
                             </div>
                         </div>
                     </div>
