@@ -7,8 +7,11 @@ use App\Models\Hotel;
 use App\Models\City;
 use App\Models\Contract;
 use App\Models\Season;
+use App\Models\Roomtype;
+use App\Models\Arrangement;
 use App\Http\Controllers\Controller;
 use View;
+use Session;
 
 class HotelController extends Controller
 {
@@ -68,10 +71,12 @@ class HotelController extends Controller
             case '2' : {
                 if($object){
                     $contract= Contract::find($object->id);
+                    $types = Roomtype::all();
                     if($contract){
                         $view = View::make('hotels.create.season');
                         $view->contract = $contract;
                         $view->seasons_number = $contract->seasons_number;
+                        $view->types = $types;
                         return $view;
                     }
                     else {
@@ -88,6 +93,51 @@ class HotelController extends Controller
                             $view->cities = $cities;
                             return $view;  
                 }
+            }
+
+            case '3' :{
+                if($object){
+                    $season = Season::find($object->id);
+                    $types = Roomtype::all();
+                    $final_types = array();
+                    $arrangements = Arrangement::where('type','=','1')->get();
+                    if($season){
+                        $view = View::make('hotels.create.room');
+                        /*$contract = Contract::find($season->contract_id);
+                        $seasons = $contract->seasons;*/
+                        $view->season = $season;
+                        //$view->types = $types;
+                        $view->arrangements = $arrangements;
+                        //$view->seasons = $seasons;
+                        if(Session::get('room_types')){
+                            $room_types = Session::get('room_types');
+                            Session::forget('room_types');
+                            foreach($types as $row){
+                                if(is_array($room_types) && in_array($row->id,$room_types)){
+                                    $final_types[]=$row;
+                                }
+                            }
+                            $view->types = $final_types;
+                        }
+                        else{
+                            $view->types = $types;
+                        }
+                        return $view;
+                    }
+                    else{
+                            $view=View::make('hotels.create.hotel');
+                            $cities = City::all();
+                            $view->cities = $cities;
+                            return $view;
+                    }
+                }
+                else{
+                            $view=View::make('hotels.create.hotel');
+                            $cities = City::all();
+                            $view->cities = $cities;
+                            return $view;
+                }
+                
             }
 
             
@@ -143,7 +193,9 @@ class HotelController extends Controller
 
     public function storeSeason(Request $request){
         
-        $number_of_seasons = count($request->except(['contract_id','_token']))  / 2 ;
+        $number_of_seasons = count($request->except(['contract_id','_token','room_types']))  / 2 ;
+        $last_season = null;
+        $types = array();
         for($j=0;$j<$number_of_seasons;$j++){
             
             $season = new Season;
@@ -151,9 +203,22 @@ class HotelController extends Controller
             $season->start_date = $request->input('start_date_'.$j);
             $season->end_date = $request->input('end_date_'.$j);
             $season->save();
+            $last_season = $season;
         }
-        return $this->hotelReturnCreatePage(0,null);
+        if($request->input('room_types')){
+            for($i=0;$i<count($request->input('room_types'));$i++){
+                $types[]=$request->input('room_types')[$i];
+            }
+        }
+        Session::put('room_types',$types);
 
+
+        return $this->hotelReturnCreatePage(3,$last_season);
+
+    }
+
+    public function storeRoom(Request $request){
+        
     }
     
     public function addHotel (Request $request)

@@ -52,12 +52,17 @@ Route::resource('seasons','Backend\SeasonsController');
 Route::post('create_room',array('as'=>'hotel.createSeason','uses'=>'Backend\HotelController@storeSeason'));
 
 //---------------
+//Rooms routes
+Route::resource('rooms','Backend\RoomsController');
+Route::post('create_pricing',array('as'=>'hotel.createRoom','uses'=>'Backend\HotelController@storeRoom'));
+//--------------------
 
 
 Route::get('/', function () {
     return Redirect::to(route('home'));
     
 });
+
 //Security routes
 Route::get('create_contract',function(){
     return Redirect::to(route('hotel.createPage'));

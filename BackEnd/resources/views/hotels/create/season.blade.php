@@ -33,13 +33,25 @@ Création des saisons
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Date de début : </label>
+                                <label class="control-label">Date de fin : </label>
                                 <input type="date" class="form-control" required name="end_date_{{$i}}" />
                             </div>
                         </div>
                     </div>
                     <hr/>
                     @endfor
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Types de chambres : </label>
+                                <select class="form-control" required name="room_types[]" multiple>
+                                    @foreach($types as $row)
+                                        <option value="{{$row->id}}">{{$row->label}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <input type="text" hidden required name="contract_id" value="{{$contract->id}}" />
                 </div>
                 <div class="form-actions">
