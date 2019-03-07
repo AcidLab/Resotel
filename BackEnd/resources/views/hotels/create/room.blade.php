@@ -16,10 +16,11 @@ Création des chambres
             </div>
             <div class="card-body">
             
-            <form action="#" method="POST">
+            <form action="{{route('hotel.createRoom')}}" method="POST">
             {{csrf_field()}}
                 <div class="form-body">
                 <div class="row">
+                <input type="text" hidden required name="contract_id" value="{{$season->contract_id}}"/>
                     <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label">Arrangement : </label>
@@ -41,26 +42,26 @@ Création des chambres
                             <div class="form-group">
                                 <label class="control-label">Type : </label>
                                 <input type="text" readonly value="{{$row->label}}" class="form-control"/>
-                                <input type="text" required hidden name="{{$row->label}}" value="{{$row->id}}"/>
+                                <input type="text" required hidden name="type_id_{{$key}}" value="{{$row->id}}"/>
                                 
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="control-label">Allotement : </label>
-                                <input type="number" required placeholder="Allotement" class="form-control" min="1" name="allotement_{{$row->label}}"/>
+                                <input type="number" required placeholder="Allotement" class="form-control" min="1" name="allotement_{{$key}}"/>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="control-label">Code chambre : </label>
-                                <input type="text" required placeholder="Code chambre" name="room_code_{{$row->label}}" class="form-control"/>
+                                <input type="text" required placeholder="Code chambre" name="room_code_{{$key}}" class="form-control"/>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="control-label">Plein tarif : </label>
-                                <input type="number" required placeholder="Plein tarif" class="form-control" min="1" max="2" name="full_price_{{$row->label}}"/>
+                                <input type="number" required placeholder="Plein tarif" class="form-control" min="1" max="2" name="full_price_{{$key}}"/>
 
                             </div>
                         </div>
@@ -76,14 +77,14 @@ Création des chambres
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Min personnes </label>
-                                        <input type="number" required placeholder="Min personnes" class="form-control" min="0" name="min_person_{{$row->label}}"/>
+                                        <input type="number" required placeholder="Min personnes" class="form-control" min="0" name="min_person_{{$key}}"/>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Max personnes </label>
-                                        <input type="number" required placeholder="Max personnes" class="form-control" min="0" name="max_person_{{$row->label}}"/>
+                                        <input type="number" required placeholder="Max personnes" class="form-control" min="0" name="max_person_{{$key}}"/>
                                     </div>
                                 </div>
 
@@ -96,13 +97,13 @@ Création des chambres
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Min adultes </label>
-                                        <input type="number" required placeholder="Min adultes" class="form-control" min="0" name="min_major_{{$row->label}}"/>
+                                        <input type="number" required placeholder="Min adultes" class="form-control" min="0" name="min_major_{{$key}}"/>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Max adultes </label>
-                                        <input type="number" required placeholder="Max adultes" class="form-control" min="0" name="max_major_{{$row->label}}"/>
+                                        <input type="number" required placeholder="Max adultes" class="form-control" min="0" name="max_major_{{$key}}"/>
                                     </div>
                                 </div>
                             </div>
@@ -112,13 +113,13 @@ Création des chambres
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Min enfants </label>
-                                        <input type="number" required placeholder="Min enfants" class="form-control" min="0" name="min_children_{{$row->label}}"/>
+                                        <input type="number" required placeholder="Min enfants" class="form-control" min="0" name="min_children_{{$key}}"/>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Max enfants </label>
-                                        <input type="number" required placeholder="Max enfants" class="form-control" min="0" name="max_children_{{$row->label}}"/>
+                                        <input type="number" required placeholder="Max enfants" class="form-control" min="0" name="max_children_{{$key}}"/>
                                     </div>
                                 </div>
                             </div>
@@ -126,7 +127,7 @@ Création des chambres
                         <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="control-label">Max bébés </label>
-                                        <input type="number" required placeholder="Max bébés" class="form-control" min="0" name="max_baby_{{$row->label}}"/>
+                                        <input type="number" required placeholder="Max bébés" class="form-control" min="0" name="max_baby_{{$key}}"/>
                                     </div>
                         </div>
                    </div>
@@ -134,8 +135,14 @@ Création des chambres
                 @endforeach
                 </div>
                 <div class="form-actions">
+                @if(count($types) > 1)
                 <button type="button" id="next_button" class="btn btn-success"> <i class="fa fa-check"></i> Suivant </button>
+                @endif
+                @if(count($types)>1)
                 <button type="submit" id="send_button" class="btn btn-info" style="display:none;"> <i class="fa fa-check"></i> Ajouter</button>
+                @else
+                <button type="submit" id="send_button" class="btn btn-info" > <i class="fa fa-check"></i> Ajouter</button>
+                @endif
                 
             </div>
             </form>

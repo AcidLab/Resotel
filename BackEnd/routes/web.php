@@ -57,6 +57,14 @@ Route::resource('rooms','Backend\RoomsController');
 Route::post('create_pricing',array('as'=>'hotel.createRoom','uses'=>'Backend\HotelController@storeRoom'));
 //--------------------
 
+//Pricings routes
+Route::resource('pricings','Backend\PricingsController');
+Route::post('create_extra_charges',array('as'=>'hotel.createPricing','uses'=>'Backend\HotelController@storePricing'));
+Route::post('create_retrocession_time',array('as'=>'hotel.createExtraCharges','uses'=>'Backend\HotelController@storeExtraCharges'));
+Route::post('create_');
+//----------------------
+
+
 
 Route::get('/', function () {
     return Redirect::to(route('home'));
@@ -72,6 +80,20 @@ Route::get('create_season',function(){
 });
 Route::get('create_room',function(){
     return Redirect::to(route('hotel.createPage'));
+    
+});
+Route::get('create_pricing',function(){
+    return Redirect::to(route('hotel.createPage'));
+    
+});
+
+Route::get('create_extra_charges',function(){
+    return Redirect::to(route('hotel.createPage'));
+    
+});
+Route::get('create_retrocession_time',function(){
+    return Redirect::to(route('hotel.createPage'));
+    
 });
 //----------------
 

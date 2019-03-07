@@ -224,6 +224,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Roomtype'=>App\Models\Roomtype::class,
+        'Room'=>App\Models\Room::class,
 
     ],
 

@@ -3,6 +3,8 @@
 Création d'un hôtel
 @endsection
 @section('css-includes')
+<link href="{{asset('assets/node_modules/horizontal-timeline/css/horizontal-timeline.css')}}" rel="stylesheet">
+<link href="{{asset('assets/dist/css/pages/timeline-vertical-horizontal.css')}}" rel="stylesheet">
 @endsection
 @section('row-title')
 Création d'un hôtel
@@ -10,6 +12,7 @@ Création d'un hôtel
 @section('content')
 <div class="row">
     <div class="col-lg-12">
+    
         <div class="card">
             <div class="card-header bg-info">
                 <h4 class="m-b-0 text-white">Informations</h4>
@@ -91,4 +94,5 @@ Création d'un hôtel
 </diV>
 @endsection
 @section('js-includes')
+<script src="{{asset('assets/node_modules/horizontal-timeline/js/horizontal-timeline.js')}}"></script>
 @endsection

@@ -9,9 +9,12 @@ use App\Models\Contract;
 use App\Models\Season;
 use App\Models\Roomtype;
 use App\Models\Arrangement;
+use App\Models\Room;
+use App\Models\Pricing;
 use App\Http\Controllers\Controller;
 use View;
 use Session;
+use Redirect;
 
 class HotelController extends Controller
 {
@@ -93,6 +96,7 @@ class HotelController extends Controller
                             $view->cities = $cities;
                             return $view;  
                 }
+                break;
             }
 
             case '3' :{
@@ -137,6 +141,100 @@ class HotelController extends Controller
                             $view->cities = $cities;
                             return $view;
                 }
+                break;
+                
+            }
+
+            case '4':{
+                if($object){
+                    $hotel = Hotel::find($object->id);
+                    if($hotel){
+                        
+                        $contract = Contract::where('hotel_id','=',$hotel->id)->get()[0];
+                        $seasons = $contract->seasons;
+                        $rooms = $hotel->rooms;
+                        $room = $rooms[count($rooms)-1];
+                        $arrangement = Arrangement::find($room->arrangement_id);
+                        $arrangements = Arrangement::where('type','=',0)->get();
+                        $view = View::make('hotels.create.pricing');
+                        $view->seasons = $seasons;
+                        $view->arrangement = $arrangement;
+                        $view->rooms = $rooms;
+                        $view->arrangements = $arrangements;
+                        return $view;
+                    }
+                    else{
+                            $view=View::make('hotels.create.hotel');
+                            $cities = City::all();
+                            $view->cities = $cities;
+                            return $view;
+                    }
+
+                }
+                else{
+                    $view=View::make('hotels.create.hotel');
+                    $cities = City::all();
+                    $view->cities = $cities;
+                    return $view;
+                }
+                break;
+                
+            }
+
+            case '5': {
+                if($object){
+                    $hotel = Hotel::find($object->id);
+                    $final_supps = array();
+                    if($hotel){
+                        $view = View::make('hotels.create.extra_charges');
+                        $view->hotel = $hotel;
+                        
+                        if(Session::get('extra_charges')){
+                            $extra_charges = Session::get('extra_charges');
+                            Session::forget('extra_charges');
+                            $supps = Arrangement::where('type','=',0)->get();
+                            foreach($supps as $row){
+                                if(is_array($extra_charges) && in_array($row->id,$extra_charges)){
+                                    $final_supps[]=$row;
+                                }
+                            }
+                            $view->final_supps = $final_supps;
+                        }
+                        else {
+                            $view->final_supps = $supps;
+                        }
+                        
+                        return $view;
+                    }
+                    else {
+                        $view=View::make('hotels.create.hotel');
+                        $cities = City::all();
+                        $view->cities = $cities;
+                        return $view;
+                    }
+
+                }
+                else{
+                    $view=View::make('hotels.create.hotel');
+                    $cities = City::all();
+                    $view->cities = $cities;
+                    return $view;
+                }
+                break;
+
+            }
+
+            case  '6' :  {
+                if($object){
+
+                }
+                else {
+                    $view=View::make('hotels.create.hotel');
+                    $cities = City::all();
+                    $view->cities = $cities;
+                    return $view; 
+                }
+                break;
                 
             }
 
@@ -218,66 +316,88 @@ class HotelController extends Controller
     }
 
     public function storeRoom(Request $request){
+        $number_of_room_types = count($request->except(['contract_id','arrangement_id','_token'])) / 12;
+        $contract = Contract::find($request->input('contract_id'));
+        $hotel = Hotel::find($contract->hotel_id);
+        //$hotel_rooms_number = 0;
+        for($i=0;$i<$number_of_room_types;$i++){
+            $room = new Room;
+            $room->type_id = $request->input('type_id_'.$i);
+            $room->hotel_id = $hotel->id;
+            $room->allotement = $request->input('allotement_'.$i);
+            $room->room_code = $request->input('room_code_'.$i);
+            $room->full_price = $request->input('full_price_'.$i);
+            $room->min_persons = $request->input('min_person_'.$i);
+            $room->max_persons = $request->input('max_person_'.$i);
+            $room->min_major = $request->input('min_major_'.$i) ;
+            $room->max_major = $request->input('max_major_'.$i);
+            $room->min_children = $request->input('min_children_'.$i);
+            $room->max_children = $request->input('max_children_'.$i);
+            $room->max_babies = $request->input('max_baby_'.$i);
+            $room->arrangement_id = $request->input('arrangement_id');
+            $room->save();
+            //$hotel_rooms_number+= $request->input('allotement_'.$i);
+        }
         
+        return $this->hotelReturnCreatePage(4,$hotel);
+    }
+
+    public function storePricing(Request $request){
+        $number_of_types = $request->input('room_types_number');
+        $number_of_seasons = $request->input('seasons_number');
+        $a_season = $request->input('sason_id_0_0');
+        
+        $season = Season::find($a_season);
+        $contract = Contract::find($season->contract_id);
+        $hotel = Hotel::find($contract->hotel_id);
+        $extra_charges = array();
+        for($i=0;$i<$number_of_types;$i++){
+            for($j=0;$j<$number_of_seasons;$j++){
+                $pricing = new Pricing;
+                $pricing->arrangement_id = $request->input('arrangement_id');
+                $pricing->room_type_id = $request->input('room_type_'.$i);
+                $pricing->season_id = $request->input('sason_id_'.$i.'_'.$j);
+                $pricing->price = $request->input('arrangement_price_'.$i.'_'.$j);
+                $pricing->hotel_id = $hotel->id;
+                $pricing->save();
+            }
+        }
+        if($request->input('extra_charges')){
+            for($i=0;$i<count($request->input('extra_charges'));$i++){
+                $extra_charges[]=$request->input('extra_charges')[$i];
+            }
+        }
+        Session::put('extra_charges',$extra_charges);
+        return $this->hotelReturnCreatePage(5,$hotel);
+
+    }
+
+    public function storeExtraCharges(Request $request){
+        $number_of_supps = $request->input('number_of_supps');
+        $number_of_seasons = $request->input('seasons_number');
+        $hotel_id = $request->input('hotel_id');
+        for($i=0;$i<$number_of_supps;$i++){
+            for($j=0;$j<$number_of_seasons;$j++){
+                $pricing = new Pricing;
+                $pricing->hotel_id = $hotel_id;
+                $pricing->arrangement_id = $request->input('arrangement_id_'.$i) ;
+                $pricing->room_type_id = 0;
+                $pricing->season_id = $request->input('season_id_'.$i.'_'.$j) ; 
+                $pricing->price = $request->input('price_'.$i.'_'.$j) ;
+                $pricing->save();
+                   
+            }
+        }
+
+        //return Redirect::to(route('hotels.index'));
+        return $this->hotelReturnCreatePage(6,Hotel::find($hotel_id));
+    }
+
+    public function storeRetrocessionTimes(Request $request){
+
     }
     
-    public function addHotel (Request $request)
-    {
-    	$name = $request->input('name');
-    	$social_reason = $request->input('social_reason');
-    	$address = $request->input('address');
-    	$email = $request->input('email');
-    	$phone = $request->input('phone');
-    	$stars_number = $request->input('stars_number');
-    	$trade_register = $request->input('trade_register');
-    	$license_number = $request->input('license_number');
-        $key_word = $name.' '.$social_reason.' '.$address.' '.$email.' '.$phone.' '.$stars_number.' '.$trade_register.' '.$license_number;
-
-
-    	$hotel = new Hotel;
-    	$hotel->name=$name;
-    	$hotel->social_reason=$social_reason;
-    	$hotel->address=$address;
-    	$hotel->email=$email;
-    	$hotel->phone=$phone;
-    	$hotel->stars_number=$stars_number;
-    	$hotel->trade_register=$trade_register;
-    	$hotel->license_number=$license_number;
-        $hotel->key_word=$key_word;
-
-    	
-    	$hotel->save();
-
-
-
-    	return $hotel;
- 	}
-
-
- 	public function deleteHotel(Request $request)
- 	{
- 		$id = $request->input('id');
-
-
-
- 		$hotel = Hotel::find($id);
-
-        $rooms = $hotel->rooms;
-        foreach ($rooms as $row) {
-            $row->delete();
-        }
- 		$hotel->delete();
-
- 		return 'ok';
- 	}
-
-    public function showHotelDetails(Request $request)
-    {
-        $id = $request->input('id');
-        $hotel = Hotel::find($id);
-
-        return $hotel;
-    }
+    
 
 
 
