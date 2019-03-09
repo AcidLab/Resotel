@@ -32,7 +32,7 @@ Délais de rétrocession
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label class="control-label" data-toggle="tooltip" title="De {{date('d-m-Y',strtotime($season->start_date))}} à {{date('d-m-Y',strtotime($season->end_date))}}">Délais de rétrocession pour la saison {{$i+1}}</label>
-                                                <input type="number" class="form-control" name="retrocession_time_{{$i}}" placeholder="Délais de rétrocession" required />
+                                                <input type="number" min="0" class="form-control" name="retrocession_time_{{$i}}" placeholder="Délais de rétrocession" required />
                                                 <input type="text" name="season_id_{{$i}}" value="{{$season->id}}" required hidden />
                                             </div>    
                                         </div>

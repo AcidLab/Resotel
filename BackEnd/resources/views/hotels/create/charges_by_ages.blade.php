@@ -20,35 +20,55 @@ Frais des personnes supplémentaires
                         
                     <div class="form-body">
                     <input type="text" name="hotel_id" hidden required value="{{$hotel->id}}"/>
+                    <input type="text" name="number_of_seasons" hidden required value="{{count($hotel->contracts[0]->seasons)}}"/>
                         <div class="row">
                             <div class="col-md-12">
-
-                                <div class="row" id="row_0">
+                                
+                                @for($i=0;$i<5;$i++)
+                                @if($i == 0)
+                                <div class="row" id="row_{{$i}}" >
+                                @else
+                                <div class="row" id="row_{{$i}}" style="display:none;" >
+                                @endif
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="control-label">Personne : </label>
+                                                    @if($i == 0 )
                                                     <input type="text" class="form-control" value="Bébé" readonly required />
-                                                    <input type="text" hidden value="0" required />
+                                                    <input type="text" name="type_{{$i}}" hidden value="0" required />
+                                                    @elseif($i == 1)
+                                                    <input type="text" class="form-control" value="1er Enfant" readonly required />
+                                                    <input type="text" name="type_{{$i}}" hidden value="1" required />
+                                                    @elseif($i == 2)
+                                                    <input type="text" class="form-control" value="2ème Enfant" readonly required />
+                                                    <input type="text" name="type_{{$i}}" hidden value="2" required />
+                                                    @elseif($i == 3)
+                                                    <input type="text" class="form-control" value="1,2 Enfant" readonly required />
+                                                    <input type="text" name="type_{{$i}}" hidden value="3" required />
+                                                    @elseif($i == 4)
+                                                    <input type="text" class="form-control" value="Adulte supplémentaire" readonly required />
+                                                    <input type="text" name="type_{{$i}}" hidden value="4" required />
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="control-label">De : </label>
-                                                    <input type="number" placeholder="Age minimum" class="form-control" min="0" required name="from_0" />
+                                                    <input type="number" placeholder="Age minimum" class="form-control" min="0" required name="from_{{$i}}" />
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="control-label">A : </label>
-                                                    <input type="number" placeholder="Age maximum" class="form-control" min="0" required name="to_0" />
+                                                    <input type="number" placeholder="Age maximum" class="form-control" min="0" required name="to_{{$i}}" />
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="control-label">Types des chambres : </label>
-                                                    <select class="form-control" multiple name="room_types_0[]" required>
+                                                    <select class="form-control" multiple name="room_types_{{$i}}[]" required>
                                                         @foreach($final_room_types as $row)
                                                             <option value="{{$row->id}}"> {{$row->label}} </option>
                                                         @endforeach
@@ -61,14 +81,18 @@ Frais des personnes supplémentaires
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="control-label" data-toggle="tooltip" title="De {{date('d-m-Y',strtotime($season->start_date))}} à {{date('d-m-Y',strtotime($season->end_date))}}">Saison {{$j+1}}</label>
-                                                        <input type="number" name="percentage_0_{{$j}}" min="0" max="100"  class="form-control" placeholder="Pourcentage bébé pour la saison {{$j+1}}" required />
-                                                        <input type="text" name="season_id_0_{{$j}}" hidden class="form-control" value="{{$season->id}}" />
+                                                        <input type="number" name="percentage_{{$i}}_{{$j}}" min="0" max="100"  class="form-control" placeholder="Pourcentage  pour la saison {{$j+1}}" required />
+                                                        <input type="text" name="season_id_{{$i}}_{{$j}}" hidden class="form-control" value="{{$season->id}}" />
                                                     </div>
                                                 </div>
                                             @endforeach
                                         </div>
                                     </div>
                                 </div>
+
+                                @endfor
+
+                                
 
                             </div>
                         </div>
@@ -92,7 +116,7 @@ Frais des personnes supplémentaires
 @section('js-includes')
 <script>
 var index = 1 ;
-var nb_types = 4;
+var nb_types = 5;
 $('#next_button').on('click',function(){
         $('#row_'+index).show();
         //$('#second_row_'+index).show();

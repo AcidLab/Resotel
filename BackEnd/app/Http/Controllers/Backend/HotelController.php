@@ -463,7 +463,32 @@ class HotelController extends Controller
     }
 
     public function storeExtraChargesByAges (Request $request){
-
+            $hotel_id = $request->input('hotel_id');
+            $number_of_seasons = $request->input('number_of_seasons');
+            $room_types = '';
+            for($i=0;$i<5;$i++){
+                for($j=0;$j<$number_of_seasons;$j++){
+                    $personsupp = new Personsupp ;
+                    $personsupp->type = $request->input('type_'.$i);
+                    $personsupp->hotel_id = $hotel_id;
+                    $personsupp->season_id = $request->input('season_id_'.$i.'_'.$j);
+                    $personsupp->age_from = $request->input('from_'.$i);
+                    $personsupp->age_to = $request->input('to_'.$i);
+                    
+                        for($k=0;$k<count($request->input('room_types_'.$i));$k++){
+                            $room_types = $room_types.''.$request->input('room_types_'.$i)[$k].';';
+                        }
+                    
+                    $personsupp->rooms_types = $room_types;
+                    $room_types = '';
+                    $personsupp->percentage = $request->input('percentage_'.$i.'_'.$j).'%';
+                    $personsupp->save();
+                }
+                
+                
+            }
+            $request->session()->flash('success','Hotel ajouté avec succés ! ');
+            return Redirect::to(route('hotels.index'));
     }
     
     
