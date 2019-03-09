@@ -11,6 +11,7 @@ use App\Models\Roomtype;
 use App\Models\Arrangement;
 use App\Models\Room;
 use App\Models\Pricing;
+use App\Models\Personsupp;
 use App\Http\Controllers\Controller;
 use View;
 use Session;
@@ -226,7 +227,18 @@ class HotelController extends Controller
 
             case  '6' :  {
                 if($object){
-
+                    $hotel = Hotel::find($object->id);
+                    if($hotel){
+                        $view = View::make('hotels.create.retrocession_time');
+                        $view->hotel = $hotel;
+                        return $view ;
+                    }
+                    else {
+                        $view=View::make('hotels.create.hotel');
+                        $cities = City::all();
+                        $view->cities = $cities;
+                        return $view;
+                    }
                 }
                 else {
                     $view=View::make('hotels.create.hotel');
@@ -236,6 +248,45 @@ class HotelController extends Controller
                 }
                 break;
                 
+            }
+
+            case '7' : {
+                if($object){
+                    $hotel = Hotel::find($object->id);
+                    $room_types_id = array();
+                    $final_room_types = array();
+                    $room_types = Roomtype::all() ;
+                    
+                    if($hotel){
+                        $rooms = $hotel->rooms;
+                         foreach($rooms as $row){
+                             $room_types_id[]=$row->type_id;
+                         }
+                         foreach($room_types as $all){
+                             if(is_array($room_types_id) && in_array($all->id,$room_types_id)){
+                                 $final_room_types[]=$all;
+                             }
+                         }
+                        $view = View::make('hotels.create.charges_by_ages');
+                        $view->hotel = $hotel;
+                        $view->final_room_types = $final_room_types;
+                        return $view;                        
+                    }
+                    else {
+                        $view=View::make('hotels.create.hotel');
+                        $cities = City::all();
+                        $view->cities = $cities;
+                        return $view; 
+                    }
+
+                }
+                else {
+                        $view=View::make('hotels.create.hotel');
+                        $cities = City::all();
+                        $view->cities = $cities;
+                        return $view; 
+                }
+                break;
             }
 
             
@@ -394,6 +445,24 @@ class HotelController extends Controller
     }
 
     public function storeRetrocessionTimes(Request $request){
+        $hotel_id = $request->input('hotel_id');
+        $number_of_seasons = $request->input('number_of_seasons');
+        for($i=0;$i<$number_of_seasons;$i++){
+            $pricing = new Pricing;
+            $pricing->arrangement_id = 0 ;
+            $pricing->room_type_id = 0 ;
+            $pricing->hotel_id = $hotel_id ;
+            $pricing->season_id = $request->input('season_id_'.$i);
+            $pricing->price = $request->input('retrocession_time_'.$i);
+            $pricing->save();
+
+        }
+        //return Redirect::to(route('hotels.index'));
+        return $this->hotelReturnCreatePage(7,Hotel::find($hotel_id));
+
+    }
+
+    public function storeExtraChargesByAges (Request $request){
 
     }
     
