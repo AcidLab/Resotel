@@ -24,7 +24,7 @@ class HotelController extends Controller
         $view = View::make('hotels.index');
         $view->hotels = $hotels;
         return $view;
-        //return $this->hotelReturnCreatePage(0,null);
+        
     }
     public function hotelFirstCreatePage(){
         return $this->hotelReturnCreatePage(0,null);

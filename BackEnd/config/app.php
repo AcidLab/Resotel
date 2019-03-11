@@ -226,6 +226,9 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Roomtype'=>App\Models\Roomtype::class,
         'Room'=>App\Models\Room::class,
+        'City'=>App\Models\City::class,
+        'Contract'=>App\Models\Contract::class,
+        'Season'=>App\Models\Season::class,
 
     ],
 
