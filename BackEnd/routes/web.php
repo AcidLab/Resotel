@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::group(['middleware' => 'auth'], function(){
 //Carousels routes
 Route::resource('sliders','Frontend\SlidersController');
 Route::post('update_slider/{id}',array('as'=>'slider.set','uses'=>'Frontend\SlidersController@updateSlider'));
@@ -129,8 +129,12 @@ Route::get('create_supps_for_persons',function(){
     
 });
 //----------------
+Route::get('/home', 'Frontend\HomeController@index')->name('home');
+});
+
 
 
 Auth::routes();
+Route::get('logout',array('as'=>'logout','uses'=>'Auth\LoginController@logout'));
 
-Route::get('/home', 'Frontend\HomeController@index')->name('home');
+
