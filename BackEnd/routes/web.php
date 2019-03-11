@@ -41,6 +41,8 @@ Route::resource('contacts','Frontend\ContactsController');
 Route::resource('hotels','Backend\HotelController');
 Route::get('create_hotel',array('as'=>'hotel.createPage','uses'=>'Backend\HotelController@hotelFirstCreatePage'));
 Route::post('create_contract',array('as'=>'hotel.createHotel','uses'=>'Backend\HotelController@store'));
+Route::get('affect_services/{id}',array('as'=>'hotel.affectServicesPage','uses'=>'Backend\HotelController@affectServicesPage'));
+Route::post('affect_services_store',array('as'=>'hotel.storeAffectedServices','uses'=>'Backend\HotelController@affectServicesStore'));
 
 //---------------
 //Contracts routes
@@ -64,7 +66,29 @@ Route::post('create_retrocession_time',array('as'=>'hotel.createExtraCharges','u
 Route::post('create_extra_charges_by_ages',array('as'=>'hotel.createRetrocessionTimes','uses'=>'Backend\HotelController@storeRetrocessionTimes'));
 Route::post('create_supps_for_persons',array('as'=>'hotel.createChargesByAges','uses'=>'Backend\HotelController@storeExtraChargesByAges'));
 //----------------------
-
+//Services routes
+Route::resource('services','Frontend\ServicesController');
+Route::get('delete_service/{id}',array('as'=>'service.remove','uses'=>'Frontend\ServicesController@deleteService'));
+Route::post('update_service/{id}',array('as'=>'service.set','uses'=>'Frontend\ServicesController@updateService'));
+//----------------------
+//Equipements routes
+Route::resource('equipements','Frontend\EquipmentsController');
+Route::get('delete_equipement/{id}',array('as'=>'equipement.remove','uses'=>'Frontend\EquipmentsController@deleteEquipement'));
+Route::post('update_equipement/{id}',array('as'=>'equipement.set','uses'=>'Frontend\EquipmentsController@updateEquipement'));
+//----------------------
+//Roomtypes routes
+Route::resource('roomtypes','Frontend\RoomtypesController');
+Route::get('delete_roomtype/{id}',array('as'=>'roomtype.remove','uses'=>'Frontend\RoomtypesController@deleteRoomtype'));
+Route::post('update_roomtype/{id}',array('as'=>'roomtype.set','uses'=>'Frontend\RoomtypesController@updateRoomtype'));
+//----------------------
+//Arrangements routes
+Route::resource('arrangements','Frontend\ArrangementsController');
+Route::post('update_arrangement/{id}',array('as'=>'arrangement.set','uses'=>'Frontend\ArrangementsController@updateArrangement'));
+Route::get('delete_arrangement/{id}',array('as'=>'arrangement.remove','uses'=>'Frontend\ArrangementsController@deleteArrangement'));
+//----------------------
+//Bookings routes 
+Route::resource('bookings','Frontend\BookingsController');
+//----------------------
 
 
 Route::get('/', function () {

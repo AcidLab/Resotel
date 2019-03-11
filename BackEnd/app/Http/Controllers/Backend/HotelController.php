@@ -12,6 +12,8 @@ use App\Models\Arrangement;
 use App\Models\Room;
 use App\Models\Pricing;
 use App\Models\Personsupp;
+use App\Models\Hotelservice;
+use App\Models\Service;
 use App\Http\Controllers\Controller;
 use View;
 use Session;
@@ -21,8 +23,10 @@ class HotelController extends Controller
 {
     public function index(){
         $hotels = Hotel::all();
+       
         $view = View::make('hotels.index');
         $view->hotels = $hotels;
+        
         return $view;
         
     }
@@ -489,6 +493,26 @@ class HotelController extends Controller
             }
             $request->session()->flash('success','Hotel ajouté avec succés ! ');
             return Redirect::to(route('hotels.index'));
+    }
+
+    public function affectServicesPage($id){
+        $hotel = Hotel::find($id);
+        $view = View::make('hotels.edit.affect_services');
+        $services = Service::all();
+        $view->services = $services ;
+        $view->hotel = $hotel;
+        return $view;
+    }
+
+    public function affectServicesStore(Request $request){
+        for($i=0;$i<count($request->input('services'));$i++){
+            $hotelservice = new Hotelservice;
+            $hotelservice->hotel_id = $request->input('hotel_id');
+            $hotelservice->service_id = $request->input('services')[$i];
+            $hotelservice->save();
+        }
+        $request->session()->flash('success','Les services ont été affectés avec succés !');
+        return Redirect::to(route('hotels.index'));
     }
     
     

@@ -188,6 +188,41 @@
                             </a>     
                         </li>
 
+                        <li class="element {{preg_match('/service/',\Request::route()->getName()) ? 'active' : ''}} "> 
+                            <a class=" waves-effect waves-dark {{preg_match('/service/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('services.index')}}" aria-expanded="false">
+                                <i class="ti-rss-alt"></i>
+                                <span class="hide-menu"> Services </span>
+                            </a>     
+                        </li>
+
+                        <li class="element {{preg_match('/equipement/',\Request::route()->getName()) ? 'active' : ''}} "> 
+                            <a class=" waves-effect waves-dark {{preg_match('/equipement/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('equipements.index')}}" aria-expanded="false">
+                                <i class="fa fa-life-saver"></i>
+                                <span class="hide-menu"> Equipements </span>
+                            </a>     
+                        </li>
+
+                        <li class="element {{preg_match('/roomtype/',\Request::route()->getName()) ? 'active' : ''}} "> 
+                            <a class=" waves-effect waves-dark {{preg_match('/roomtype/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('roomtypes.index')}}" aria-expanded="false">
+                                <i class="fa fa-navicon"></i>
+                                <span class="hide-menu"> Types des chambres </span>
+                            </a>     
+                        </li>
+
+                        <li class="element {{preg_match('/arrangement/',\Request::route()->getName()) ? 'active' : ''}} "> 
+                            <a class=" waves-effect waves-dark {{preg_match('/arrangement/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('arrangements.index')}}" aria-expanded="false">
+                                <i class="fa fa-wrench"></i>
+                                <span class="hide-menu"> Arrangements </span>
+                            </a>     
+                        </li>
+                        
+                        <li class="element {{preg_match('/booking/',\Request::route()->getName()) ? 'active' : ''}} "> 
+                            <a class=" waves-effect waves-dark {{preg_match('/booking/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('bookings.index')}}" aria-expanded="false">
+                                <i class="fa  fa-sort-amount-asc"></i>
+                                <span class="hide-menu"> Commandes </span>
+                            </a>     
+                        </li>
+
                         <li class="element {{preg_match('/contact/',\Request::route()->getName()) ? 'active' : ''}} "> 
                             <a class=" waves-effect waves-dark {{preg_match('/contact/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('contacts.index')}}" aria-expanded="false">
                                 <i class="ti-email"></i>

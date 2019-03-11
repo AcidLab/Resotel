@@ -37,7 +37,7 @@ Gestion des hôtels
                                                    <td style="text-align:center;">De {{date('d-m-Y',strtotime($row->contracts[0]->date_from))}} A {{date('d-m-Y',strtotime($row->contracts[0]->date_to))}} </td>
                                                    <td style="text-align:center;">{{count($row->contracts[0]->seasons)}}</td>
                                                    <td style="text-align:center;">
-                                                   <a href="#" class="btn btn-info btn-circle" ><i class="fa fa-edit" ></i> </a>
+                                                   <a href="{{route('hotel.affectServicesPage',$row->id)}}" class="btn btn-info btn-circle" ><i class="fa fa-edit" ></i> </a>
                                                    
                                                    </td>
 
@@ -46,6 +46,7 @@ Gestion des hôtels
                                         </tbody>
                                     </table>
                                 </div>
+
 @endsection
 @section('js-includes')
 @endsection
