@@ -4,6 +4,7 @@ namespace App\Http\Controllers\FrontEnd;
 
 use Illuminate\Http\Request;
 use App\Agencie;
+use App\Models\Room;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\BackEnd\HotelController;
 use App\Models\Roomtype;

@@ -14,6 +14,6 @@ class Hotel extends Model
     public $timestamps = true;
 
     public function rooms(){
-        return $this->hasMany('Room');
+        return $this->hasMany('App\Models\Room');
     }
 }
