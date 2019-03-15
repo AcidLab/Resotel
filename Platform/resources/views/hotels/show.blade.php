@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-
 <div class="page-header" style="background-image: url({{$sliders[$random]->picture_path}})">
                 <div class="filter"></div>
                 <div class="content-center">
@@ -108,142 +107,63 @@
                     </div>
                 </div>
             </div>
-    <div class="">
 
-    	 <div class="section landing-section register" id="result">
-            <div class="" style="padding-left: 150px;padding-right: 150px;">
-
-				<div class="row">
+            <div class="section landing-section register" id="result">
+                <div class="" style="padding-left: 150px;padding-right: 150px;">
                 <div class="container">
-               <h3 class="section-title">Filtrer</h3>
-               <div class="row">
-                    <div class="col-md-3">
-                        <div class="card card-refine">
-                            <div class="panel-group" id="accordion" aria-multiselectable="true" aria-expanded="true">
-								<div class="card-header card-collapse" role="tab" id="priceRanger">
-										<h5 class="mb-0 panel-title">
-											<a class="" data-toggle="collapse" data-parent="#accordion" href="#priceRange" aria-expanded="true" aria-controls="collapseOne">
-												Prix
-												<i class="nc-icon nc-minimal-down"></i>
-											</a>
-										</h5>
-								</div>
-								<div  class="collapse " id="priceRange" role="tabpanel" aria-labelledby="headingOne" aria-expanded="true">
-									<div class="card-block">
-										<div class="row">
-											<div class="col-md-6">
-												<div class="form-group">
-													<input type="number" class="form-control border-input" placeholder="Min" min="0" />
-												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="form-group">
-												<input type="number" class="form-control border-input" placeholder="Max" min="0" />
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="card-header card-collapse" role="tab" id="room_types">
-									<h5 class="mb-0 panel-title">
-										<a class="" data-toggle="collapse" data-parent="#accordion" href="#types" aria-expanded="true" aria-controls="collapseSecond">
-											Types des chambres
-											<i class="nc-icon nc-minimal-down"></i>
-										</a>
-									</h5>
-								</div>
-								<div id="types" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-									<div class="card-block">
-										<div class="checkbox">
-											<input id="checkbox1" type="checkbox" >
-											<label for="checkbox1">
-												Blazers
-											</label>
-										</div>
-									</div>
-								</div>
-							</div>	
-	                    </div> <!-- end card -->
-	                </div>
-
-                    <div class="col-md-9">
-                        <div class="Hotels">
-							@foreach($all as $row)
-                            <div class="row">
-                                <div class="col-md-4 col-sm-16">
-								<div class="card card-product card-plain">
-										<div class="card-image">
-											<a href="{{route('hotels.show',$row->id)}}">
-												<img src="{{asset('assets\img\mouradi.jpg')}}" alt="Rounded Image" class="img-rounded img-responsive">
-											</a>
-											
-										</div>
-									</div>
+			<div class="row" >
+				<div class="col-md-6">
+					<div class="card card-raised page-carousel">
+						<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+						    <ol class="carousel-indicators">
+                                @foreach($hotel->pictures as $key=>$row)
+							    <li data-target="#carouselExampleIndicators" data-slide-to="{{$key}}" class="{{$key==0 ? 'active' : ''}}"></li>
+							    
+                                @endforeach
+						    </ol>
+                            <div class="carousel-inner" role="listbox" >
+                                @foreach($hotel->pictures as $key=>$row)
+                                <div class="carousel-item {{$key==0 ? 'active' : ''}}">
+                                    <img class="d-block img-fluid" src="{{$row->path}}" alt="{{$key}} slide">
+                                	<div class="carousel-caption d-none d-md-block">
+                                        <p></p>
+                                    </div>
                                 </div>
-                                <div class="col-md-4 col-sm-26">
-                                            <div class="card-block">
-                                                <a href="{{route('hotels.show',$row->id)}}">
-                                                <div class="card-description">
-													<h5 class="card-title">{{$row->name}} </h5>
-													<p class="card-description"></p>
-												</div>
-                                                </a>
-												
-												<div class="price">
-													<h5>Prix</h5>
-                                                    <a href="{{route('hotels.show',$row->id)}}" class="btn btn-info">Découvrir</a>
-												</div>
-											</div>
-                                </div>
-                            </div>
-							@endforeach
-                            
-                            
-                            
-                            <div class="row">
+                                @endforeach
+                                
                                 
                             </div>
-                            
-                                
-                                 <div class="col-md-3 offset-md-4">
-                                      
-                                 </div>
-                            </div>
-                        </div>
-                    </div>
-               </div>
-           </div>
 
-				
-        </div>                               
-
-				
-    </div>
-
-    @endsection
-	@section('js')
-	<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
-  	<script src="https://code.jquery.com/ui/1.9.2/jquery-ui.js"></script> 
-	  <script>
-                            var min = 10;
-                            var max = 150;
-                            $( function() {
-    $("#sliderDouble").slider({
-      range: true,
-      min: min,
-      max: max,
-      values: [ min, max ],
-      slide: function( event, ui ) {
-       window.alert('rrr');
-      }
-    });
-    $( "#amount2" ).val( "$" + $( "#sliderDouble" ).slider( "values", 0 ) +
-      " - $" + $( "#sliderDouble" ).slider( "values", 1 ) );
-
-    $( "#amount2" ).val( "" + $( "#sliderDouble" ).slider( "values", 0 ) +
-      ";" + $( "#sliderDouble" ).slider( "values", 1 ) );
-    
-  } );
-  </script>  
-	@endsection
-
+                            <a class="left carousel-control carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                <span class="fa fa-angle-left"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                <span class="fa fa-angle-right"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+						</div>
+					</div>
+				</div>
+                <div class="col-md-6">
+                <div class="card card-pricing" data-background="image" style="background-image: url({{$hotel->pictures[0]->path}})">
+							<div class="card-block">
+								<h6 class="card-category">Free</h6>
+								<h1 class="card-title"><small>$</small>0<small>/mo</small></h1>
+								<ul>
+									<li><b>5</b> Sharing Tools</li>
+									<li><b>10</b> Design Tools</li>
+									<li><b>100</b> Private Messages</li>
+									<li><b>2</b> Personal Brand</li>
+								</ul>
+								<a href="#pablo" class="btn btn-warning btn-round ">
+                                     
+                                </a>
+							</div>
+						</div>
+                </div>
+			</div>
+		</div>
+                </div>
+            </div>
+@endsection

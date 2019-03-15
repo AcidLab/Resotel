@@ -21,7 +21,7 @@ class SearchController extends Controller
         $controller = new HotelController;
         return  $controller->preSearch($word,$city,$arrival_date,$check_out_date);
         
-
+        
 
         
 

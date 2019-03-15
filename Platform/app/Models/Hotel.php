@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Room;
-
+use App\Models\Picture; 
 class Hotel extends Model
 {
     use SoftDeletes;
@@ -15,5 +15,9 @@ class Hotel extends Model
 
     public function rooms(){
         return $this->hasMany('App\Models\Room');
+    }
+
+    public function pictures (){
+        return $this->hasMany('App\Models\Picture');
     }
 }

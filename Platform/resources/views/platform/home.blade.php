@@ -15,8 +15,8 @@
                             <div class="col-md-10 offset-md-1"> 
                                 <div class=" card-raised card-form-horizontal no-transition">
                                     <div class="card-block">
-                                        <form method="POST" action="{{route('hotel.search')}}">
-                                             {{csrf_field()}}
+                                        <form method="GET" action="{{route('hotel.search')}}">
+                                             
                                         <div class="row">
                                                 <div class="col-md-8">
                                                     <div class="form-group">
