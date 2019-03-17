@@ -151,7 +151,9 @@
 								<h6 class="card-category">Services</h6>
 								
 								<ul>
-									
+									@foreach($hotel->services() as $row)
+                                        <li>{{$row->label}}</li>
+                                    @endforeach
 								</ul>
 								
 							</div>
