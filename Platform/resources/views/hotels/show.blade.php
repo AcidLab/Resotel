@@ -113,7 +113,7 @@
                 <div class="container">
 			<div class="row" >
 				<div class="col-md-6">
-					<div class="card card-raised page-carousel">
+					<div class="card card-raised page-carousel" >
 						<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 						    <ol class="carousel-indicators">
                                 @foreach($hotel->pictures as $key=>$row)
@@ -146,19 +146,14 @@
 					</div>
 				</div>
                 <div class="col-md-6">
-                <div class="card card-pricing" data-background="image" style="background-image: url({{$hotel->pictures[0]->path}})">
+                <div class="card card-pricing" data-background="image" style="background-image: url({{$hotel->pictures[0]->path}});height:400px;">
 							<div class="card-block">
-								<h6 class="card-category">Free</h6>
-								<h1 class="card-title"><small>$</small>0<small>/mo</small></h1>
+								<h6 class="card-category">Services</h6>
+								
 								<ul>
-									<li><b>5</b> Sharing Tools</li>
-									<li><b>10</b> Design Tools</li>
-									<li><b>100</b> Private Messages</li>
-									<li><b>2</b> Personal Brand</li>
+									
 								</ul>
-								<a href="#pablo" class="btn btn-warning btn-round ">
-                                     
-                                </a>
+								
 							</div>
 						</div>
                 </div>
