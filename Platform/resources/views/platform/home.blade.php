@@ -20,7 +20,7 @@
                                         <div class="row">
                                                 <div class="col-md-8">
                                                     <div class="form-group">
-                                                        <input type="text" name="word" value="" placeholder="Recherche" class="form-control" style="height:47px;"/>
+                                                        <input type="text" name="word"  placeholder="Recherche" class="form-control" style="height:47px;"/>
                                                     </div>
                                                 </div>
 
@@ -43,12 +43,15 @@
                                             <div class="row" style="margin-top:20px;">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <input type="date" name="arrival_date" value="" placeholder="Date d'arrivée" class="form-control" />
+                                                        <input type="date" required name="arrival_date" value="" placeholder="Date d'arrivée" class="form-control" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <input type="date" name="check_out_date" value="" placeholder="Date de départ" class="form-control" />
+                                                        <select name="check_out_date" required class="form-control">
+                                                         <option value="7">Dans 7 jours</option>
+                                                         <option value="14">Dans 14 jours</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>

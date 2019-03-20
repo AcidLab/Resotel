@@ -50,6 +50,7 @@ Route::get('search',array('as'=>'search','uses'=>function(){
 Route::get('search_hotel',array('as'=>'hotel.search','uses'=>'SearchlController@search'));
 Route::get('hotel_details/{id}',array('as'=>'hotel.details','uses'=>'Backend\HotelController@returnHotelDetails'));
 Route::resource('hotels','Backend\HotelController');
+Route::get('hotels/{id}/{arrival_date}/{departure_date}',array('as'=>'hotel.showDetails','uses'=>'Backend\HotelController@show'));
 //Bookings routes 
 Route::resource('bookings','BackEnd\BookingsController');
 //----------------------

@@ -191,7 +191,7 @@
 												
 												<div class="price">
 													<h5>Prix</h5>
-                                                    <a href="{{route('hotels.show',$row->id)}}" class="btn btn-info">Découvrir</a>
+                                                    <a href="{{route('hotel.showDetails',[$row->id,$arrival_date,$departure_date])}}" class="btn btn-info">Découvrir</a>
 												</div>
 											</div>
                                 </div>

@@ -56,7 +56,7 @@ class BookingsController extends Controller
             
         }
         if($test == 0 ){
-            $request->session()->flash('failure','Veuillez séléctionner au moins un type de chambre pour passer la commande');
+            $request->session()->flash('failure','Veuillez séléctionner au moins une chambre pour passer la commande');
                 return Redirect::back();
         }
         else {
@@ -73,20 +73,24 @@ class BookingsController extends Controller
                 }
             }
             }
-                for($key = 0 ; $key < $num; $key ++){
-                    if(isset($_POST['type_'.$key])){
-                    for($i = 0 ; $i < count($_POST['type_'.$key]);$i++){
-                        
-                            
                             $booking = new Booking ; 
-                            $booking->arrival_date = $request->input('arrival_date_for_'.$_POST['type_'.$key][$i].'_'.$i);
-                            $booking->departure_date = $request->input('departure_date_for_'.$_POST['type_'.$key][$i].'_'.$i);
+                            $booking->arrival_date = $request->input('arrival_date');
+                            $booking->departure_date = date('Y-m-d',strtotime($request->input('arrival_date').' + '.$request->input('departure_date').' days'));
                             $booking->hotel_id = $request->input('hotel_id');
                             $booking->status = 0;
                             $booking->save();
                             while(!$booking){
                                 // Do nothing
                             }
+                            
+
+                for($key = 0 ; $key < $num; $key ++){
+                    if(isset($_POST['type_'.$key])){
+    
+                    for($i = 0 ; $i < count($_POST['type_'.$key]);$i++){
+                        
+
+                            
                             $bookingType = new Bookingtype ;
                             $bookingType->booking_id = $booking->id;
                             $bookingType->room_type = $_POST['type_'.$key][$i];
@@ -104,14 +108,15 @@ class BookingsController extends Controller
                             }
                         }
                             $bookingType->save();
-                            $request->session()->flash('failure','Commande passé ! ');
-                            return Redirect::back();
+                            
 
 
                         
                     }
             }
         }
+                            $request->session()->flash('failure','Commande passé ! ');
+                            return Redirect::back();
         }
         
     }

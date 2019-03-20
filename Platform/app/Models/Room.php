@@ -26,7 +26,7 @@ class Room extends Model
         return $this->belongsTo('App\Models\Arrangement','arrangement_id');
     }
 
-    public function availableRooms ($hotel_id){
+    public function availableRooms ($hotel_id,$arrival_date,$departure_date){
 
         $hotel = Hotel::find($hotel_id);
         $type = $this->type;
@@ -41,7 +41,7 @@ class Room extends Model
         }
         
         //$hotel_bookings = Bookingtype::where([['hotel_id','=',$hotel_id],['room_type','=',$type->id]])->get();
-        $bookings = Booking::where([['hotel_id','=',$hotel_id],['status','=',1],['departure_date','>',date('Y-m-d')]])->get();
+        $bookings = Booking::where([['hotel_id','=',$hotel_id],['status','=',1],['departure_date','>',$arrival_date],['arrival_date','<=',$departure_date]])->get();
         foreach($bookings as $row){
             foreach($row->bookingType as $hb){
                 if($hb->room_type == $type->id){

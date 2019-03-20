@@ -8,6 +8,8 @@ use App\Models\Room;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\BackEnd\HotelController;
 use App\Models\Roomtype;
+use View;
+use App\Models\Hotel;
 
 
 class SearchController extends Controller
@@ -15,12 +17,22 @@ class SearchController extends Controller
 
     public function search(Request $request){
 
-        $word = $request->input('word');
+       /* $word = $request->input('word');
         $city = $request->input('city');
         $arrival_date=$request->input('arrival_date');
         $check_out_date = $request->input('check_out_date');
         $controller = new HotelController;
-        return  $controller->preSearch($word,$city,$arrival_date,$check_out_date);
+        return  $controller->preSearch($word,$city,$arrival_date,$check_out_date);*/
+        $view = View::make('platform.search');
+        $all = Hotel::all();
+        $arrival_date=$request->input('arrival_date');
+        $departure_date = date('Y-m-d',strtotime($request->input('arrival_date').' + '.$request->input('check_out_date').' days'));
+        //return date('Y-m-d',strtotime($request->input('arrival_date').' + '.$request->input('check_out_date').' days'));
+        $view->all = $all;
+        $view->arrival_date = $arrival_date;
+        $view->departure_date = $departure_date;
+        return $view ; 
+        
         
         
 

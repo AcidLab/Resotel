@@ -13,7 +13,7 @@ use View;
 class HotelController extends Controller
 {
     
-
+    
 
  	public function deleteHotel(Request $request)
  	{
@@ -172,13 +172,17 @@ class HotelController extends Controller
         return $view;
     }
 
-    public function show($id){
+    public function show($id,$arrival_date,$departure_date){
         $hotel = Hotel::find($id);
         $supplements = Arrangement::where('type','=',0)->get();
         $view = View::make('hotels.show');
         $view->hotel = $hotel ;
         $view->supplements = $supplements;
+        $view->arrival_date = $arrival_date;
+        $view->departure_date = $departure_date;
         return $view; 
+        
+        
     }
 
     
