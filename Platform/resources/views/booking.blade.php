@@ -194,17 +194,16 @@
                     <h4 class="title"><small>Disponibilité</small></h4>
                     <form action="{{route('bookings.store')}}" method="POST">
                     {{csrf_field()}}
-                    <div class="form-group" hidden>
-                        <input type="text" required class="form-control" name="hotel_id" hidden value="{{$hotel->id}}" />
-                    </div>
                     <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 
                                 <th></th>
-                                <th style="text-align : center;">Type de la chambre</th>
+                                <th style="visibility : hidden;"> </th>
+                                <th style="text-align : center;">Type de la  chambre</th>
                                 <th style="text-align : center;">Arrangement</th>
+                                <th style="text-align : center;">Nombre des chambres</th>
                                 <th style="text-align : center;">Suppléments</th>
                                 <th style="text-align : center ; ">Nombre d'adultes</th>
                                 <th style="text-align : center ; ">Nombre d'enfants</th>
@@ -218,22 +217,34 @@
                         <tbody>
                             @foreach($hotel->roomTypes as $key=>$row)
                             @if($row->availableRooms($row->hotel_id) > 0)
-                            @for($i = 0 ;$i<$row->availableRooms($row->hotel_id);$i++)
                             <tr>
 
                                 
                                 <td>
                                     <div class="checkbox">
-                                    <input forclick="{{$row->type->id}}{{$key}}{{$i}}" id="checkbox{{$row->id}}_{{$i}}" name="type_{{$key}}[]" value="{{$row->type->id}}" type="checkbox">
-                                    <label for="checkbox{{$row->id}}_{{$i}}"></label>
+                                    <input id="checkbox{{$row->id}}" name="type[]" value="{{$row->type->id}}" type="checkbox">
+                                    <label for="checkbox{{$row->id}}"></label>
                                 </div>
                                 </td>
-                                
+                                <td style="text-align : center;">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" value="{{$row->hotel_id}}" required name="hotel_id_for_{{$row->type->id}}" hidden />
+                                    </div>
+                                </td>
                                 <td style="text-align : center;" data-toggle="tooltip" title="Minimum personnes : {{$row->min_persons}} Maximum personnes : {{$row->max_persons}}">{{$row->type->name}}</td>
                                 <td style="text-align : center ; ">{{$row->arrangement->name}}</td>
+                                <td style="text-align : center;">
+                                    <div class="form-group">
+                                        <select class="form-control" required name="rooms_number_for_{{$row->type->id}}">
+                                            @for( $i =0 ; $i<$row->availableRooms($row->hotel_id);$i++)
+                                                <option value="{{$i+1}}">{{$i+1}}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                </td>
                                 <td style="text-align:center;">
                                     <div class="form-group">
-                                        <select class="form-control" multiple name="supps_for_{{$row->type->id}}_{{$i}}[]">
+                                        <select class="form-control" multiple name="supps_for_{{$row->type->id}}[]">
                                             @foreach($supplements as $supp)
                                                 <option value="{{$supp->id}}">{{$supp->name}}</option>
                                             @endforeach
@@ -242,35 +253,36 @@
                                 </td>
                                 <td style="text-align : center;">
                                     <div class="form-group">
-                                        <input type="number" id="majors_{{$row->type->id}}{{$key}}{{$i}}" min="{{$row->min_major}}" max="{{$row->max_major}}" value="{{$row->min_major}}"  name="nb_majors_for_{{$row->type->id}}_{{$i}}" class="form-control">
+                                        <input type="number" min="{{$row->min_major}}" max="{{$row->max_major}}" value="{{$row->min_major}}" required name="nb_majors_for_{{$row->type->id}}" class="form-control">
                                     </div>
 
                                 </td>
                                 <td style="text-align : center;">
                                     <div class="form-group">
-                                    <input type="number" id="childrens_{{$row->type->id}}{{$key}}{{$i}}" min="{{$row->min_children}}" max="{{$row->max_children}}" value="{{$row->min_children}}"  name="nb_childrens_for_{{$row->type->id}}_{{$i}}" class="form-control">
+                                    <input type="number" min="{{$row->min_children}}" max="{{$row->max_children}}" value="{{$row->min_children}}" required name="nb_childrens_for_{{$row->type->id}}" class="form-control">
                                     </div>
                                 </td>
                                 <td style="text-align : center;">
                                     <div class="form-group">
-                                        <input type="number" id="babies_{{$row->type->id}}{{$key}}{{$i}}" value="0" min="0" max="{{$row->max_babies}}"  name="nb_babies_for_{{$row->type->id}}_{{$i}}" class="form-control">
+                                        <input type="number" value="0" min="0" max="{{$row->max_babies}}" required name="nb_babies_for_{{$row->type->id}}" class="form-control">
                                     </div>
                                 </td>
                                 <td style="text-align : center;">
                                     <div class="form-group">
-                                        <input type="date" id="arrival_{{$row->type->id}}{{$key}}{{$i}}" class="form-control" name="arrival_date_for_{{$row->type->id}}_{{$i}}"  />
+                                        <input type="date" class="form-control" name="arrival_date_for_{{$row->type->id}}" required />
                                     </div>
                                 </td>
                                 <td style="text-align : center;">
                                     <div class="form-gorup">
-                                        <input type="date" id="departure_{{$row->type->id}}{{$key}}{{$i}}" class="form-control"  name="departure_date_for_{{$row->type->id}}_{{$i}}" />
+                                        <input type="date" class="form-control" required name="departure_date_for_{{$row->type->id}}" />
                                     </div>
                                 </td>
                                 </tr>
-                                @endfor
                                 @endif
                             @endforeach
                             <tr>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -292,37 +304,4 @@
 		</div>
                 </div>
             </div>
-@endsection
-@section('js')
-<script>
-$('input[type="checkbox"]').change(function(){
-
-        var forclick = $(this).attr('forclick');
-        var majors_input = $('#majors_'+forclick);
-        var childrens_input = $('#childrens_'+forclick);
-        var babies_input = $('#babies_'+forclick);
-        var arrival_input = $('#arrival_'+forclick);
-        var departure_input = $('#departure_'+forclick);
-    if(this.checked){
-        
-        
-        majors_input.prop('required',true);
-        childrens_input.prop('required',true);
-        babies_input.prop('required',true);
-        arrival_input.prop('required',true);
-        departure_input.prop('required',true);
-
-    }
-    else {
-
-        
-        majors_input.prop('required',false);
-        childrens_input.prop('required',false);
-        babies_input.prop('required',false);
-        arrival_input.prop('required',false);
-        departure_input.prop('required',false);
-        
-    }
-});
-</script>
 @endsection

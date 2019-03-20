@@ -7,6 +7,7 @@ use App\Models\Hotel;
 use App\Models\Room;
 use App\Models\Booking;
 use App\Http\Controllers\Controller;
+use App\Models\Arrangement;
 use View;
 
 class HotelController extends Controller
@@ -159,15 +160,24 @@ class HotelController extends Controller
                 }
             }
         }
+        
         $view=View::make('platform.search');
-        $view->all = $all;
+        if(count(Booking::all())>0){
+            $view->all = $all;  
+        } 
+        else {
+            $view->all = Hotel::all();
+        }
+        
         return $view;
     }
 
     public function show($id){
         $hotel = Hotel::find($id);
+        $supplements = Arrangement::where('type','=',0)->get();
         $view = View::make('hotels.show');
         $view->hotel = $hotel ;
+        $view->supplements = $supplements;
         return $view; 
     }
 

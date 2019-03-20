@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\BackEnd\HotelController;
 use App\Models\Roomtype;
 
+
 class SearchController extends Controller
 {
 
