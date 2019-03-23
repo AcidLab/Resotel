@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Bookingtype;
 
+
 class Booking extends Model
 {
     use SoftDeletes;
@@ -16,4 +17,8 @@ class Booking extends Model
     public function bookingType(){
         return $this->hasMany('App\Models\Bookingtype','booking_id');
     }
+    public function hotel (){
+        return $this->belongsTo('App\Models\Hotel','hotel_id');
+    }
+    
 }

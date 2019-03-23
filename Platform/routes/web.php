@@ -53,6 +53,7 @@ Route::resource('hotels','Backend\HotelController');
 Route::get('hotels/{id}/{arrival_date}/{departure_date}',array('as'=>'hotel.showDetails','uses'=>'Backend\HotelController@show'));
 //Bookings routes 
 Route::resource('bookings','BackEnd\BookingsController');
+//Route::get('')
 //----------------------
 
 

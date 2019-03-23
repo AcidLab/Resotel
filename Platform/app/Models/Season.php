@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
-class Roomtype extends Model
+class Season extends Model
 {
     use SoftDeletes;
-    protected $table="roomtypes";
+    protected $table="seasons";
     protected $dates=['deleted_at'];
     public $timestamps = true;
 
-    
-
-   
+    public function contract(){
+        return $this->belongsTo('App\Models\Contract','contract_id');
+    }
 }

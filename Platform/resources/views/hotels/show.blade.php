@@ -145,7 +145,7 @@
                                 <td style="text-align : center ; ">{{$row->arrangement->name}}</td>
                                 <td style="text-align:center;">
                                     <div class="form-group">
-                                        <select style="border-color : gray;" class="form-control" multiple name="supps_for_{{$row->type->id}}_{{$i}}[]">
+                                        <select  class="selectpicker" multiple name="supps_for_{{$row->type->id}}_{{$i}}[]">
                                             @foreach($supplements as $supp)
                                                 <option value="{{$supp->id}}">{{$supp->name}}</option>
                                             @endforeach

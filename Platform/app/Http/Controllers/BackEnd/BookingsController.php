@@ -12,6 +12,8 @@ use App\Models\Room;
 use Redirect;
 use View;
 use Session;
+use Auth;
+use App\Models\Arrangement;
 
 class BookingsController extends Controller
 {
@@ -75,9 +77,10 @@ class BookingsController extends Controller
             }
                             $booking = new Booking ; 
                             $booking->arrival_date = $request->input('arrival_date');
-                            $booking->departure_date = date('Y-m-d',strtotime($request->input('arrival_date').' + '.$request->input('departure_date').' days'));
+                            $booking->departure_date = $request->input('departure_date');
                             $booking->hotel_id = $request->input('hotel_id');
                             $booking->status = 0;
+                            $booking->agency_id = Auth::user()->id;
                             $booking->save();
                             while(!$booking){
                                 // Do nothing
@@ -115,8 +118,9 @@ class BookingsController extends Controller
                     }
             }
         }
-                            $request->session()->flash('failure','Commande passé ! ');
-                            return Redirect::back();
+                            //$request->session()->flash('success','Commande passé ! ');
+                            //return Redirect::back();
+                            return Redirect::to(route('bookings.show',$booking->id));
         }
         
     }
@@ -129,7 +133,12 @@ class BookingsController extends Controller
      */
     public function show($id)
     {
-        //
+        $view = View::make('hotels.recap');
+        $booking = Booking::find($id);
+        $supplements = $booking->hotel->supplements();
+        $view->booking = $booking ; 
+        $view->supplements = $supplements ; 
+        return $view ; 
     }
 
     /**
