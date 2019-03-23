@@ -55,7 +55,7 @@ Route::group(['middleware' => 'auth','middleware' => 'verified'], function(){
 
 });
 
-<<<<<<< Updated upstream
+
 Route::get('search_hotel',array('as'=>'hotel.search','uses'=>'SearchlController@search'));
 Route::get('hotel_details/{id}',array('as'=>'hotel.details','uses'=>'Backend\HotelController@returnHotelDetails'));
 Route::resource('hotels','Backend\HotelController');
@@ -64,8 +64,7 @@ Route::get('hotels/{id}/{arrival_date}/{departure_date}',array('as'=>'hotel.show
 Route::resource('bookings','BackEnd\BookingsController');
 //Route::get('')
 //----------------------
-=======
->>>>>>> Stashed changes
+
 
 
 Auth::routes(['verify' => true]);
