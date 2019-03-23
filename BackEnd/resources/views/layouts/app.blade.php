@@ -151,7 +151,7 @@
                         <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                        
                         <i class="icon-speedometer"></i>
-                        <span class="hide-menu">Page d'acceuil </span></a>
+                        <span class="hide-menu">Pages </span></a>
                         <ul aria-expanded="false" class="collapse">
                         <li class="element {{preg_match('/slider/',\Request::route()->getName()) ? 'active' : ''}}"> 
                             <a class=" waves-effect waves-dark {{preg_match('/slider/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('sliders.index')}}" aria-expanded="false">
@@ -254,6 +254,12 @@
                             <a class=" waves-effect waves-dark {{preg_match('/contact/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('contacts.index')}}" aria-expanded="false">
                                 <i class="ti-email"></i>
                                 <span class="hide-menu"> Contacts </span>
+                            </a>     
+                        </li>
+                        <li class="element {{preg_match('/demand/',\Request::route()->getName()) ? 'active' : ''}} "> 
+                            <a class=" waves-effect waves-dark {{preg_match('/demand/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('demands.index')}}" aria-expanded="false">
+                                <i class="ti-user"></i>
+                                <span class="hide-menu"> Demandes d'adhésion </span>
                             </a>     
                         </li>
 

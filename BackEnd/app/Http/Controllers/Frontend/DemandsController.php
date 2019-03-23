@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Booking;
+use App\Models\Agency;
 use View;
 use Redirect;
 
-class BookingsController extends Controller
+class DemandsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,9 @@ class BookingsController extends Controller
      */
     public function index()
     {
-        $view = View::make('bookings.index');
-        $bookings = Booking::all();
-        $view->bookings = $bookings;
+        $view = View::make('demands.index');
+        $demands= Agency::onlyTrashed()->get();
+        $view->demands = $demands;
         return $view;
     }
 
@@ -87,5 +87,12 @@ class BookingsController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function acceptDemand (Request $request,$id){
+        $agency = Agency::onlyTrashed()->where('id','=',$id)->get()[0];
+        $agency->deleted_at = null;
+        $agency->save();
+        $request->session()->flash('success','Demande acceptée avec succés ! ');
+        return Redirect::to(route('demands.index'));
     }
 }
