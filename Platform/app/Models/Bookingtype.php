@@ -56,26 +56,23 @@ class Bookingtype extends Model
             $extra_majors_price = 0;
             $room_min_majors = Room::where([['hotel_id','=',$this->hotel->id],
             ['type_id','=',$this->roomType->id]])->get()[0]->min_major ;
-            /*$room_min_childrens =  Room::where([['hotel_id','=',$this->hotel->id],
-            ['type_id','=',$this->roomType->id]])->get()[0]->min_children ;*/
-            //$extra_childrens_price = 0;
-            
-            //$number_of_extra_childrens = 0;
-            
+            $room_min_childrens =  Room::where([['hotel_id','=',$this->hotel->id],
+            ['type_id','=',$this->roomType->id]])->get()[0]->min_children ;
+            $extra_childrens_price = 0;
             if(($this->majors_number + $this->childrens_number) > $room_min_persons){
                 if($this->majors_number > $room_min_majors){
 
                     $extra_majors_price = $this->extraMajorsPrices($room_min_majors,$s,$room_price_in_season);
 
                 }
-                
-                
-                
+                if($this->childrens_number>$room_min_childrens){
+                    $extra_childrens_price = $this->extraChildrensPrices($room_min_childrens,$s,$room_price_in_season);
+                }
             }
             else {
                 
             }
-            return $room_price_in_season + $supplementsPrice + $extra_majors_price ;
+            return $room_price_in_season + $supplementsPrice + $extra_majors_price + $extra_childrens_price ;
              
     }
 
@@ -104,6 +101,30 @@ class Bookingtype extends Model
 
 
             }
+
+            public function extraChildrensPrices($room_min_childrens,$s,$room_price_in_season){
+                $number_of_extra_childrens = 0;
+                $extra_childrens_price = 0 ;
+                $percentage = 0;
+                $number_of_extra_childrens = $this->childrens_number - $room_min_childrens ;
+                if($number_of_extra_childrens == 1 ){
+                    $personsupp = Personsupp::where([['type','=',1],['season_id','=',$s->id],['hotel_id','=',$this->hotel->id]])->get()[0];
+                }
+                else if($number_of_extra_childrens == 2){
+                    $personsupp = Personsupp::where([['type','=',2],['season_id','=',$s->id],['hotel_id','=',$this->hotel->id]])->get()[0];
+                }
+                for($i=0;$i<count(explode(';',$personsupp->rooms_types));$i++){
+                    if(explode(';',$personsupp->rooms_types)[$i] ){
+                        if($this->roomType->id == explode(';',$personsupp->rooms_types)[$i]){
+                            $percentage = explode('%',$personsupp->percentage)[0];
+                            break;
+                        }
+                        
+                    }
+            }
+            $extra_childrens_price = (($room_price_in_season * $percentage)/100) * $number_of_extra_childrens;
+                return $extra_childrens_price;
+        }
 
             
 

@@ -79,7 +79,7 @@ class BookingsController extends Controller
                             $booking->arrival_date = $request->input('arrival_date');
                             $booking->departure_date = $request->input('departure_date');
                             $booking->hotel_id = $request->input('hotel_id');
-                            $booking->status = 0;
+                            $booking->status = -1;
                             $booking->agency_id = Auth::user()->id;
                             $booking->save();
                             while(!$booking){
@@ -133,12 +133,18 @@ class BookingsController extends Controller
      */
     public function show($id)
     {
+
         $view = View::make('hotels.recap');
         $booking = Booking::find($id);
+        if($booking->status == -1){
+
         $supplements = $booking->hotel->supplements();
         $view->booking = $booking ; 
         $view->supplements = $supplements ; 
-        return $view ; 
+        return $view ; }
+        else {
+            return Redirect::to(route('home'));
+        }
     }
 
     /**
