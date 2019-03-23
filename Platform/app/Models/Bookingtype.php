@@ -87,7 +87,7 @@ class Bookingtype extends Model
             $number_of_extra_majors = $this->majors_number - $room_min_majors ;
             $personsupp = Personsupp::where([['type','=',4],['season_id','=',$season->id],['hotel_id','=',$this->hotel->id]])->get()[0];
             
-                for($i=0;$i<explode(';',$personsupp->rooms_types);$i++){
+                for($i=0;$i<count(explode(';',$personsupp->rooms_types));$i++){
                     if(explode(';',$personsupp->rooms_types)[$i] ){
                         if($this->roomType->id == explode(';',$personsupp->rooms_types)[$i]){
                             $percentage = explode('%',$personsupp->percentage)[0];
@@ -95,10 +95,7 @@ class Bookingtype extends Model
                         }
                         
                     }
-                    else {
-                        $percentage = 0;
-                        break;
-                    }
+                    
                     
                     
                 }
