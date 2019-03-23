@@ -45,7 +45,7 @@
                   </li>
                   @else
                   <li class="nav-item">
-                     <a class="nav-link" data-scroll="true" href="javascript:void(0)">Inscription</a>
+                     <a class="nav-link" data-scroll="true" href="{{route('register')}}">Inscription</a>
                   </li>
                   <li class="nav-item">
                      <a class="nav-link" data-scroll="true"  href="{{route('login')}}">S'identifier</a>
