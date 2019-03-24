@@ -52,7 +52,10 @@ class BookingsController extends Controller
      */
     public function show($id)
     {
-        //
+        $booking = Booking::find($id);
+        $view = View::make('bookings.show');
+        $view->booking = $booking;
+        return $view;
     }
 
     /**

@@ -48,7 +48,7 @@ Gestion des commandes
                                                         <td style="text-align: center;">{{$row->agency->name}}</td>
                                                         <td style="text-align: center;">{{date('d-m-Y',strtotime($row->created_at))}}</td>
                                                         <td style="text-align: center;">
-                                                            <a class="btn btn-circle btn-success" href="#" ><i class="icon-eyeglass" style="color:white;"></i></a>
+                                                            <a class="btn btn-circle btn-success" href="{{route('bookings.show',$row->id)}}" ><i class="icon-eyeglass" style="color:white;"></i></a>
                                                         </td>
                                                     </tr>
                                                 @endif
@@ -85,7 +85,7 @@ Gestion des commandes
                                                         <td style="text-align: center;">{{$row->agency->name}}</td>
                                                         <td style="text-align: center;">{{date('d-m-Y',strtotime($row->created_at))}}</td>
                                                         <td style="text-align: center;">
-                                                            <a class="btn btn-circle btn-warning" href="#" ><i class="icon-eyeglass" style="color:white;"></i></a>
+                                                            <a class="btn btn-circle btn-warning" href="{{route('bookings.show',$row->id)}}" ><i class="icon-eyeglass" style="color:white;"></i></a>
                                                         </td>
                                                     </tr>
                                                 @endif
@@ -124,7 +124,7 @@ Gestion des commandes
                                                         <td style="text-align: center;">{{$row->agency->name}}</td>
                                                         <td style="text-align: center;">{{date('d-m-Y',strtotime($row->created_at))}}</td>
                                                         <td style="text-align: center;">
-                                                            <a class="btn btn-circle btn-danger" href="#" ><i class="icon-eyeglass" style="color:white;"></i></a>
+                                                            <a class="btn btn-circle btn-danger" href="{{route('bookings.show',$row->id)}}" ><i class="icon-eyeglass" style="color:white;"></i></a>
                                                         </td>
                                                     </tr>
                                                 @endif

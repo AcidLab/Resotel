@@ -18,4 +18,8 @@ class Booking extends Model
     public function agency(){
     	return $this->belongsTo('App\Models\Agency','agency_id');
     }
+    public function bookingDetails (){
+        return $this->hasMany('App\Models\Bookingtype','booking_id');
+    }
+
 }
