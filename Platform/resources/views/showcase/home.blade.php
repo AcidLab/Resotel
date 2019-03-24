@@ -125,7 +125,7 @@
                               {{$row->description}}
                            </div>
                            <div class="card-footer">
-                              <a href="#pablo" class="btn btn-info btn-round">View plus</a>
+                              <a href="#pablo" class="btn btn-info btn-round">Voir plus</a>
                            </div>
                         </div>
                      </div>

@@ -12,8 +12,8 @@
       <link href="{{asset('assets/css/paper-kit.css?v=2.0.1')}}" rel="stylesheet"/>
       <link href="{{asset('assets/css/demo.css')}}" rel="stylesheet" />
       <!--     Fonts and icons     -->
-      <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
-      <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css')}}" rel="stylesheet">
+      <link href='https://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
+      <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
       <link href="{{asset('assets/css/nucleo-icons.css')}}" rel="stylesheet">
       
    </head>
@@ -37,12 +37,20 @@
                   </li>
 
                   @if (Auth::user())
-                  <li class="nav-item">
-                     <a class="nav-link" data-scroll="true" href="javascript:void(0)">{{Auth::user()->name}}</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" data-scroll="true"  href="{{route('logout')}}">Déconnexion</a>
-                  </li>
+                  
+
+                  <li class="nav-item dropdown dropdown-danger">
+						<a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{Auth::user()->name}}</a>
+						<ul class="dropdown-menu dropdown-menu-right">
+                     <li class="dropdown-item"><a href="sections.html#teams"><i class="nc-icon nc-single-02"></i>&nbsp; Profil</a></li>
+	                  <li class="dropdown-item"><a href="sections.html#blogs"><i class="nc-icon nc-bullet-list-67"></i>&nbsp; Commandes</a></li>
+							<li class="dropdown-item"><a href="sections.html#pricing"><i class="nc-icon nc-basket"></i>&nbsp; Brouillons</a></li>
+                     <li class="dropdown-item"><a href="{{route('logout')}}"><i class="nc-icon nc-button-power"></i>&nbsp; Déconnexion</a></li>
+	                    </ul>
+					</li>
+
+
+                  
                   @else
                   <li class="nav-item">
                      <a class="nav-link" data-scroll="true" href="{{route('register')}}">Inscription</a>
@@ -99,17 +107,17 @@
                         <div class="links">
                            <ul class="uppercase-links stacked-links">
                               <li>
-                                 <a href="#paper-kit">
+                                 <a href="{{route('home')}}">
                                  Acceuil
                                  </a>
                               </li>
                               <li>
-                                 <a href="#paper-kit">
+                                 <a href="{{route('partners')}}">
                                  Partenaires
                                  </a>
                               </li>
                               <li>
-                                 <a href="#paper-kit">
+                                 <a href="{{route('contact')}}">
                                  Contact
                                  </a>
                               </li>
@@ -121,12 +129,12 @@
                         <div class="links">
                            <ul class="uppercase-links stacked-links">
                               <li>
-                                 <a href="#paper-kit">
+                                 <a href="{{route('register')}}">
                                  Inscription
                                  </a>
                               </li>
                               <li>
-                                 <a href="#paper-kit">
+                                 <a href="{{route('login')}}">
                                  Connextion
                                  </a>
                               </li>
@@ -159,32 +167,11 @@
                            </ul>
                         </div>
                      </div>
-                     <div class="col-md-3 col-sm-3 col-xs-6">
-                        <div class="links">
-                           <ul class="stacked-links">
-                              <li>
-                                 <a href="#paper-kit">
-                                 Portfolio
-                                 </a>
-                              </li>
-                              <li>
-                                 <a href="#paper-kit">
-                                 How it works
-                                 </a>
-                              </li>
-                              <li>
-                                 <a href="#paper-kit">
-                                 Testimonials
-                                 </a>
-                              </li>
-                           </ul>
-                        </div>
-                     </div>
                   </div>
                   <hr>
                   <div class="copyright">
                      <div class="pull-left">
-                        © <script>document.write(new Date().getFullYear())</script> Acid Labs, made with love
+                        © <script>document.write(new Date().getFullYear())</script> <a href="https://www.acidlabs.co">Acid Labs</a>, made with love
                      </div>
                      
                   </div>
