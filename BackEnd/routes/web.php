@@ -88,6 +88,7 @@ Route::get('delete_arrangement/{id}',array('as'=>'arrangement.remove','uses'=>'F
 //----------------------
 //Bookings routes 
 Route::resource('bookings','Frontend\BookingsController');
+Route::get('validate_booking/{id}',array('as'=>'booking.validate','uses'=>'Frontend\BookingsController@validateBooking'));
 //----------------------
 
 

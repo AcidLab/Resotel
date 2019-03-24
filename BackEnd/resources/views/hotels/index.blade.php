@@ -20,8 +20,8 @@ Gestion des hôtels
                                                 <th>Ville</th>
                                                 <th>Addresse</th>
                                                 <th>Nombre de lits</th>
-                                                <th>Durée de contrat</th>
-                                                <th>Nombre de saisons du contrat</th>
+                                                
+                                                <th>Nombre des saisons du contrat</th>
                                                 <th>Actions</th>
                                                 
                                             </tr>
@@ -34,7 +34,7 @@ Gestion des hôtels
                                                    <td style="text-align:center;">{{$row->city->label}}</td>
                                                    <td style="text-align:center;">{{$row->address}}</td>
                                                    <td style="text-align:center;">{{$row->beds_number}}</td>
-                                                   <td style="text-align:center;">De {{date('d-m-Y',strtotime($row->contracts[0]->date_from))}} A {{date('d-m-Y',strtotime($row->contracts[0]->date_to))}} </td>
+                                                   
                                                    <td style="text-align:center;">{{count($row->contracts[0]->seasons)}}</td>
                                                    <td style="text-align:center;">
                                                    <a href="{{route('hotel.affectServicesPage',$row->id)}}" class="btn btn-info btn-circle" ><i class="fa fa-edit" ></i> </a>

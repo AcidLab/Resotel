@@ -3,6 +3,7 @@
 Détails d'une commande
 @endsection
 @section('css-includes')
+
 @endsection
 @section('row-title')
 @endsection
@@ -159,11 +160,11 @@ Date facture
                                 <td></td>
                                 <td style="text-align: center;">
                                 	@if($booking->status == 0)
-                                		<button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Valider</button>
+                                		<a  class="btn btn-success" href="{{route('booking.validate',$booking->id)}}" style="color:white;"> <i class="fa fa-check"></i> Valider</a>
                                 	@endif
                                 </td>
                                 <td style="text-align: center;">
-                                	<button type="button" class="btn btn-info" id="print_button"> <i class="fa fa-check"></i> Imprimer</button>
+                                	<button type="button" class="btn btn-info" id="print_button"> <i class="fa fa-print"></i> Imprimer</button>
                                 </td>
 </tr>
 </tbody>
@@ -189,23 +190,24 @@ Date facture
 <script>
 $('#print_button').click(function(){
 var prtContent = document.getElementById("div_to_print");
-var style_one = "{{asset('assets/node_modules/morrisjs/morris.css')}}" ;
+/*var style_one = "{{asset('assets/node_modules/morrisjs/morris.css')}}" ;
 var style_two = "{{asset('assets/node_modules/toast-master/css/jquery.toast.css')}}";
 var style_three = "{{asset('assets/dist/css/style.min.css')}}";
-var style_four = "{{asset('assets/dist/css/pages/dashboard1.css')}}";
-var WinPrint = window.open('data:text/html', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+var style_four = "{{asset('assets/dist/css/pages/dashboard1.css')}}";*/
+var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
 //WinPrint.document.write('<html><head><title></title>');
-WinPrint.document.write('<link href="'+style_one+'" rel="stylesheet">');
+/*WinPrint.document.write('<link href="'+style_one+'" rel="stylesheet">');
 WinPrint.document.write('<link href="'+style_two+'" rel="stylesheet">');
 WinPrint.document.write('<link href="'+style_three+'" rel="stylesheet">');
 WinPrint.document.write('<link href="'+style_four+'" rel="stylesheet">');
-//WinPrint.document.write('</head><body>');
+WinPrint.document.write('</head><body>');*/
 WinPrint.document.write(prtContent.innerHTML);
 //WinPrint.document.write('</body></html>');
 WinPrint.document.close();
 WinPrint.focus();
 WinPrint.print();
 WinPrint.close();
+
 });
 
 </script>

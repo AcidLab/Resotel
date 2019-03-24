@@ -91,4 +91,12 @@ class BookingsController extends Controller
     {
         //
     }
+
+    public function validateBooking(Request $request ,$id){
+        $booking = Booking::find($id);
+        $booking->status = 1;
+        $booking->save();
+        $request->session()->flash('success','Commande validée avec succés ! ');
+        return Redirect::to(route('bookings.index'));
+    }
 }
