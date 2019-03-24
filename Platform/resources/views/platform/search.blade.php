@@ -108,30 +108,8 @@
                     <div class="col-md-3">
                         <div class="card card-refine">
                             <div class="panel-group" id="accordion" aria-multiselectable="true" aria-expanded="true">
-								<div class="card-header card-collapse" role="tab" id="priceRanger">
-										<h5 class="mb-0 panel-title">
-											<a class="" data-toggle="collapse" data-parent="#accordion" href="#priceRange" aria-expanded="true" aria-controls="collapseOne">
-												Prix
-												<i class="nc-icon nc-minimal-down"></i>
-											</a>
-										</h5>
-								</div>
-								<div  class="collapse " id="priceRange" role="tabpanel" aria-labelledby="headingOne" aria-expanded="true">
-									<div class="card-block">
-										<div class="row">
-											<div class="col-md-6">
-												<div class="form-group">
-													<input type="number" class="form-control border-input" placeholder="Min" min="0" />
-												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="form-group">
-												<input type="number" class="form-control border-input" placeholder="Max" min="0" />
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+							
+								
 								<div class="card-header card-collapse" role="tab" id="room_types">
 									<h5 class="mb-0 panel-title">
 										<a class="" data-toggle="collapse" data-parent="#accordion" href="#types" aria-expanded="true" aria-controls="collapseSecond">
@@ -144,13 +122,14 @@
 									<div class="card-block">
                                         @foreach($roomtypes as $row)
 										<div class="checkbox">
-											<input id="{{$row->id}}" type="checkbox" >
+											<input id="{{$row->id}}" value="{{$row->id}}" class="classfortypes" type="checkbox" >
 											<label for="{{$row->id}}">
 												{{$row->name}}
 											</label>
 										</div>
                                         @endforeach
 									</div>
+                                    <input  id="types_input" hidden disabled  class="form-control" />
 								</div>
                                 <div class="card-header card-collapse" role="tab" id="hotel_supplements">
                                     <h5 class="mb-0 panel-title">
@@ -164,14 +143,85 @@
                                     <div class="card-block">
                                         @foreach($supplements as $row)
                                         <div class="checkbox">
-                                            <input id="s{{$row->id}}" type="checkbox" >
+                                            <input id="s{{$row->id}}" value="{{$row->id}}" class="classforsupplements" type="checkbox" >
                                             <label for="s{{$row->id}}">
                                                 {{$row->name}}
                                             </label>
                                         </div>
                                         @endforeach
                                     </div>
+                                    <input  id="supplements_input" hidden disabled class="form-control" />
+
                                 </div>
+                                <div class="card-header card-collapse" role="tab" id="hotel_stars">
+                                    <h5 class="mb-0 panel-title">
+                                        <a class="" data-toggle="collapse" data-parent="#accordion" href="#stars" aria-expanded="true" aria-controls="collapseSecond">
+                                            Nombre d'étoiles
+                                            <i class="nc-icon nc-minimal-down"></i>
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="stars" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="card-block">
+                                        @for($i=0;$i<5;$i++)
+                                        <div class="checkbox">
+                                            <input id="st{{$i}}" class="classforstars" value="{{$i+1}}" type="checkbox" >
+                                            <label for="st{{$i}}">
+                                                {{($i+1)}} @if($i==0) étoile @else étoiles @endif
+                                            </label>
+                                        </div>
+                                        @endfor
+                                    </div>
+                                    <input  disabled hidden  id="stars_input" class="form-control" />
+                                </div>
+                                <div class="card-header card-collapse" role="tab" id="hotel_services">
+                                    <h5 class="mb-0 panel-title">
+                                        <a class="" data-toggle="collapse" data-parent="#accordion" href="#services" aria-expanded="true" aria-controls="collapseSecond">
+                                            Services
+                                            <i class="nc-icon nc-minimal-down"></i>
+                                        </a>
+                                    </h5>
+                                </div>
+                                 <div id="services" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="card-block">
+                                        @foreach($services as $row)
+                                        <div class="checkbox">
+                                            <input id="ser{{$row->id}}" class="classforservices" value="{{$row->id}}" type="checkbox" >
+                                            <label for="ser{{$row->id}}">
+                                                {{$row->label}}
+                                            </label>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                    <input disabled hidden id="services_input" class="form-control" />
+                                </div>
+                                <div class="card-header card-collapse" role="tab" id="hotel_equipements">
+                                    <h5 class="mb-0 panel-title">
+                                        <a class="" data-toggle="collapse" data-parent="#accordion" href="#equipements" aria-expanded="true" aria-controls="collapseSecond">
+                                            Equipements
+                                            <i class="nc-icon nc-minimal-down"></i>
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="equipements" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="card-block">
+                                        @foreach($equipements as $row)
+                                        <div class="checkbox">
+                                            <input class="classforequipements" value="{{$row->id}}" id="eq{{$row->id}}" type="checkbox" >
+                                            <label for="eq{{$row->id}}">
+                                                {{$row->label}}
+                                            </label>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                    <input disabled hidden id="equipements_input" class="form-control" />
+                                </div>
+                                <div class="row" style="margin-top: 30px;">
+                                    <div class="col-md-12" style="text-align: center;">
+                                        <button type="button"  class="btn btn-info">Appliquer</a>
+                                    </div>
+                                </div>
+
 							</div>	
 	                    </div> <!-- end card -->
 	                </div>
@@ -234,26 +284,82 @@
 	@section('js')
 	<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
   	<script src="https://code.jquery.com/ui/1.9.2/jquery-ui.js"></script> 
-	  <script>
-                            var min = 10;
-                            var max = 150;
-                            $( function() {
-    $("#sliderDouble").slider({
-      range: true,
-      min: min,
-      max: max,
-      values: [ min, max ],
-      slide: function( event, ui ) {
-       window.alert('rrr');
-      }
-    });
-    $( "#amount2" ).val( "$" + $( "#sliderDouble" ).slider( "values", 0 ) +
-      " - $" + $( "#sliderDouble" ).slider( "values", 1 ) );
+    <script >
+        $('.classfortypes').change(function(){
+            $('#types_input').val('') ;
+            $('.classfortypes').each(function(){
+                if(this.checked){
+                    if($('#types_input').val() == "" ){
+                        $('#types_input').val(this.value);
+                    }
+                    else {
+                        $('#types_input').val($('#types_input').val()+';'+this.value);
+                    }
+                    
+                }
+            });
+        });
+        //----------------------------
+        $('.classforsupplements').change(function(){
+            $('#supplements_input').val('') ;
+            $('.classforsupplements').each(function(){
+                if(this.checked){
+                    if($('#supplements_input').val() == "" ){
+                        $('#supplements_input').val(this.value);
+                    }
+                    else {
+                        $('#supplements_input').val($('#supplements_input').val()+';'+this.value);
+                    }
+                    
+                }
+            });
+        });
+        //---------------------------------
+        $('.classforstars').change(function(){
+            $('#stars_input').val('') ;
+            $('.classforstars').each(function(){
+                if(this.checked){
+                    if($('#stars_input').val() == "" ){
+                        $('#stars_input').val(this.value);
+                    }
+                    else {
+                        $('#stars_input').val($('#stars_input').val()+';'+this.value);
+                    }
+                    
+                }
+            });
+        });
+        //--------------------------------
+        $('.classforservices').change(function(){
+            $('#services_input').val('') ;
+            $('.classforservices').each(function(){
+                if(this.checked){
+                    if($('#services_input').val() == "" ){
+                        $('#services_input').val(this.value);
+                    }
+                    else {
+                        $('#services_input').val($('#services_input').val()+';'+this.value);
+                    }
+                    
+                }
+            });
+        });
+        //-------------------------------
+        $('.classforequipements').change(function(){
+            $('#equipements_input').val('') ;
+            $('.classforequipements').each(function(){
+                if(this.checked){
+                    if($('#equipements_input').val() == "" ){
+                        $('#equipements_input').val(this.value);
+                    }
+                    else {
+                        $('#equipements_input').val($('#equipements_input').val()+';'+this.value);
+                    }
+                    
+                }
+            });
+        });
+    </script>
 
-    $( "#amount2" ).val( "" + $( "#sliderDouble" ).slider( "values", 0 ) +
-      ";" + $( "#sliderDouble" ).slider( "values", 1 ) );
-    
-  } );
-  </script>  
 	@endsection
 
