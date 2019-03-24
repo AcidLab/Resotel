@@ -23,6 +23,15 @@
                                     </span>
                                 @endif
 
+                                <label style="color:#303030;">Adresse</label>
+                                <input type="text" class="form-control {{ $errors->has('address') ? ' is-invalid' : '' }}" placeholder="Adresse" name="address" required>
+
+                                @if ($errors->has('address'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong style="color:red;">{{ $errors->first('address') }}<br></strong>
+                                    </span>
+                                @endif
+
                                 <label style="color:#303030;">Numero de SIRET</label>
                                 <input type="text" class="form-control {{ $errors->has('siret') ? ' is-invalid' : '' }}" placeholder="Numero de SIRET" name="siret" required>
 

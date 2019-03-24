@@ -1,88 +1,101 @@
 @extends('layouts.app')
 @section('content')
 
-            
-            <div class="section landing-section register" id="result">
-                <div class="" style="padding-left: 150px;padding-right: 150px;">
-                <div class="container">
-			<div class="row" >
-				<div class="col-md-6">
-					<div class="card card-raised page-carousel" >
-						<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-						    <ol class="carousel-indicators">
-                                @foreach($hotel->pictures as $key=>$row)
-							    <li data-target="#carouselExampleIndicators" data-slide-to="{{$key}}" class="{{$key==0 ? 'active' : ''}}"></li>
-							    
-                                @endforeach
-						    </ol>
-                            <div class="carousel-inner" role="listbox" >
-                                @foreach($hotel->pictures as $key=>$row)
-                                <div class="carousel-item {{$key==0 ? 'active' : ''}}">
-                                    <img class="d-block img-fluid" src="{{$row->path}}" alt="{{$key}} slide">
-                                	<div class="carousel-caption d-none d-md-block">
-                                        <p></p>
-                                    </div>
-                                </div>
-                                @endforeach
-                                
-                                
-                            </div>
+<div class="page-header page-header-xs" style="background-image: url('https://www.tunisienumerique.com/wp-content/uploads/2018/02/banquie.jpg')">
+		<div class="filter"></div>
+	</div>
 
-                            <a class="left carousel-control carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                                <span class="fa fa-angle-left"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="right carousel-control carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                                <span class="fa fa-angle-right"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-						</div>
-					</div>
-				</div>
-                <div class="col-md-6">
-                <div class="card card-pricing" data-background="image" style="background-image: url({{$hotel->pictures[0]->path}});height:400px;">
-							<div class="card-block">
-								
-								<div class="row">
-                                    <div class="col-md-6">
-                                    <h6 class="card-category">Services</h6>
-                                    <ul>
-									@foreach($hotel->services() as $row)
-                                        <li>{{$row->label}}</li>
-                                    @endforeach
-								</ul>
-                                    </div>
-                                    <div class="col-md-6">
-                                    <h6 class="card-category">Equipements</h6>
-                                    <ul>
-									@foreach($hotel->equipements() as $row)
-                                        <li>{{$row->label}}</li>
-                                    @endforeach
-								    </ul>
-                                    </div>
-                                </div>
-								
-								
-							</div>
-						</div>
-                </div>
-			</div>
-            @if(Session::get('failure'))
-            <div class="alert alert-danger alert-with-icon" data-notify="container" style="width: 80%; margin:auto;margin-top : 10px;border-radius : 5px;">
-                <div class="container">
-                    <div class="alert-wrapper">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <i class="nc-icon nc-simple-remove"></i>
-                        </button>
-                        <div class="message" style="text-align:center;"><i class="nc-icon nc-bell-55"></i> &nbsp;&nbsp; {{Session::get('failure')}}</div>
+
+    <div class="main">
+        <div class="section">
+            <div class="container">
+                    <div class="row title-row">
+                        <div class="col-md-2">
+                            <h4 class="shop">Shop</h4>
+                        </div>
+                        <div class="col-md-4 offset-md-6">
+                            
+                        </div>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="col-md-7 col-sm-6">
+
+                            <div id="carousel">
+								<div class="card page-carousel">
+									<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+									    <ol class="carousel-indicators">
+										    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+										    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+											<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+											<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+									    </ol>
+			                            <div class="carousel-inner" role="listbox">
+				                            <div class="carousel-item active">
+				                                <img class="d-block img-fluid" src="{{asset('assets/img/jacket-1.jpg')}}" alt="Awesome Item">
+				                            	<div class="carousel-caption d-none d-md-block">
+				                                    <p>Somewhere</p>
+				                                </div>
+				                            </div>
+				                            <div class="carousel-item">
+				                                <img class="d-block img-fluid" src="{{asset('assets/img/jacket-2.jpg')}}" alt="Awesome Item">
+				                            	<div class="carousel-caption d-none d-md-block">
+				                            	    <p>Somewhere else</p>
+				                            	</div>
+				                            </div>
+				                            <div class="carousel-item">
+				                                <img class="d-block img-fluid" src="{{asset('assets/img/jacket-3.jpg')}}" alt="Awesome Item">
+				                            	<div class="carousel-caption d-none d-md-block">
+				                            	    <p>Here it is</p>
+				                            	</div>
+				                            </div>
+											<div class="carousel-item">
+				                                <img class="d-block img-fluid" src="{{asset('assets/img/jacket-4.jpg')}}" alt="Awesome Item">
+				                            	<div class="carousel-caption d-none d-md-block">
+				                            	    <p>Here it is</p>
+				                            	</div>
+				                            </div>
+			                            </div>
+
+			                            <a class="left carousel-control carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+			                                <span class="fa fa-angle-left"></span>
+			                                <span class="sr-only">Previous</span>
+			                            </a>
+			                            <a class="right carousel-control carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+			                                <span class="fa fa-angle-right"></span>
+			                                <span class="sr-only">Next</span>
+			                            </a>
+									</div>
+								</div>
+                            </div> <!-- end carousel -->
+
+                        </div>
+                        <div class="col-md-5 col-sm-6">
+                        <?php $res = 0; $star = ''; ?>
+                        @for($i = 0;$i < $hotel->local_stars_number;$i++)
+                            <?php $star = $star.'★';?>
+                            @endfor
+							<h2>{{$hotel->name}}<br><span style="color:#FADA5E;margin-top:16px;">{{$star}}</span></h2>
+                            
+                            
+                            @foreach($hotel->roomTypes as $key=>$row)
+                                @if($row->availableRooms($row->hotel_id,$arrival_date,$departure_date) > 0)
+                                    <?php $res+=$row->availableRooms($row->hotel_id,$arrival_date,$departure_date);?>
+                                @endif
+                            @endforeach
+
+							<h4 class="price"><strong> {{$res}} Chambres disponible</strong></h4>
+							<hr />
+							<p>{{$hotel->address}}</p>
+
+                            
+                        </div>
+                    </div>
             </div>
-            @endif
-            <div class="row">
-                <div class="col-md-12">
-                    <h4></h4>
-                </div>
+        </div>
+
+        <div class="section">
+            <div class="container">
+                
                 <div class="col-md-12 ">
                 
                     <h4 class="title"><small>Disponibilité</small></h4>
@@ -199,6 +212,96 @@
                     </form>
 
                 </div>
+                
+            </div>
+        </div>
+        
+    </div>
+
+
+
+            <div class="section landing-section register" id="result">
+                <div class="" style="padding-left: 150px;padding-right: 150px;">
+                <div class="container">
+			<div class="row" >
+				<div class="col-md-6">
+					<div class="card card-raised page-carousel" >
+						<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+						    <ol class="carousel-indicators">
+                                @foreach($hotel->pictures as $key=>$row)
+							    <li data-target="#carouselExampleIndicators" data-slide-to="{{$key}}" class="{{$key==0 ? 'active' : ''}}"></li>
+							    
+                                @endforeach
+						    </ol>
+                            <div class="carousel-inner" role="listbox" >
+                                @foreach($hotel->pictures as $key=>$row)
+                                <div class="carousel-item {{$key==0 ? 'active' : ''}}">
+                                    <img class="d-block img-fluid" src="{{$row->path}}" alt="{{$key}} slide">
+                                	<div class="carousel-caption d-none d-md-block">
+                                        <p></p>
+                                    </div>
+                                </div>
+                                @endforeach
+                                
+                                
+                            </div>
+
+                            <a class="left carousel-control carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                <span class="fa fa-angle-left"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                <span class="fa fa-angle-right"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+						</div>
+					</div>
+				</div>
+                <div class="col-md-6">
+                <div class="card card-pricing" data-background="image" style="background-image: url({{$hotel->pictures[0]->path}});height:400px;">
+							<div class="card-block">
+								
+								<div class="row">
+                                    <div class="col-md-6">
+                                    <h6 class="card-category">Services</h6>
+                                    <ul>
+									@foreach($hotel->services() as $row)
+                                        <li>{{$row->label}}</li>
+                                    @endforeach
+								</ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                    <h6 class="card-category">Equipements</h6>
+                                    <ul>
+									@foreach($hotel->equipements() as $row)
+                                        <li>{{$row->label}}</li>
+                                    @endforeach
+								    </ul>
+                                    </div>
+                                </div>
+								
+								
+							</div>
+						</div>
+                </div>
+			</div>
+            @if(Session::get('failure'))
+            <div class="alert alert-danger alert-with-icon" data-notify="container" style="width: 80%; margin:auto;margin-top : 10px;border-radius : 5px;">
+                <div class="container">
+                    <div class="alert-wrapper">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <div class="message" style="text-align:center;"><i class="nc-icon nc-bell-55"></i> &nbsp;&nbsp; {{Session::get('failure')}}</div>
+                    </div>
+                </div>
+            </div>
+            @endif
+            <div class="row">
+                <div class="col-md-12">
+                    <h4></h4>
+                </div>
+                
             </div>
 		</div>
                 </div>

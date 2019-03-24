@@ -56,10 +56,16 @@ Route::group(['middleware' => 'auth','middleware' => 'verified'], function(){
 });
 
 
+
 Route::get('search_hotel',array('as'=>'hotel.search','uses'=>'SearchlController@search'));
 Route::get('hotel_details/{id}',array('as'=>'hotel.details','uses'=>'Backend\HotelController@returnHotelDetails'));
 Route::resource('hotels','Backend\HotelController');
 Route::get('hotels/{id}/{arrival_date}/{departure_date}',array('as'=>'hotel.showDetails','uses'=>'Backend\HotelController@show'));
+
+
+Route::get('thankyou',array('as'=>'thankyou','uses'=> function () {
+    return view('showcase.thankyou');
+}));
 //Bookings routes 
 Route::resource('bookings','BackEnd\BookingsController');
 //Route::get('')
@@ -67,7 +73,9 @@ Route::resource('bookings','BackEnd\BookingsController');
 
 
 
-Auth::routes(['verify' => true]);
+Auth::routes();
 Route::get('logout',array('as'=>'logout','uses'=>'Auth\LoginController@logout'));
+Route::get('profil',array('as'=>'profil','uses'=>'FrontEnd\ProfileController@index'));
+Route::post('profil{id}',array('as'=>'profil.update','uses'=>'FrontEnd\ProfileController@update'));
 
 
