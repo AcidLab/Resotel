@@ -130,6 +130,8 @@ Route::get('create_supps_for_persons',function(){
 });
 //----------------
 Route::get('/home', 'Frontend\HomeController@index')->name('home');
+Route::resource('demands','Frontend\DemandsController');
+Route::get('accept_demand/{id}',array('as'=>'demand.accept','uses'=>'Frontend\DemandsController@acceptDemand'));
 });
 
 

@@ -11,4 +11,15 @@ class Booking extends Model
     protected $table = "bookings";
     protected $dates=['deleted_at'];
     public $timestamps = true;
+
+    public function hotel(){
+    	return $this->belongsTo('App\Models\Hotel','hotel_id');
+    }
+    public function agency(){
+    	return $this->belongsTo('App\Models\Agency','agency_id');
+    }
+    public function bookingDetails (){
+        return $this->hasMany('App\Models\Bookingtype','booking_id');
+    }
+
 }

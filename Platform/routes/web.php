@@ -55,6 +55,8 @@ Route::group(['middleware' => 'auth','middleware' => 'verified'], function(){
 
 });
 
+
+
 Route::get('search_hotel',array('as'=>'hotel.search','uses'=>'SearchlController@search'));
 Route::get('hotel_details/{id}',array('as'=>'hotel.details','uses'=>'Backend\HotelController@returnHotelDetails'));
 Route::resource('hotels','Backend\HotelController');

@@ -24,11 +24,117 @@ Gestion des commandes
                             <div class="tab-content">
                                 <div class="tab-pane active" id="home2" role="tabpanel">
                                     <div class="p-20">
-                                       
+                                       <div class="table-responsive">
+                                    <table class="table color-table success-table">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center;">Numéro</th>
+                                                <th style="text-align: center;">Date d'arrivée</th>
+                                                <th style="text-align: center;">Date de départ</th>
+                                                <th style="text-align: center;">Hôtel</th>
+                                                <th style="text-align: center;">Agence</th>
+                                                <th style="text-align: center;">Date de soumission</th>
+                                                <th style="text-align: center;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($bookings as $row)
+                                                @if($row->status == 1)
+                                                    <tr>
+                                                        <td style="text-align: center;">{{$row->id}}</td>
+                                                        <td style="text-align: center;">{{date('d-m-Y',strtotime($row->arrival_date))}}</td>
+                                                        <td style="text-align: center;">{{date('d-m-Y',strtotime($row->departure_date))}}</td>
+                                                        <td style="text-align: center;">{{$row->hotel->name}}</td>
+                                                        <td style="text-align: center;">{{$row->agency->name}}</td>
+                                                        <td style="text-align: center;">{{date('d-m-Y',strtotime($row->created_at))}}</td>
+                                                        <td style="text-align: center;">
+                                                            <a class="btn btn-circle btn-success" href="{{route('bookings.show',$row->id)}}" ><i class="icon-eyeglass" style="color:white;"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane  p-20" id="profile2" role="tabpanel"></div>
-                                <div class="tab-pane p-20" id="messages2" role="tabpanel"></div>
+                                <div class="tab-pane  p-20" id="profile2" role="tabpanel">
+                                    <div class="p-20">
+                                       <div class="table-responsive">
+                                    <table class="table color-table warning-table">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center;">Numéro</th>
+                                                <th style="text-align: center;">Date d'arrivée</th>
+                                                <th style="text-align: center;">Date de départ</th>
+                                                <th style="text-align: center;">Hôtel</th>
+                                                <th style="text-align: center;">Agence</th>
+                                                <th style="text-align: center;">Date de soumission</th>
+                                                <th style="text-align: center;">Détails</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($bookings as $row)
+                                                @if($row->status == 0)
+                                                    <tr>
+                                                        <td style="text-align: center;">{{$row->id}}</td>
+                                                        <td style="text-align: center;">{{date('d-m-Y',strtotime($row->arrival_date))}}</td>
+                                                        <td style="text-align: center;">{{date('d-m-Y',strtotime($row->departure_date))}}</td>
+                                                        <td style="text-align: center;">{{$row->hotel->name}}</td>
+                                                        <td style="text-align: center;">{{$row->agency->name}}</td>
+                                                        <td style="text-align: center;">{{date('d-m-Y',strtotime($row->created_at))}}</td>
+                                                        <td style="text-align: center;">
+                                                            <a class="btn btn-circle btn-warning" href="{{route('bookings.show',$row->id)}}" ><i class="icon-eyeglass" style="color:white;"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane p-20" id="messages2" role="tabpanel">
+                                    
+                                    <div class="p-20">
+                                       <div class="table-responsive">
+                                    <table class="table color-table danger-table">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center;">Numéro</th>
+                                                <th style="text-align: center;">Date d'arrivée</th>
+                                                <th style="text-align: center;">Date de départ</th>
+                                                <th style="text-align: center;">Hôtel</th>
+                                                <th style="text-align: center;">Agence</th>
+                                                <th style="text-align: center;">Date de soumission</th>
+                                                <th style="text-align: center;">Détails</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($bookings as $row)
+                                                @if($row->status == 2)
+                                                    <tr>
+                                                        <td style="text-align: center;">{{$row->id}}</td>
+                                                        <td style="text-align: center;">{{date('d-m-Y',strtotime($row->arrival_date))}}</td>
+                                                        <td style="text-align: center;">{{date('d-m-Y',strtotime($row->departure_date))}}</td>
+                                                        <td style="text-align: center;">{{$row->hotel->name}}</td>
+                                                        <td style="text-align: center;">{{$row->agency->name}}</td>
+                                                        <td style="text-align: center;">{{date('d-m-Y',strtotime($row->created_at))}}</td>
+                                                        <td style="text-align: center;">
+                                                            <a class="btn btn-circle btn-danger" href="{{route('bookings.show',$row->id)}}" ><i class="icon-eyeglass" style="color:white;"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
     </div>

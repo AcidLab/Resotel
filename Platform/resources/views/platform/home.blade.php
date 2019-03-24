@@ -18,24 +18,12 @@
                                         <form method="GET" action="{{route('hotel.search')}}">
                                              
                                         <div class="row">
-                                                <div class="col-md-8">
+                                                <div class="col-md-12">
                                                     <div class="form-group">
                                                         <input type="text" name="word"  placeholder="Recherche" class="form-control" style="height:47px;"/>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-4">
-                                                <div class="form-group" style="width:100% !important;">
-                                    <select class="selectpicker" name="city" data-style="btn btn-default btn-block btn-large">
-                                        <option disabled selected> Ou ?</option>
-                                          @if(Auth::user())
-                                             @foreach($cities as $row)
-                                                <option value="{{$row->id}}">{{$row->label}}</option>
-                                             @endforeach
-                                          @endif
-                                   </select>
-                                </div>
-                                                </div>
 
                                             </div>
 

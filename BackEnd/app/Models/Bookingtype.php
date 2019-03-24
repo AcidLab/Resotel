@@ -14,20 +14,19 @@ use App\Models\Personsupp;
 class Bookingtype extends Model
 {
     use SoftDeletes;
-    protected $table="bookings_types";
+    protected $table = "bookings_types";
     protected $dates=['deleted_at'];
     public $timestamps = true;
 
     public function roomType (){
         return $this->belongsTo('App\Models\Roomtype','room_type');
     }
-    public function booking (){
-        return $this->belongsTo('App\Models\Booking','booking_id');
+    public function booking(){
+    	return $this->belongsTo('App\Models\Booking','booking_id');
     }
     public function hotel(){
-        return $this->belongsTo('App\Models\Hotel','hotel_id');
+    	return $this->belongsTo('App\Models\Hotel','hotel_id');
     }
-
     public function roomPriceInSeason(){
         $arrival_date = $this->booking->arrival_date;
         $room_type = $this->room_type;
@@ -75,7 +74,6 @@ class Bookingtype extends Model
             return $room_price_in_season + $supplementsPrice + $extra_majors_price + $extra_childrens_price ;
              
     }
-
     public function extraMajorsPrices ($room_min_majors,$season,$room_price_in_season){
             
             $number_of_extra_majors = 0;
@@ -125,14 +123,4 @@ class Bookingtype extends Model
             $extra_childrens_price = (($room_price_in_season * $percentage)/100) * $number_of_extra_childrens;
                 return $extra_childrens_price;
         }
-
-            
-
-
-    }
-
-    
-    
-
-
-?>
+}

@@ -146,56 +146,59 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
+                    <li> 
+                       
+                        <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                       
+                        <i class="icon-speedometer"></i>
+                        <span class="hide-menu">Pages </span></a>
+                        <ul aria-expanded="false" class="collapse">
                         <li class="element {{preg_match('/slider/',\Request::route()->getName()) ? 'active' : ''}}"> 
                             <a class=" waves-effect waves-dark {{preg_match('/slider/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('sliders.index')}}" aria-expanded="false">
                                 <i class="ti-image"></i>
                                 <span class="hide-menu">Carousel</span>
                             </a>     
                         </li>
-
                         <li class="element {{preg_match('/about/',\Request::route()->getName()) ? 'active' : ''}}"> 
                             <a class=" waves-effect waves-dark {{preg_match('/about/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('abouts.index')}}" aria-expanded="false">
                                 <i class="ti-layout-cta-left"></i>
                                 <span class="hide-menu">Liste à propos </span>
                             </a>     
                         </li>
-
                         <li class="element {{preg_match('/partner/',\Request::route()->getName()) ? 'active' : ''}}"> 
                             <a class=" waves-effect waves-dark {{preg_match('/partner/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('partners.index')}}" aria-expanded="false">
                                 <i class="ti-home"></i>
                                 <span class="hide-menu">Partenaires </span>
                             </a>     
                         </li>
-
                         <li class="element {{preg_match('/next/',\Request::route()->getName()) ? 'active' : ''}} "> 
                             <a class=" waves-effect waves-dark {{preg_match('/next/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('nexts.index')}}" aria-expanded="false">
                                 <i class="ti-rocket"></i>
                                 <span class="hide-menu"> Prochains voyages </span>
                             </a>     
                         </li>
-
                         <li class="element {{preg_match('/place/',\Request::route()->getName()) ? 'active' : ''}} "> 
                             <a class=" waves-effect waves-dark {{preg_match('/place/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('places.index')}}" aria-expanded="false">
                                 <i class="ti-location-pin"></i>
                                 <span class="hide-menu"> Places </span>
                             </a>     
                         </li>
-
-                        <li class="element {{preg_match('/hotel/',\Request::route()->getName()) ? 'active' : ''}} "> 
-                            <a class=" waves-effect waves-dark {{preg_match('/hotel/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('hotels.index')}}" aria-expanded="false">
-                                <i class="ti-home"></i>
-                                <span class="hide-menu"> Hôtels </span>
-                            </a>     
-                        </li>
-
-                        <li class="element {{preg_match('/service/',\Request::route()->getName()) ? 'active' : ''}} "> 
-                            <a class=" waves-effect waves-dark {{preg_match('/service/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('services.index')}}" aria-expanded="false">
-                                <i class="ti-rss-alt"></i>
-                                <span class="hide-menu"> Services </span>
-                            </a>     
-                        </li>
-
-                        <li class="element {{preg_match('/equipement/',\Request::route()->getName()) ? 'active' : ''}} "> 
+                            
+                        </ul>
+                        
+                    </li>
+                    <li> 
+                        <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                        <i class="icon-speedometer"></i>
+                        <span class="hide-menu">Paramétrage Hôtels </span></a>
+                        <ul aria-expanded="false" class="collapse">
+                            <li class="element {{preg_match('/service/',\Request::route()->getName()) ? 'active' : ''}} "> 
+                                <a class=" waves-effect waves-dark {{preg_match('/service/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('services.index')}}" aria-expanded="false">
+                                    <i class="ti-rss-alt"></i>
+                                    <span class="hide-menu"> Services </span>
+                                </a>     
+                            </li>
+                            <li class="element {{preg_match('/equipement/',\Request::route()->getName()) ? 'active' : ''}} "> 
                             <a class=" waves-effect waves-dark {{preg_match('/equipement/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('equipements.index')}}" aria-expanded="false">
                                 <i class="fa fa-life-saver"></i>
                                 <span class="hide-menu"> Equipements </span>
@@ -215,6 +218,30 @@
                                 <span class="hide-menu"> Arrangements </span>
                             </a>     
                         </li>
+
+
+                        </ul>
+                    </li>
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+
+                        <li class="element {{preg_match('/hotel/',\Request::route()->getName()) ? 'active' : ''}} "> 
+                            <a class=" waves-effect waves-dark {{preg_match('/hotel/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('hotels.index')}}" aria-expanded="false">
+                                <i class="ti-home"></i>
+                                <span class="hide-menu"> Hôtels </span>
+                            </a>     
+                        </li>
+
+                        
+
+                        
                         
                         <li class="element {{preg_match('/booking/',\Request::route()->getName()) ? 'active' : ''}} "> 
                             <a class=" waves-effect waves-dark {{preg_match('/booking/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('bookings.index')}}" aria-expanded="false">
@@ -227,6 +254,12 @@
                             <a class=" waves-effect waves-dark {{preg_match('/contact/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('contacts.index')}}" aria-expanded="false">
                                 <i class="ti-email"></i>
                                 <span class="hide-menu"> Contacts </span>
+                            </a>     
+                        </li>
+                        <li class="element {{preg_match('/demand/',\Request::route()->getName()) ? 'active' : ''}} "> 
+                            <a class=" waves-effect waves-dark {{preg_match('/demand/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('demands.index')}}" aria-expanded="false">
+                                <i class="ti-user"></i>
+                                <span class="hide-menu"> Demandes d'adhésion </span>
                             </a>     
                         </li>
 
