@@ -150,7 +150,7 @@
                        
                         <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                        
-                        <i class="icon-speedometer"></i>
+                        <i class="icon-book-open"></i>
                         <span class="hide-menu">Pages </span></a>
                         <ul aria-expanded="false" class="collapse">
                         <li class="element {{preg_match('/slider/',\Request::route()->getName()) ? 'active' : ''}}"> 
@@ -189,7 +189,7 @@
                     </li>
                     <li> 
                         <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                        <i class="icon-speedometer"></i>
+                        <i class="icon-settings"></i>
                         <span class="hide-menu">Paramétrage Hôtels </span></a>
                         <ul aria-expanded="false" class="collapse">
                             <li class="element {{preg_match('/service/',\Request::route()->getName()) ? 'active' : ''}} "> 

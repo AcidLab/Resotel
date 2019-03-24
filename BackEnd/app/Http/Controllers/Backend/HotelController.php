@@ -333,10 +333,10 @@ class HotelController extends Controller
 
     public function storeContract (Request $request){
         $contract = new Contract;
-        $contract->date_from = $request->input('date_from');
-        $contract->date_to = $request->input('date_to');
+        /*$contract->date_from = $request->input('date_from');
+        $contract->date_to = $request->input('date_to');*/
         $contract->devise = $request->input('devise');
-        $contract->destination = $request->input('destination');
+        //$contract->destination = $request->input('destination');         
         $contract->seasons_number = $request->input('seasons_number');
         $contract->hotel_id = $request->input('hotel_id');
         $contract->save();
