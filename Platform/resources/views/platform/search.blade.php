@@ -154,14 +154,36 @@
 								</div>
 								<div id="types" class="collapse" role="tabpanel" aria-labelledby="headingOne">
 									<div class="card-block">
+                                        @foreach($roomtypes as $row)
 										<div class="checkbox">
-											<input id="checkbox1" type="checkbox" >
-											<label for="checkbox1">
-												Blazers
+											<input id="{{$row->id}}" type="checkbox" >
+											<label for="{{$row->id}}">
+												{{$row->name}}
 											</label>
 										</div>
+                                        @endforeach
 									</div>
 								</div>
+                                <div class="card-header card-collapse" role="tab" id="hotel_supplements">
+                                    <h5 class="mb-0 panel-title">
+                                        <a class="" data-toggle="collapse" data-parent="#accordion" href="#supplements" aria-expanded="true" aria-controls="collapseSecond">
+                                            Suppléments
+                                            <i class="nc-icon nc-minimal-down"></i>
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="supplements" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="card-block">
+                                        @foreach($supplements as $row)
+                                        <div class="checkbox">
+                                            <input id="s{{$row->id}}" type="checkbox" >
+                                            <label for="s{{$row->id}}">
+                                                {{$row->name}}
+                                            </label>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                </div>
 							</div>	
 	                    </div> <!-- end card -->
 	                </div>
