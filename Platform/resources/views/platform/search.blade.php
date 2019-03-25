@@ -218,7 +218,11 @@
                                 </div>
                                 <div class="row" style="margin-top: 30px;">
                                     <div class="col-md-12" style="text-align: center;">
+<<<<<<< HEAD
                                         <button type="button" id="filter_button"  class="btn btn-info">Appliquer</a>
+=======
+                                        <button type="button"  class="btn btn-info">Appliquer</a>
+>>>>>>> origin/master
                                     </div>
                                 </div>
 
@@ -359,6 +363,7 @@
                 }
             });
         });
+<<<<<<< HEAD
         //------------------------------
         $('#filter_button').click(function(){
             $.ajax({
@@ -382,6 +387,8 @@
             });
         })
 
+=======
+>>>>>>> origin/master
     </script>
 
 	@endsection

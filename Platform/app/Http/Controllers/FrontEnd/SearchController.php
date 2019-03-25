@@ -13,9 +13,12 @@ use App\Models\Hotel;
 use App\Models\Arrangement;
 use App\Models\Service;
 use App\Models\Equipement;
+<<<<<<< HEAD
 use App\Models\Pricing;
 use App\Models\Hotelservice;
 use App\Models\Hotelequipement;
+=======
+>>>>>>> origin/master
 
 
 class SearchController extends Controller
@@ -60,6 +63,7 @@ class SearchController extends Controller
         return $view ; 
     }
 
+<<<<<<< HEAD
     public function filterByTypes($types){
         $hotels = array();
         foreach(Room::orderBy('hotel_id','asc')->get() as $room){
@@ -185,6 +189,10 @@ class SearchController extends Controller
         $view->arrival_date = $arrival_date;
         $view->departure_date = $departure_date;
         return $view ; 
+=======
+    public function filter(Request $request){
+        
+>>>>>>> origin/master
     }
     
 }
