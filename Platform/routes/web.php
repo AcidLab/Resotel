@@ -71,7 +71,7 @@ Route::get('thankyou',array('as'=>'thankyou','uses'=> function () {
 Route::resource('bookings','BackEnd\BookingsController');
 //Route::get('')
 //----------------------
-
+Route::get('filter_search_results',array('as'=>'searchResults.filter','uses'=>'SearchlController@filter'));
 
 
 Auth::routes();

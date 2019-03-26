@@ -13,9 +13,12 @@ use App\Models\Hotel;
 use App\Models\Arrangement;
 use App\Models\Service;
 use App\Models\Equipement;
+
 use App\Models\Pricing;
 use App\Models\Hotelservice;
 use App\Models\Hotelequipement;
+
+
 
 
 class SearchController extends Controller
@@ -59,6 +62,7 @@ class SearchController extends Controller
         $view->departure_date = $departure_date;
         return $view ; 
     }
+
 
     public function filterByTypes($types){
         $hotels = array();
@@ -163,6 +167,7 @@ class SearchController extends Controller
         return $final_array;
     }
 
+
     public function filter(Request $request){
 
         $types = explode(';',$request->get('types'));
@@ -186,5 +191,5 @@ class SearchController extends Controller
         $view->departure_date = $departure_date;
         return $view ; 
     }
-    
 }
+   

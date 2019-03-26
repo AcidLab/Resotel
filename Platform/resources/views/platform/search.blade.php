@@ -218,7 +218,12 @@
                                 </div>
                                 <div class="row" style="margin-top: 30px;">
                                     <div class="col-md-12" style="text-align: center;">
-                                        <button type="button" id="filter_button"  class="btn btn-info">Appliquer</a>
+
+                                        <button type="button" id="filter_button"  class="btn btn-info">Appliquer</button>
+
+                                        
+
+                                        
                                     </div>
                                 </div>
 
@@ -359,6 +364,7 @@
                 }
             });
         });
+
         //------------------------------
         $('#filter_button').click(function(){
             $.ajax({
@@ -381,6 +387,7 @@
                 }
             });
         })
+
 
     </script>
 

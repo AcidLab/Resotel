@@ -257,34 +257,7 @@
 						</div>
 					</div>
 				</div>
-                <div class="col-md-6">
-                <div class="card card-pricing" data-background="image" style="background-image: url({{$hotel->pictures[0]->path}});height:400px;">
-							<div class="card-block">
-								
-								<div class="row">
-                                    <div class="col-md-6">
-                                    <h6 class="card-category">Services</h6>
-                                    <ul>
-									@foreach($hotel->services() as $row)
-                                        <li>{{$row->label}}</li>
-                                    @endforeach
-								</ul>
-                                    </div>
-                                    <div class="col-md-6">
-                                    <h6 class="card-category">Equipements</h6>
-                                    <ul>
-									@foreach($hotel->equipements() as $row)
-                                        <li>{{$row->label}}</li>
-                                    @endforeach
-								    </ul>
-                                    </div>
-                                </div>
-								
-								
-							</div>
-						</div>
-                </div>
-			</div>
+                
             @if(Session::get('failure'))
             <div class="alert alert-danger alert-with-icon" data-notify="container" style="width: 80%; margin:auto;margin-top : 10px;border-radius : 5px;">
                 <div class="container">
