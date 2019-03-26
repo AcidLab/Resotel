@@ -58,6 +58,7 @@ Route::group(['middleware' => 'auth','middleware' => 'verified'], function(){
 
 
 Route::get('search_hotel',array('as'=>'hotel.search','uses'=>'SearchlController@search'));
+Route::get('filter_search_results',array('as'=>'searchResults.filter','uses'=>'SearchlController@filter'));
 Route::get('hotel_details/{id}',array('as'=>'hotel.details','uses'=>'Backend\HotelController@returnHotelDetails'));
 Route::resource('hotels','Backend\HotelController');
 Route::get('hotels/{id}/{arrival_date}/{departure_date}',array('as'=>'hotel.showDetails','uses'=>'Backend\HotelController@show'));

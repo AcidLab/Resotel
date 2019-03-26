@@ -218,7 +218,7 @@
                                 </div>
                                 <div class="row" style="margin-top: 30px;">
                                     <div class="col-md-12" style="text-align: center;">
-                                        <button type="button"  class="btn btn-info">Appliquer</a>
+                                        <button type="button" id="filter_button"  class="btn btn-info">Appliquer</a>
                                     </div>
                                 </div>
 
@@ -359,6 +359,29 @@
                 }
             });
         });
+        //------------------------------
+        $('#filter_button').click(function(){
+            $.ajax({
+
+                url : "{{route('searchResults.filter')}}",
+                type : "get",
+                data : {
+                    types : $('#types_input').val(),
+                    supplements : $('#supplements_input').val(),
+                    stars : $('#stars_input').val(),
+                    services : $('#services_input').val(),
+                    equipements : $('#equipements_input').val(),
+                    arrival_date : "{{$arrival_date}}",
+                    departure_date : "{{$departure_date}}",
+
+                },
+                success : function(result,status){
+
+                    $('.Hotels').html(result);
+                }
+            });
+        })
+
     </script>
 
 	@endsection
