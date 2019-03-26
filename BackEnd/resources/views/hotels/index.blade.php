@@ -11,6 +11,7 @@ Gestion des hôtels
 <a  class="btn btn-info d-none d-lg-block m-l-15" href="{{route('hotel.createPage')}}"><i class="fa fa-plus-circle"></i> Créer </a>
 @endsection
 @section('content')
+@if(count($hotels) > 0)
 <div class="table-responsive">
                                     <table class="table table-striped">
                                         <thead>
@@ -46,6 +47,9 @@ Gestion des hôtels
                                         </tbody>
                                     </table>
                                 </div>
+                                @else
+                                Aucun hôtel trouvé
+                                @endif
 
 @endsection
 @section('js-includes')

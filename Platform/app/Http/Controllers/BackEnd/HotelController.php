@@ -12,25 +12,22 @@ use View;
 
 class HotelController extends Controller
 {
-    
-    
-
- 	public function deleteHotel(Request $request)
- 	{
- 		$id = $request->input('id');
+    public function deleteHotel(Request $request)
+    {
+        $id = $request->input('id');
 
 
 
- 		$hotel = Hotel::find($id);
+        $hotel = Hotel::find($id);
 
         $rooms = $hotel->rooms;
         foreach ($rooms as $row) {
             $row->delete();
         }
- 		$hotel->delete();
+        $hotel->delete();
 
- 		return 'ok';
- 	}
+        return 'ok';
+    }
 
     
 
@@ -184,6 +181,4 @@ class HotelController extends Controller
         
         
     }
-
-    
 }

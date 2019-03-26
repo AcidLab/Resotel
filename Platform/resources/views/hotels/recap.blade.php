@@ -119,7 +119,7 @@
                                 <td></td>
                                 <td style="text-align : center ; ">
                                     <div class="form-group">
-                                    <button type="submit" class="btn btn-info"> <i class="fa fa-check"></i> Payer</button>
+                                    <button type="button" class="btn btn-info"> <i class="fa fa-check"></i> Payer</button>
                                     </div>
                                 </td>       
                             </tr>

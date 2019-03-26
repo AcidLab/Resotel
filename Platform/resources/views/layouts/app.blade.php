@@ -47,7 +47,7 @@
                   
 
                   <li class="nav-item dropdown dropdown-danger">
-						<a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">{{Auth::user()->name}}</a>
+						<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">{{Auth::user()->name}}</a>
 						<ul class="dropdown-menu dropdown-menu-right">
                      <li class="dropdown-item"><a href="{{route('profil')}}"><i class="nc-icon nc-single-02"></i>&nbsp; Profil</a></li>
 	                  <li class="dropdown-item"><a href="sections.html#blogs"><i class="nc-icon nc-bullet-list-67"></i>&nbsp; Commandes</a></li>

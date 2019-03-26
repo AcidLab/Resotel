@@ -36,7 +36,10 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <input type="date" name="check_out_date" value="" placeholder="Date de départ" class="form-control" />
+                                                        <select name="check_out_date" required class="form-control">
+                                                         <option value="7">Dans 7 jours</option>
+                                                         <option value="14">Dans 14 jours</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -233,6 +236,7 @@
 
                     <div class="col-md-9">
                         <div class="Hotels">
+                            @if(count($all) > 0)
 							@foreach($all as $row)
                             <div class="row">
                                 <div class="col-md-4 col-sm-16">
@@ -262,6 +266,9 @@
                                 </div>
                             </div>
 							@endforeach
+                            @else 
+                            Aucun hôtel trouvé
+                            @endif
                             
                             
                             

@@ -1,3 +1,4 @@
+@if(count($all) > 0)
 @foreach($all as $row)
                             <div class="row">
                                 <div class="col-md-4 col-sm-16">
@@ -27,3 +28,6 @@
                                 </div>
                             </div>
 							@endforeach
+							@else 
+							<center>Aucun Résultat</center>
+							@endif

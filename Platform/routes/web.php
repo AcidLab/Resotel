@@ -68,7 +68,7 @@ Route::get('thankyou',array('as'=>'thankyou','uses'=> function () {
     return view('showcase.thankyou');
 }));
 //Bookings routes 
-Route::resource('bookings','BackEnd\BookingsController');
+Route::resource('bookings','Backend\BookingsController');
 //Route::get('')
 //----------------------
 Route::get('filter_search_results',array('as'=>'searchResults.filter','uses'=>'SearchlController@filter'));

@@ -91,6 +91,7 @@ class DemandsController extends Controller
     public function acceptDemand (Request $request,$id){
         $agency = Agency::onlyTrashed()->where('id','=',$id)->get()[0];
         $agency->deleted_at = null;
+        $agency->remember_token = null;
         $agency->save();
         $request->session()->flash('success','Demande acceptée avec succés ! ');
         return Redirect::to(route('demands.index'));

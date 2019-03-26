@@ -33,7 +33,47 @@ class SearchController extends Controller
         $controller = new HotelController;
         return  $controller->preSearch($word,$city,$arrival_date,$check_out_date);*/
         $view = View::make('platform.search');
-        $all = Hotel::all();
+        $all = array();
+        $hotels = array();
+        if($request->input('word')){
+            $words = explode(' ',$request->input('word'));
+            for($j=0;$j<count($words);$j++){
+                foreach(Hotel::where('keywords','like','%'.$words[$j].'%')->orderBy('id','asc')->get() as $row){
+                    $hotels[] = $row;
+                }
+            }
+            $temp = null;
+            $test = true;
+            while($test){
+                $test = false;
+                for($k=0;$k<count($hotels)-1;$k++){
+                    if($hotels[$k]->id > $hotels[$k+1]->id){
+                        $temp = $hotels[$k];
+                        $hotels[$k] = $hotels[$k+1];
+                        $hotels[$k+1] = $temp;
+                        $test = true;
+                    }
+                }
+            }
+            foreach($hotels as $key=>$row){
+                if($key == 0 ){
+                    $all[] = $row ; 
+                }
+                else {
+                    if($row->id != $all[count($all)-1]->id){
+                        $all[] = $row ;
+                    }
+                }
+            }
+
+
+            }
+
+
+        
+        else {
+            $all = Hotel::all();
+        }
         $roomtypes = Roomtype::all();
         $supplements = Arrangement::where('type','=',0)->get();
         $services = Service::all();
@@ -96,7 +136,7 @@ class SearchController extends Controller
     public function filterByServices($services){
         $hotels = array();
         foreach(Hotelservice::orderBy('hotel_id','asc')->get() as $hotelservice){
-            if(is_array($services) && in_array($hotelservice->id, $services)){
+            if(is_array($services) && in_array($hotelservice->service_id, $services)){
                 $hotels[] = Hotel::find($hotelservice->hotel_id);
             }
         }
@@ -107,7 +147,7 @@ class SearchController extends Controller
     public function filterByEquipements($equipements){
         $hotels = array();
         foreach(Hotelequipement::orderBy('hotel_id','asc')->get() as $hotelequipement){
-            if(is_array($equipements) && in_array($hotelequipement->id, $equipements)){
+            if(is_array($equipements) && in_array($hotelequipement->equipement_id, $equipements)){
                 $hotels[] = Hotel::find($hotelequipement->hotel_id);
             }
         }

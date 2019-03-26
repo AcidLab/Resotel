@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+{{Auth::logout()}}
 <div class="background-img" style="background-image: url('https://www.tourmag.com/photo/art/grande/20125146-23731412.jpg?v=1518445820');">
         <div class="filter"></div>
         <div class="container">

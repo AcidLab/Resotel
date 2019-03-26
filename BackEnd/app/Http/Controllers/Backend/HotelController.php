@@ -14,6 +14,7 @@ use App\Models\Pricing;
 use App\Models\Personsupp;
 use App\Models\Hotelservice;
 use App\Models\Service;
+use App\Models\Picture;
 use App\Http\Controllers\Controller;
 use View;
 use Session;
@@ -323,6 +324,16 @@ class HotelController extends Controller
         $hotel->save();
         while(!$hotel){}
         //return $hotel;
+            if($request->file('pictures')){
+                for($i=0;$i<count($request->file('pictures'));$i++){
+                    $picture = new Picture;
+                    $file = $request->file('pictures')[$i];
+                    $filename = $file->store(config('hotels_pictures_path'),'public');
+                    $picture->path = asset($filename);
+                    $picture->hotel_id = $hotel->id;
+                    $picture->save();  
+                }
+            }
         $object=array('hotel'=>$hotel);
         $test = json_encode($object);
         //return json_encode($object);

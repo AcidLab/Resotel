@@ -8,6 +8,7 @@ Messages
 Messages
 @endsection
 @section('content')
+@if(count($contacts) > 0)
 <div class="table-responsive">
                                     <table class="table table-striped">
                                         <thead>
@@ -34,6 +35,9 @@ Messages
                                         </tbody>
                                     </table>
                                 </div>
+                                @else 
+                                Aucun message
+                                @endif
 @endsection
 @section('js-includes')
 @endsection

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 @section('content')
 
 <div class="page-header page-header-xs" style="background-image: url('https://www.tunisienumerique.com/wp-content/uploads/2018/02/banquie.jpg')">
@@ -224,12 +224,13 @@
                 <div class="" style="padding-left: 150px;padding-right: 150px;">
                 <div class="container">
 			<div class="row" >
+                @if(count($hotel->pictures) > 0)
 				<div class="col-md-6">
-					<div class="card card-raised page-carousel" >
-						<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+					<div class="card card-raised page-carousel"  >
+						<div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
 						    <ol class="carousel-indicators">
                                 @foreach($hotel->pictures as $key=>$row)
-							    <li data-target="#carouselExampleIndicators" data-slide-to="{{$key}}" class="{{$key==0 ? 'active' : ''}}"></li>
+							    <li data-target="#carouselExampleIndicators2" data-slide-to="{{$key}}" class="{{$key==0 ? 'active' : ''}}"></li>
 							    
                                 @endforeach
 						    </ol>
@@ -246,17 +247,18 @@
                                 
                             </div>
 
-                            <a class="left carousel-control carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <a class="left carousel-control carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
                                 <span class="fa fa-angle-left"></span>
                                 <span class="sr-only">Previous</span>
                             </a>
-                            <a class="right carousel-control carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <a class="right carousel-control carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
                                 <span class="fa fa-angle-right"></span>
                                 <span class="sr-only">Next</span>
                             </a>
 						</div>
 					</div>
 				</div>
+                @endif
                 
             @if(Session::get('failure'))
             <div class="alert alert-danger alert-with-icon" data-notify="container" style="width: 80%; margin:auto;margin-top : 10px;border-radius : 5px;">

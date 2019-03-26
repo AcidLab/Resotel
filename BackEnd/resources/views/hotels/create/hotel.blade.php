@@ -5,6 +5,7 @@ Création d'un hôtel
 @section('css-includes')
 <link href="{{asset('assets/node_modules/horizontal-timeline/css/horizontal-timeline.css')}}" rel="stylesheet">
 <link href="{{asset('assets/dist/css/pages/timeline-vertical-horizontal.css')}}" rel="stylesheet">
+<link rel="stylesheet" href="{{asset('assets/node_modules/dropify/dist/css/dropify.min.css')}}">
 @endsection
 @section('row-title')
 Création d'un hôtel
@@ -18,7 +19,7 @@ Création d'un hôtel
                 <h4 class="m-b-0 text-white">Informations</h4>
             </div>
             <div class="card-body">
-            <form action="{{ route('hotel.createHotel') }}" method="POST">
+            <form action="{{ route('hotel.createHotel') }}" method="POST" enctype="multipart/form-data" >
                 <div class="form-body">
                     <h3 class="card-title">Informations de l'hôtel</h3>
                     <hr>
@@ -77,12 +78,19 @@ Création d'un hôtel
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label">Images : </label>
+                            <input type="file"  name="pictures[]" multiple accept="image/*" class="form-control" required />
+                        </div>
+                    </div>
 
 
                     
 
                 </div>
                 <div class="form-actions">
+                    <br/>
                 <button type="submit" class="btn btn-info"> <i class="fa fa-check"></i> Ajouter</button>
                 
             </div>
@@ -95,4 +103,47 @@ Création d'un hôtel
 @endsection
 @section('js-includes')
 <script src="{{asset('assets/node_modules/horizontal-timeline/js/horizontal-timeline.js')}}"></script>
+<script src="{{asset('assets/node_modules/dropify/dist/js/dropify.min.js')}}"></script>
+<script>
+    $(document).ready(function() {
+        // Basic
+        $('.dropify').dropify();
+
+        // Translated
+        $('.dropify-fr').dropify({
+            messages: {
+                default: 'Glissez-déposez un fichier ici ou cliquez',
+                replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                remove: 'Supprimer',
+                error: 'Désolé, le fichier trop volumineux'
+            }
+        });
+
+        // Used events
+        var drEvent = $('#input-file-events').dropify();
+
+        drEvent.on('dropify.beforeClear', function(event, element) {
+            return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+        });
+
+        drEvent.on('dropify.afterClear', function(event, element) {
+            alert('File deleted');
+        });
+
+        drEvent.on('dropify.errors', function(event, element) {
+            console.log('Has Errors');
+        });
+
+        var drDestroy = $('#input-file-to-destroy').dropify();
+        drDestroy = drDestroy.data('dropify')
+        $('#toggleDropify').on('click', function(e) {
+            e.preventDefault();
+            if (drDestroy.isDropified()) {
+                drDestroy.destroy();
+            } else {
+                drDestroy.init();
+            }
+        })
+    });
+</script>
 @endsection

@@ -10,6 +10,7 @@ Demandes d'adhésion
 @section('add-button')
 @endsection
 @section('content')
+@if(count($demands) > 0)
 <div class="table-responsive">
                                     <table class="table color-table info-table">
                                         <thead>
@@ -17,6 +18,8 @@ Demandes d'adhésion
                                                 <th style="text-align: center;">Numéro de la demande</th>
                                                 <th style="text-align: center;">Nom d'agence</th>
                                                 <th style="text-align: center;">Email</th>
+                                                <th style="text-align: center;">Adresse</th>
+                                                <th style="text-align: center;">N° SIRET</th>
                                                 <th style="text-align: center;">Date de la demande</th>
                                                 <th style="text-align: center;">Actions</th>
                                                 
@@ -27,6 +30,9 @@ Demandes d'adhésion
                                            		<td style="text-align: center;">{{$row->id}}</td>
                                            		<td style="text-align: center;">{{$row->name}}</td>
                                            		<td style="text-align: center;">{{$row->email}}</td>
+                                              <td style="text-align: center;">{{$row->address}}</td>
+                                              <td style="text-align: center;">{{$row->siret}}</td>
+                                              
                                            		<td style="text-align: center;">{{date('d-m-Y',strtotime($row->created_at))}}</td>
                                            		<td style="text-align: center;">
                                            				
@@ -37,6 +43,9 @@ Demandes d'adhésion
                                         </tbody>
                                     </table>
                                 </div>
+                                @else 
+                                Aucune demande d'adhésion 
+                                @endif
 @endsection
 @section('js-includes')
 @endsection
