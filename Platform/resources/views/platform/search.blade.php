@@ -31,7 +31,7 @@
                                             <div class="row" style="margin-top:20px;">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <input type="date" name="arrival_date" value="" placeholder="Date d'arrivée" class="form-control" />
+                                                        <input type="date" name="arrival_date" value="" placeholder="Date d'arrivée" class="form-control" required />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">

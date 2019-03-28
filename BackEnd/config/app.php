@@ -229,6 +229,7 @@ return [
         'City'=>App\Models\City::class,
         'Contract'=>App\Models\Contract::class,
         'Season'=>App\Models\Season::class,
+        
 
     ],
 

@@ -238,10 +238,8 @@
                                 <span class="hide-menu"> Hôtels </span>
                             </a>     
                         </li>
-
                         
 
-                        
                         
                         <li class="element {{preg_match('/booking/',\Request::route()->getName()) ? 'active' : ''}} "> 
                             <a class=" waves-effect waves-dark {{preg_match('/booking/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('bookings.index')}}" aria-expanded="false">
@@ -260,6 +258,12 @@
                             <a class=" waves-effect waves-dark {{preg_match('/demand/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('demands.index')}}" aria-expanded="false">
                                 <i class="ti-user"></i>
                                 <span class="hide-menu"> Demandes d'adhésion </span>
+                            </a>     
+                        </li>
+                        <li class="element {{preg_match('/user/',\Request::route()->getName()) ? 'active' : ''}} "> 
+                            <a class=" waves-effect waves-dark {{preg_match('/user/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('users.index')}}" aria-expanded="false">
+                                <i class="ti-lock"></i>
+                                <span class="hide-menu"> Utilisateurs </span>
                             </a>     
                         </li>
 

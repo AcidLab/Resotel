@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Booking;
-use View;
-use Redirect;
+use App\Models\Comment ;
+use App\Models\Hotel; 
+use View ; 
+use Redirect ; 
 
-class BookingsController extends Controller
+class CommentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +18,7 @@ class BookingsController extends Controller
      */
     public function index()
     {
-        $view = View::make('bookings.index');
-        $bookings = Booking::all();
-        $view->bookings = $bookings;
-        return $view;
+        //
     }
 
     /**
@@ -52,10 +50,12 @@ class BookingsController extends Controller
      */
     public function show($id)
     {
-        $booking = Booking::find($id);
-        $view = View::make('bookings.show');
-        $view->booking = $booking;
-        return $view;
+        $hotel = Hotel::find($id);
+        $comments = Comment::where('hotel_id','=',$hotel->id)->get();
+        $view = View::make('hotels.comments');
+        $view->comments = $comments ; 
+        $view->hotel = $hotel ; 
+        return $view ; 
     }
 
     /**
@@ -92,18 +92,11 @@ class BookingsController extends Controller
         //
     }
 
-    public function validateBooking(Request $request ,$id){
-        $booking = Booking::find($id);
-        $booking->status = 1;
-        $booking->save();
-        $request->session()->flash('success','Commande validée avec succés ! ');
-        return Redirect::to(route('bookings.index'));
-    }
-    public function cancelBooking(Request $request, $id){
-        $booking = Booking::find($id);
-        $booking->status = 2 ;
-        $booking->save();
-        $request->session()->flash('success','Commande annulée avec succés ! ');
-        return Redirect::to(route('bookings.index'));
+    public function deleteComment(Request $request,$id){
+        $comment = Comment::find($id);
+        $hotel = Hotel::find($comment->hotel_id);
+        $comment->delete();
+        $request->session()->flash('success','Commentaire supprimé avec succés ! ');
+        return Redirect::to(route('hotel.showComments',$hotel->id));
     }
 }

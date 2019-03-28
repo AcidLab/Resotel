@@ -22,8 +22,9 @@ use Redirect;
 
 class HotelController extends Controller
 {
+
     public function index(){
-        $hotels = Hotel::all();
+        $hotels = Hotel::where('completed','=',8)->get();
        
         $view = View::make('hotels.index');
         $view->hotels = $hotels;
@@ -321,6 +322,11 @@ class HotelController extends Controller
         $hotel->save();
         while(!$hotel){}
         $hotel->keywords = $hotel->name.' '.$hotel->postal_code.' '.$hotel->city->label.' '.$hotel->address.' '.$hotel->local_stars_number.' '.$hotel->to_stars_number.' '.$hotel->beds_number ;
+
+        $hotel->completed = 1  ;
+        $hotel->save();
+        $trim = str_replace(" ", "", $hotel->keywords); 
+        $hotel->keywords = $hotel->keywords." ".$trim;
         $hotel->save();
         while(!$hotel){}
         //return $hotel;
@@ -343,141 +349,216 @@ class HotelController extends Controller
     }
 
     public function storeContract (Request $request){
-        $contract = new Contract;
-        /*$contract->date_from = $request->input('date_from');
-        $contract->date_to = $request->input('date_to');*/
-        $contract->devise = $request->input('devise');
-        //$contract->destination = $request->input('destination');         
-        $contract->seasons_number = $request->input('seasons_number');
-        $contract->hotel_id = $request->input('hotel_id');
-        $contract->save();
-        while(!$contract){}
-        return $this->hotelReturnCreatePage(2,$contract);
+        if(Hotel::find($request->input('hotel_id'))->completed == 1){
+
+            $contract = new Contract;
+            /*$contract->date_from = $request->input('date_from');
+            $contract->date_to = $request->input('date_to');*/
+            $contract->devise = $request->input('devise');
+            //$contract->destination = $request->input('destination');         
+            $contract->seasons_number = $request->input('seasons_number');
+            $contract->hotel_id = $request->input('hotel_id');
+
+            $contract->save();
+            while(!$contract){}
+            $hotel = Hotel::find($contract->hotel_id);
+            $hotel->completed  ++ ;
+            $hotel->save();
+            return $this->hotelReturnCreatePage(2,$contract);
+        }
+        else {
+            
+            $request->session()->flash('success','Une erreur s\'est produite');
+            return Redirect::to(route('hotel.createPage'));
+        }
+        
+        
+        
     }
 
     public function storeSeason(Request $request){
-        
-        $number_of_seasons = count($request->except(['contract_id','_token','room_types']))  / 2 ;
-        $last_season = null;
-        $types = array();
-        for($j=0;$j<$number_of_seasons;$j++){
-            
-            $season = new Season;
-            $season->contract_id = $request->input('contract_id');
-            $season->start_date = $request->input('start_date_'.$j);
-            $season->end_date = $request->input('end_date_'.$j);
-            $season->save();
-            $last_season = $season;
-        }
-        if($request->input('room_types')){
-            for($i=0;$i<count($request->input('room_types'));$i++){
-                $types[]=$request->input('room_types')[$i];
+
+        if(Hotel::find(Contract::find($request->input('contract_id'))->hotel_id)->completed == 2){
+
+            $number_of_seasons = count($request->except(['contract_id','_token','room_types']))  / 2 ;
+            $hotel = Hotel::find(Contract::find($request->input('contract_id'))->hotel_id);
+            $last_season = null;
+            $types = array();
+            for($j=0;$j<$number_of_seasons;$j++){
+                
+                $season = new Season;
+                $season->contract_id = $request->input('contract_id');
+                $season->start_date = $request->input('start_date_'.$j);
+                $season->end_date = $request->input('end_date_'.$j);
+                $season->save();
+                $last_season = $season;
             }
+            if($request->input('room_types')){
+                for($i=0;$i<count($request->input('room_types'));$i++){
+                    $types[]=$request->input('room_types')[$i];
+                }
+            }
+            Session::put('room_types',$types);
+            $hotel->completed ++ ;
+            $hotel->save();
+            return $this->hotelReturnCreatePage(3,$last_season);
         }
-        Session::put('room_types',$types);
+        else {
 
+            $request->session()->flash('success','Une erreur s\'est produite');
+            return Redirect::to(route('hotel.createPage'));
 
-        return $this->hotelReturnCreatePage(3,$last_season);
+        }
+
+        
 
     }
 
     public function storeRoom(Request $request){
-        $number_of_room_types = count($request->except(['contract_id','arrangement_id','_token'])) / 12;
-        $contract = Contract::find($request->input('contract_id'));
-        $hotel = Hotel::find($contract->hotel_id);
-        //$hotel_rooms_number = 0;
-        for($i=0;$i<$number_of_room_types;$i++){
-            $room = new Room;
-            $room->type_id = $request->input('type_id_'.$i);
-            $room->hotel_id = $hotel->id;
-            $room->allotement = $request->input('allotement_'.$i);
-            $room->room_code = $request->input('room_code_'.$i);
-            $room->full_price = $request->input('full_price_'.$i);
-            $room->min_persons = $request->input('min_person_'.$i);
-            $room->max_persons = $request->input('max_person_'.$i);
-            $room->min_major = $request->input('min_major_'.$i) ;
-            $room->max_major = $request->input('max_major_'.$i);
-            $room->min_children = $request->input('min_children_'.$i);
-            $room->max_children = $request->input('max_children_'.$i);
-            $room->max_babies = $request->input('max_baby_'.$i);
-            $room->arrangement_id = $request->input('arrangement_id');
-            $room->save();
-            //$hotel_rooms_number+= $request->input('allotement_'.$i);
+        if(Hotel::find(Contract::find($request->input('contract_id'))->hotel_id)->completed == 3){
+            $number_of_room_types = count($request->except(['contract_id','arrangement_id','_token'])) / 12;
+            $contract = Contract::find($request->input('contract_id'));
+            $hotel = Hotel::find($contract->hotel_id);
+            //$hotel_rooms_number = 0;
+            for($i=0;$i<$number_of_room_types;$i++){
+                $room = new Room;
+                $room->type_id = $request->input('type_id_'.$i);
+                $room->hotel_id = $hotel->id;
+                $room->allotement = $request->input('allotement_'.$i);
+                $room->room_code = $request->input('room_code_'.$i);
+                $room->full_price = $request->input('full_price_'.$i);
+                $room->min_persons = $request->input('min_person_'.$i);
+                $room->max_persons = $request->input('max_person_'.$i);
+                $room->min_major = $request->input('min_major_'.$i) ;
+                $room->max_major = $request->input('max_major_'.$i);
+                $room->min_children = $request->input('min_children_'.$i);
+                $room->max_children = $request->input('max_children_'.$i);
+                $room->max_babies = $request->input('max_baby_'.$i);
+                $room->arrangement_id = $request->input('arrangement_id');
+                $room->save();
+                //$hotel_rooms_number+= $request->input('allotement_'.$i);
+            }
+        
+            $hotel->completed ++ ;
+            $hotel->save();
+            return $this->hotelReturnCreatePage(4,$hotel);
+        }
+        else {
+            $request->session()->flash('success','Une erreur s\'est produite');
+            return Redirect::to(route('hotel.createPage'));
         }
         
-        return $this->hotelReturnCreatePage(4,$hotel);
     }
 
     public function storePricing(Request $request){
-        $number_of_types = $request->input('room_types_number');
-        $number_of_seasons = $request->input('seasons_number');
         $a_season = $request->input('sason_id_0_0');
-        
         $season = Season::find($a_season);
         $contract = Contract::find($season->contract_id);
         $hotel = Hotel::find($contract->hotel_id);
-        $extra_charges = array();
-        for($i=0;$i<$number_of_types;$i++){
-            for($j=0;$j<$number_of_seasons;$j++){
-                $pricing = new Pricing;
-                $pricing->arrangement_id = $request->input('arrangement_id');
-                $pricing->room_type_id = $request->input('room_type_'.$i);
-                $pricing->season_id = $request->input('sason_id_'.$i.'_'.$j);
-                $pricing->price = $request->input('arrangement_price_'.$i.'_'.$j);
-                $pricing->hotel_id = $hotel->id;
-                $pricing->save();
+        if($hotel->completed == 4){
+
+            $number_of_types = $request->input('room_types_number');
+            $number_of_seasons = $request->input('seasons_number');
+            $a_season = $request->input('sason_id_0_0');
+        
+            $season = Season::find($a_season);
+            $contract = Contract::find($season->contract_id);
+            $hotel = Hotel::find($contract->hotel_id);
+            $extra_charges = array();
+            for($i=0;$i<$number_of_types;$i++){
+                for($j=0;$j<$number_of_seasons;$j++){
+                    $pricing = new Pricing;
+                    $pricing->arrangement_id = $request->input('arrangement_id');
+                    $pricing->room_type_id = $request->input('room_type_'.$i);
+                    $pricing->season_id = $request->input('sason_id_'.$i.'_'.$j);
+                    $pricing->price = $request->input('arrangement_price_'.$i.'_'.$j);
+                    $pricing->hotel_id = $hotel->id;
+                    $pricing->save();
+                }
             }
-        }
-        if($request->input('extra_charges')){
-            for($i=0;$i<count($request->input('extra_charges'));$i++){
-                $extra_charges[]=$request->input('extra_charges')[$i];
+            if($request->input('extra_charges')){
+                for($i=0;$i<count($request->input('extra_charges'));$i++){
+                    $extra_charges[]=$request->input('extra_charges')[$i];
+                }
             }
+            Session::put('extra_charges',$extra_charges);
+            $hotel->completed ++;
+            $hotel->save();
+            return $this->hotelReturnCreatePage(5,$hotel);
         }
-        Session::put('extra_charges',$extra_charges);
-        return $this->hotelReturnCreatePage(5,$hotel);
+        else {
+            $request->session()->flash('success','Une erreur s\'est produite');
+            return Redirect::to(route('hotel.createPage'));
+        }
+        
 
     }
 
     public function storeExtraCharges(Request $request){
-        $number_of_supps = $request->input('number_of_supps');
-        $number_of_seasons = $request->input('seasons_number');
-        $hotel_id = $request->input('hotel_id');
-        for($i=0;$i<$number_of_supps;$i++){
-            for($j=0;$j<$number_of_seasons;$j++){
-                $pricing = new Pricing;
-                $pricing->hotel_id = $hotel_id;
-                $pricing->arrangement_id = $request->input('arrangement_id_'.$i) ;
-                $pricing->room_type_id = 0;
-                $pricing->season_id = $request->input('season_id_'.$i.'_'.$j) ; 
-                $pricing->price = $request->input('price_'.$i.'_'.$j) ;
-                $pricing->save();
-                   
-            }
-        }
 
-        //return Redirect::to(route('hotels.index'));
-        return $this->hotelReturnCreatePage(6,Hotel::find($hotel_id));
+        if(Hotel::find($request->input('hotel_id'))->completed == 5){
+            $number_of_supps = $request->input('number_of_supps');
+            $number_of_seasons = $request->input('seasons_number');
+            $hotel_id = $request->input('hotel_id');
+            for($i=0;$i<$number_of_supps;$i++){
+                for($j=0;$j<$number_of_seasons;$j++){
+                    $pricing = new Pricing;
+                    $pricing->hotel_id = $hotel_id;
+                    $pricing->arrangement_id = $request->input('arrangement_id_'.$i) ;
+                    $pricing->room_type_id = 0;
+                    $pricing->season_id = $request->input('season_id_'.$i.'_'.$j) ; 
+                    $pricing->price = $request->input('price_'.$i.'_'.$j) ;
+                    $pricing->save();
+                       
+                }
+            }
+
+            //return Redirect::to(route('hotels.index'));
+            $hotel = Hotel::find($hotel_id);
+            $hotel->completed ++;
+            $hotel->save();
+            return $this->hotelReturnCreatePage(6,Hotel::find($hotel_id));
+        }
+        else {
+            $request->session()->flash('success','Une erreur s\'est produite');
+            return Redirect::to(route('hotel.createPage'));
+        }
+        
     }
 
     public function storeRetrocessionTimes(Request $request){
-        $hotel_id = $request->input('hotel_id');
-        $number_of_seasons = $request->input('number_of_seasons');
-        for($i=0;$i<$number_of_seasons;$i++){
-            $pricing = new Pricing;
-            $pricing->arrangement_id = 0 ;
-            $pricing->room_type_id = 0 ;
-            $pricing->hotel_id = $hotel_id ;
-            $pricing->season_id = $request->input('season_id_'.$i);
-            $pricing->price = $request->input('retrocession_time_'.$i);
-            $pricing->save();
 
+        if(Hotel::find($request->input('hotel_id'))->completed == 6){
+            $hotel_id = $request->input('hotel_id');
+            $number_of_seasons = $request->input('number_of_seasons');
+            for($i=0;$i<$number_of_seasons;$i++){
+                $pricing = new Pricing;
+                $pricing->arrangement_id = 0 ;
+                $pricing->room_type_id = 0 ;
+                $pricing->hotel_id = $hotel_id ;
+                $pricing->season_id = $request->input('season_id_'.$i);
+                $pricing->price = $request->input('retrocession_time_'.$i);
+                $pricing->save();
+
+            }
+            //return Redirect::to(route('hotels.index'));
+            $hotel = Hotel::find($hotel_id);
+            $hotel->completed ++;
+            $hotel->save();
+            return $this->hotelReturnCreatePage(7,Hotel::find($hotel_id));
         }
-        //return Redirect::to(route('hotels.index'));
-        return $this->hotelReturnCreatePage(7,Hotel::find($hotel_id));
+        else {
+            $request->session()->flash('success','Une erreur s\'est produite');
+            return Redirect::to(route('hotel.createPage'));
+        }
+        
 
     }
 
     public function storeExtraChargesByAges (Request $request){
+
+        if(Hotel::find($request->input('hotel_id'))->completed == 7){
+
             $hotel_id = $request->input('hotel_id');
             $number_of_seasons = $request->input('number_of_seasons');
             $room_types = '';
@@ -503,7 +584,17 @@ class HotelController extends Controller
                 
             }
             $request->session()->flash('success','Hotel ajouté avec succés ! ');
+            $hotel = Hotel::find($hotel_id);
+            $hotel->completed ++;
+            $hotel->save();
             return Redirect::to(route('hotels.index'));
+
+        }
+        else {
+            $request->session()->flash('success','Une erreur s\'est produite');
+            return Redirect::to(route('hotel.createPage'));
+        }
+            
     }
 
     public function affectServicesPage($id){

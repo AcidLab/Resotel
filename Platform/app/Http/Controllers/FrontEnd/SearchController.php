@@ -38,7 +38,7 @@ class SearchController extends Controller
         if($request->input('word')){
             $words = explode(' ',$request->input('word'));
             for($j=0;$j<count($words);$j++){
-                foreach(Hotel::where('keywords','like','%'.$words[$j].'%')->orderBy('id','asc')->get() as $row){
+                foreach(Hotel::where([['keywords','like','%'.$words[$j].'%'],['completed','=',8]])->orderBy('id','asc')->get() as $row){
                     $hotels[] = $row;
                 }
             }
@@ -108,7 +108,7 @@ class SearchController extends Controller
         $hotels = array();
         foreach(Room::orderBy('hotel_id','asc')->get() as $room){
             if(is_array($types) && in_array($room->type_id,$types)){
-                $hotels[]=Hotel::find($room->hotel_id);
+                $hotels[]=Hotel::where([['id','=',$room->hotel_id],['completed','=',8]])->get()[0];
             }
         }
         return $hotels ; 
@@ -117,7 +117,7 @@ class SearchController extends Controller
         $hotels = array();
         foreach(Pricing::where([['arrangement_id','<>',0],['room_type_id','=',0]])->orderBy('hotel_id','asc')->get() as $pricing){
             if(is_array($supplements) && in_array($pricing->arrangement_id, $supplements)){
-                $hotels[] = Hotel::find($pricing->hotel_id);
+                $hotels[] = Hotel::where([['id','=',$pricing->hotel_id],['completed','=',8]])->get()[0];
             }
 
         }
@@ -125,7 +125,7 @@ class SearchController extends Controller
     }
     public function filterByStars($stars){
         $hotels = array();
-        foreach(Hotel::orderBy('id','asc')->get() as $hotel){
+        foreach(Hotel::where('completed','=',8)->orderBy('id','asc')->get() as $hotel){
             if(is_array($stars) && in_array($hotel->local_stars_number, $stars)){
                 $hotels[] = $hotel;
             }
@@ -137,7 +137,7 @@ class SearchController extends Controller
         $hotels = array();
         foreach(Hotelservice::orderBy('hotel_id','asc')->get() as $hotelservice){
             if(is_array($services) && in_array($hotelservice->service_id, $services)){
-                $hotels[] = Hotel::find($hotelservice->hotel_id);
+                $hotels[] = Hotel::where([['id','=',$hotelservice->hotel_id],['completed','=',8]])->get()[0];
             }
         }
         return $hotels;
@@ -148,7 +148,7 @@ class SearchController extends Controller
         $hotels = array();
         foreach(Hotelequipement::orderBy('hotel_id','asc')->get() as $hotelequipement){
             if(is_array($equipements) && in_array($hotelequipement->equipement_id, $equipements)){
-                $hotels[] = Hotel::find($hotelequipement->hotel_id);
+                $hotels[] = Hotel::where([['id','=',$hotelequipement->hotel_id],['completed','=',8]])->get()[0];
             }
         }
         return $hotels;

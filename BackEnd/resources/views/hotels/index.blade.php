@@ -16,14 +16,14 @@ Gestion des hôtels
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Numéro</th>
-                                                <th>Nom</th>
-                                                <th>Ville</th>
-                                                <th>Addresse</th>
-                                                <th>Nombre de lits</th>
+                                                <th style="text-align: center;">Numéro</th>
+                                                <th style="text-align: center;">Nom</th>
+                                                <th style="text-align: center;">Ville</th>
+                                                <th style="text-align: center;">Addresse</th>
+                                                <th style="text-align: center;">Nombre de lits</th>
                                                 
-                                                <th>Nombre des saisons du contrat</th>
-                                                <th>Actions</th>
+                                                <th style="text-align: center;">Nombre des saisons du contrat</th>
+                                                <th style="text-align: center;">Actions</th>
                                                 
                                             </tr>
                                         </thead>
@@ -39,6 +39,7 @@ Gestion des hôtels
                                                    <td style="text-align:center;">{{count($row->contracts[0]->seasons)}}</td>
                                                    <td style="text-align:center;">
                                                    <a href="{{route('hotel.affectServicesPage',$row->id)}}" class="btn btn-info btn-circle" ><i class="fa fa-edit" ></i> </a>
+                                                   <a href="{{route('hotel.showComments',$row->id)}}" class="btn btn-info btn-circle" ><i class="fa fa-vcard-o" ></i> </a>
                                                    
                                                    </td>
 

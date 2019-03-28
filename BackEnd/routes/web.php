@@ -44,6 +44,7 @@ Route::post('create_contract',array('as'=>'hotel.createHotel','uses'=>'Backend\H
 Route::get('affect_services/{id}',array('as'=>'hotel.affectServicesPage','uses'=>'Backend\HotelController@affectServicesPage'));
 Route::post('affect_services_store',array('as'=>'hotel.storeAffectedServices','uses'=>'Backend\HotelController@affectServicesStore'));
 
+
 //---------------
 //Contracts routes
 Route::resource('Hotels','Backend\ContractsController');
@@ -89,7 +90,16 @@ Route::get('delete_arrangement/{id}',array('as'=>'arrangement.remove','uses'=>'F
 //Bookings routes 
 Route::resource('bookings','Frontend\BookingsController');
 Route::get('validate_booking/{id}',array('as'=>'booking.validate','uses'=>'Frontend\BookingsController@validateBooking'));
+Route::get('cancel_booking/{id}',array('as'=>'booking.cancel','uses'=>'Frontend\BookingsController@cancelBooking'));
 //----------------------
+//Comments routes 
+Route::resource('comments','Backend\CommentsController');
+Route::get('show_hotel_comments/{id}',array('as'=>'hotel.showComments','uses'=>'Backend\CommentsController@show'));
+Route::get('delete_comment/{id}',array('as'=>'hotel.deleteComment','uses'=>'Backend\CommentsController@deleteComment'));
+//----------------
+//users routes 
+Route::resource('users','Backend\UsersController');
+//----------------
 
 
 Route::get('/', function () {
@@ -132,7 +142,10 @@ Route::get('create_supps_for_persons',function(){
 //----------------
 Route::get('/home', 'Frontend\HomeController@index')->name('home');
 Route::resource('demands','Frontend\DemandsController');
-Route::get('accept_demand/{id}',array('as'=>'demand.accept','uses'=>'Frontend\DemandsController@acceptDemand'));
+Route::post('accept_demand/{id}',array('as'=>'demand.accept','uses'=>'Frontend\DemandsController@acceptDemand'));
+Route::post('edit_demand/{id}',array('as'=>'demand.set','uses'=>'Frontend\DemandsController@updateDemand'));
+Route::get('bann_agency/{id}',array('as'=>'demand.bann','uses'=>'Frontend\DemandsController@bannAgency'));
+Route::get('recover_agency/{id}',array('as'=>'agency.recover','uses'=>'Frontend\DemandsController@recoverAgency'));
 });
 
 

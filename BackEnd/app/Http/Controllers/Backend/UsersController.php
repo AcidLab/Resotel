@@ -1,14 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Booking;
-use View;
+use App\User;
+use View; 
+use Auth;
 use Redirect;
+use Validator;
+use Hash;
 
-class BookingsController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +20,10 @@ class BookingsController extends Controller
      */
     public function index()
     {
-        $view = View::make('bookings.index');
-        $bookings = Booking::all();
-        $view->bookings = $bookings;
-        return $view;
+        $users = User::where('id','<>',Auth::user()->id)->get();
+        $view = View::make('users.index');
+        $view->users = $users;
+        return $view; 
     }
 
     /**
@@ -30,7 +33,8 @@ class BookingsController extends Controller
      */
     public function create()
     {
-        //
+        $view = View::make('users.create');
+        return $view ; 
     }
 
     /**
@@ -41,7 +45,24 @@ class BookingsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = array('password' => 'required|string|min:6|confirmed','email' => 'required|string|email|max:255|unique:admin');
+        $v = Validator::make($request->all(),$rules);
+
+        if ($v->fails()) {
+
+            return Redirect::back()->withInput()->withErrors($v);
+            
+        }
+        else {
+            $user = new User ; 
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+            $user->type = $request->input('type');
+            $user->password = Hash::make($request->input('password'));
+            $user->save();
+            $request->session()->flash('success','Utilisateur crée avec succés ! ');
+            return Redirect::to(route('users.index'));
+        }
     }
 
     /**
@@ -52,10 +73,7 @@ class BookingsController extends Controller
      */
     public function show($id)
     {
-        $booking = Booking::find($id);
-        $view = View::make('bookings.show');
-        $view->booking = $booking;
-        return $view;
+        //
     }
 
     /**
@@ -90,20 +108,5 @@ class BookingsController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function validateBooking(Request $request ,$id){
-        $booking = Booking::find($id);
-        $booking->status = 1;
-        $booking->save();
-        $request->session()->flash('success','Commande validée avec succés ! ');
-        return Redirect::to(route('bookings.index'));
-    }
-    public function cancelBooking(Request $request, $id){
-        $booking = Booking::find($id);
-        $booking->status = 2 ;
-        $booking->save();
-        $request->session()->flash('success','Commande annulée avec succés ! ');
-        return Redirect::to(route('bookings.index'));
     }
 }

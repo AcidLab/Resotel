@@ -36,7 +36,7 @@ Demandes d'adhésion
                                            		<td style="text-align: center;">{{date('d-m-Y',strtotime($row->created_at))}}</td>
                                            		<td style="text-align: center;">
                                            				
-                                           			<a class="btn btn-circle btn-success" href="{{route('demand.accept',$row->id)}}" ><i class="icon-check" style="color:white;"></i></a>
+                                           			<a class="btn btn-circle btn-success" data-toggle="modal" data-target="#validate_agency{{$row->id}}" ><i class="icon-check" style="color:white;"></i></a>
                                            		</td>
                                            	@endforeach
                                             
@@ -47,5 +47,71 @@ Demandes d'adhésion
                                 Aucune demande d'adhésion 
                                 @endif
 @endsection
+<!--modals-->
+@foreach($demands as $row)
+<div class="modal fade" id="validate_agency{{$row->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                    <form action ="{{route('demand.accept',$row->id)}}" method="POST">
+                      {{csrf_field()}}
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="exampleModalLabel1">Validation d'une demande d'adhésion</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                               <div class="row">
+                                                <div class="col-md-6">
+                                                  <div class="form-group">
+                                                      <label class="control-label">Nom de l'agence : </label>
+                                                      <input type="text" class="form-control" readonly value="{{$row->name}}">
+                                                  </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                  <div class="form-group">
+                                                      <label class="control-label">Email: </label>
+                                                      <input type="email" class="form-control" readonly value="{{$row->email}}">
+                                                  </div>
+                                                </div>
+                                               </div>
+                                               <div class="row">
+                                                  <div class="col-md-6">
+                                                      <div class="form-group">
+                                                          <label class="control-label">Adresse : </label>
+                                                          <input type="text" class="form-control" readonly value="{{$row->address}}"/>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-md-6">
+                                                      <div class="form-group">
+                                                          <label class="control-label">N° Siret :  </label>
+                                                          <input type="text" class="form-control" readonly value="{{$row->siret}}"/>
+                                                      </div>
+                                                  </div>
+                                               </div>
+                                               <div class="row">
+                                                  <div class="col-md-6">
+                                                    <div class="form-group">
+                                                      <input type="checkbox" class="check" id="minimal-checkbox-2" checked disabled>
+                                                      <label for="minimal-checkbox-2">Payement en ligne </label>
+                                                    </div>
+                                                  </div>
+                                                  <div class="col-md-6">
+                                                    <div class="form-group">
+                                                      <input type="checkbox" class="check" id="minimal-checkbox-2" value="1" name="transfer_option">
+                                                      <label for="minimal-checkbox-2">Payement avec virement </label>
+                                                    </div>
+                                                  </div>
+                                               </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                                                <button type="submit"  class="btn btn-success">Accepter</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                </div>
+@endforeach
+<!--Modals-->
 @section('js-includes')
 @endsection

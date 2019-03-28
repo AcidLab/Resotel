@@ -111,7 +111,9 @@
                                 <td style="text-align:center;">
                                         <div class="form-group">
                                             <select class="form-control" required name="payment_type">
+                                                @if(Auth::user()->transfer_option == 1)
                                                 <option value="0">Virement</option>
+                                                @endif
                                                 <option value="1"> En ligne</option>
                                             </select>
                                         </div>

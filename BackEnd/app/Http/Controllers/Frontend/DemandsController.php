@@ -17,9 +17,14 @@ class DemandsController extends Controller
      */
     public function index()
     {
-        $view = View::make('demands.index');
-        $demands= Agency::onlyTrashed()->get();
-        $view->demands = $demands;
+        $view = View::make('demands.index2');
+        $noAcceptedDemands= Agency::onlyTrashed()->get();
+        $bannedDemands = Agency::onlyTrashed()->where('banned','=',1)->get();
+        $inWait = Agency::onlyTrashed()->where('banned','=',null)->get();
+        $acceptedDemands = Agency::all();
+        $view->noAcceptedDemands = $inWait;
+        $view->acceptedDemands = $acceptedDemands;
+        $view->bannedDemands = $bannedDemands;
         return $view;
     }
 
@@ -92,8 +97,47 @@ class DemandsController extends Controller
         $agency = Agency::onlyTrashed()->where('id','=',$id)->get()[0];
         $agency->deleted_at = null;
         $agency->remember_token = null;
+        if($request->input('transfer_option') != null && $request->input('transfer_option') != ""){
+            $agency->transfer_option = $request->input('transfer_option');
+        }
+        else {
+            $agency->transfer_option = 0;
+        }
         $agency->save();
         $request->session()->flash('success','Demande acceptée avec succés ! ');
+        return Redirect::to(route('demands.index'));
+    }
+    public function updateDemand(Request $request , $id){
+
+        $agency = Agency::find($id);
+        if($request->input('transfer_option') != null && $request->input('transfer_option') != ""){
+
+            $agency->transfer_option = $request->input('transfer_option') ;
+        }
+        else {
+            $agency->transfer_option = 0;
+        }
+        $agency->save();
+        $request->session()->flash('success','Demande modifiée avec succés');
+        return Redirect::to(route('demands.index'));
+    }
+
+    public function bannAgency (Request $request,$id){
+        $agency = Agency::find($id);
+        $agency->banned = 1 ;
+        $agency->deleted_at = date('Y-m-d');
+        //$agency->remember_token = null;
+        $agency->save();
+        $request->session()->flash('success','Agence bloquée avec succés ! ');
+        return Redirect::to(route('demands.index'));
+    }
+    public function recoverAgency(Request $request , $id){
+        $agency = Agency::onlyTrashed()->where('id','=',$id)->get()[0];
+        $agency->banned = null;
+        $agency->deleted_at = null;
+        $agency->remember_token = null;
+        $agency->save();
+        $request->session()->flash('success','Agence récupérée avec succés ! ');
         return Redirect::to(route('demands.index'));
     }
 }

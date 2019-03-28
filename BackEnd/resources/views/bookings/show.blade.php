@@ -157,11 +157,16 @@ Date facture
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
+                                <td style="text-align: center;">
+                                    @if($booking->status == 0)
+                                    <a  class="btn btn-danger" href="{{route('booking.cancel',$booking->id)}}" style="color:white;"> <i class="fa fa-check"></i> Annuler</a>
+                                    @endif
+                                   
+                                </td>
                                 <td style="text-align: center;">
                                 	@if($booking->status == 0)
                                 		<a  class="btn btn-success" href="{{route('booking.validate',$booking->id)}}" style="color:white;"> <i class="fa fa-check"></i> Valider</a>
-                                	@endif
+                                        @endif
                                 </td>
                                 <td style="text-align: center;">
                                 	<button type="button" class="btn btn-info" id="print_button"> <i class="fa fa-print"></i> Imprimer</button>
