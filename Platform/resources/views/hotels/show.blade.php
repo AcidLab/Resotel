@@ -206,7 +206,7 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                       <h3 class="text-center">Ajouter un commentaire</h3>
-                      <form action="" method="POST">
+                      <form action="{{route('comments.store')}}" method="POST">
                         {{csrf_field()}}
                           <div class="media media-post">
                               <a class="pull-left author" href="#paper-kit">
@@ -215,7 +215,10 @@
                                   </div>
                               </a>
                               <div class="media-body">
-                                    <textarea class="form-control border-input" placeholder="" rows="6"></textarea>
+                                    <input type="text" class="form-control" name="hotel_id" value="{{$hotel->id}}" hidden required />
+                                    <input type="date" class="form-control" value="{{$arrival_date}}" name="arrival_date" hidden required />
+                                    <input type="date" class="form-control" value="{{$departure_date}}" name="departure_date" hidden required />
+                                    <textarea class="form-control border-input" name="content" required  placeholder="" rows="6"></textarea>
                                     <div class="media-footer">
                                          <button type="submit" class="btn btn-info btn-wd pull-right">Poster</button>
                                     </div>

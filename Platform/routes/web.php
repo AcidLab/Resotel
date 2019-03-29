@@ -75,7 +75,8 @@ Route::post('pay_booking/{id}',array('as'=>'booking.pay','uses'=>'Backend\Bookin
 Route::get('agencybookings',array('as'=>'agencybookings','uses'=>'Backend\BookingsController@showAgencyBookings'));
 Route::get('bookinginvoice{id}',array('as'=>'booking.showInvoice','uses'=>'Backend\BookingsController@showInvoice'));
 //--------------
-
+//---comments 
+Route::resource('comments','Backend\CommentsController');
 
 
 Auth::routes();
