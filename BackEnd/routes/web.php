@@ -148,7 +148,7 @@ Route::get('bann_agency/{id}',array('as'=>'demand.bann','uses'=>'Frontend\Demand
 Route::get('recover_agency/{id}',array('as'=>'agency.recover','uses'=>'Frontend\DemandsController@recoverAgency'));
 });
 
-
+Route::get('vourcher/{id}',array('as'=>'booking.vourcher','uses'=>'Frontend\BookingsController@vourcher'));
 
 Auth::routes();
 Route::get('logout',array('as'=>'logout','uses'=>'Auth\LoginController@logout'));

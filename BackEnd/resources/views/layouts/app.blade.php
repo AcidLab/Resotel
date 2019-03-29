@@ -146,6 +146,7 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
+                    @if(Auth::user()->type == 1)
                     <li> 
                        
                         <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
@@ -187,6 +188,7 @@
                         </ul>
                         
                     </li>
+                    @endif
                     <li> 
                         <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                         <i class="icon-settings"></i>
@@ -240,7 +242,7 @@
                         </li>
                         
 
-                        
+                        @if(Auth::user()->type == 1)
                         <li class="element {{preg_match('/booking/',\Request::route()->getName()) ? 'active' : ''}} "> 
                             <a class=" waves-effect waves-dark {{preg_match('/booking/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('bookings.index')}}" aria-expanded="false">
                                 <i class="fa  fa-sort-amount-asc"></i>
@@ -266,6 +268,7 @@
                                 <span class="hide-menu"> Utilisateurs </span>
                             </a>     
                         </li>
+                        @endif
 
                     </ul>
                 </nav>

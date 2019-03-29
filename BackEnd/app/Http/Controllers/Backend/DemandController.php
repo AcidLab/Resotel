@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Hash;
 
 class DemandController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['admin','auth']);
+    }
+
+    
     public function addDemand (Request $request)
     {
 

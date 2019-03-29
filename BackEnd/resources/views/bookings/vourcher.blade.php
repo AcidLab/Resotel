@@ -92,7 +92,7 @@ Date facture
                                 <th style="text-align : center ; ">Nombre d'adultes</th>
                                 <th style="text-align : center ; ">Nombre d'enfants</th>
                                 <th style="text-align : center ; ">Nombre de bébés</th>
-                                <th style="text-align : center ; ">Prix</th>
+                                <th style="text-align : center ; "></th>
                                 
                                 
                                 
@@ -128,7 +128,6 @@ Date facture
 	<td style="text-align : center;">{{$row->childrens_number}}</td>
 	<td style="text-align:center;">{{$row->babies_number}}</td>
 	<td style="text-align : center">
-        {{$row->roomPriceInSeason()}} Euros
     </td>
     
 </tr>
@@ -140,20 +139,15 @@ Date facture
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td style="text-align : center;">Prix Total</td>
+                                <td style="text-align : center;"></td>
                                 <td style="text-align : center ; ">
-                                    <?php
-                                        $total = 0;
-                                        foreach($booking->bookingDetails as $key=>$row){
-                                            $total += $row->roomPriceInSeason();
-                                        } 
-                                    ?>
-                                    {{$total}} Euros
+                                    
                                 </td>
                             
 </tr>
 <tr>
 								<td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td style="text-align: center;">
@@ -168,11 +162,7 @@ Date facture
                                         @endif
                                 </td>
 
-                                <td style="text-align: center;">
-                                @if($booking->status == 1)
-                                <a  class="btn btn-warning" href="{{route('booking.vourcher',$booking->id)}}" style="color:white;" target="_blank"> <i class="fa fa-file"></i> Vourcher</a>
-                                @endif
-                                </td>
+                                
                                 
                                 <td style="text-align: center;">
                                 

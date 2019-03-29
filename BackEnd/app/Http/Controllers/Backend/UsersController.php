@@ -18,6 +18,14 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+    public function __construct()
+    {
+        $this->middleware(['admin','auth']);
+    }
+
+
     public function index()
     {
         $users = User::where('id','<>',Auth::user()->id)->get();
@@ -71,9 +79,25 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
-        //
+        $rules = array('email' => 'required|string|email|max:255');
+        $v = Validator::make($request->all(),$rules);
+
+        if ($v->fails()) {
+
+            return Redirect::back()->withInput()->withErrors($v);
+            
+        }
+        else {
+            $user = User::find($id) ; 
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+            $user->type = $request->input('type');
+            $user->save();
+            $request->session()->flash('success','Utilisateur modifié avec succés ! ');
+            return Redirect::to(route('users.index'));
+        }
     }
 
     /**
@@ -84,7 +108,10 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $view = View::make('users.edit');
+        $user = User::find($id);
+        $view->user = $user;
+        return $view ; 
     }
 
     /**
@@ -96,7 +123,23 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = array('password' => 'required|string|min:6|confirmed','email' => 'required|string|email|max:255|unique:admin');
+        $v = Validator::make($request->all(),$rules);
+
+        if ($v->fails()) {
+
+            return Redirect::back()->withInput()->withErrors($v);
+            
+        }
+        else {
+            $user = User::find($id) ; 
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+            $user->type = $request->input('type');
+            $user->save();
+            $request->session()->flash('success','Utilisateur modifié avec succés ! ');
+            return Redirect::to(route('users.index'));
+        }
     }
 
     /**
@@ -107,6 +150,6 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }

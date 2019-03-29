@@ -15,6 +15,14 @@ class DemandsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+    public function __construct()
+    {
+        $this->middleware(['admin','auth']);
+    }
+
+    
     public function index()
     {
         $view = View::make('demands.index2');

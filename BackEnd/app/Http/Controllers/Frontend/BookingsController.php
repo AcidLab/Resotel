@@ -15,6 +15,12 @@ class BookingsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware(['admin','auth']);
+    }
+
     public function index()
     {
         $view = View::make('bookings.index');
@@ -57,6 +63,15 @@ class BookingsController extends Controller
         $view->booking = $booking;
         return $view;
     }
+
+    public function vourcher($id)
+    {
+        $booking = Booking::find($id);
+        $view = View::make('bookings.vourcher');
+        $view->booking = $booking;
+        return $view;
+    }
+    
 
     /**
      * Show the form for editing the specified resource.

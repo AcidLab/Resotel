@@ -8,6 +8,15 @@ use App\Http\Controllers\Controller;
 
 class AgencieController extends Controller
 {
+
+
+	public function __construct()
+    {
+        $this->middleware(['admin','auth']);
+	}
+	
+
+	
     public function addAgencie (Request $request)
     {
     	$name = $request->input('name');

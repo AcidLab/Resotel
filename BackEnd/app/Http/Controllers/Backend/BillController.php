@@ -8,6 +8,14 @@ use App\Http\Controllers\Controller;
 
 class BillController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware(['admin','auth']);
+    }
+
+    
     public function showBills ()
     {
     	return Bill::all();

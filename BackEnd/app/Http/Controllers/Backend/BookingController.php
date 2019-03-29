@@ -9,6 +9,14 @@ use App\Http\Controllers\Controller;
 
 class BookingController extends Controller
 {
+
+
+	public function __construct()
+    {
+        $this->middleware(['admin','auth']);
+	}
+	
+	
       public function addBooking (Request $request)
     {
     	$arrival_date = $request->input('arrival_date');

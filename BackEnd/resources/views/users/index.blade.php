@@ -44,7 +44,7 @@ Gestion des utilisateurs
                                                    
                                                    
                                                    <td style="text-align:center;">
-                                                   <a href="#" class="btn btn-info btn-circle" ><i class="fa fa-edit" ></i> </a>
+                                                   <a href="{{route('users.edit',$row->id)}}" class="btn btn-info btn-circle" ><i class="fa fa-edit" ></i> </a>
                                                    <a href="#" class="btn btn-warning btn-circle" ><i class="ti-lock" ></i> </a>
                                                    <a href="#" class="btn btn-danger btn-circle" ><i class="fa fa-close" ></i> </a>
                                                    

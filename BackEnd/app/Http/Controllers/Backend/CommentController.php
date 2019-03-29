@@ -8,7 +8,14 @@ use App\Http\Controllers\Controller;
 
 class CommentController extends Controller
 {
-    
+		
+	
+	public function __construct()
+    {
+        $this->middleware(['admin','auth']);
+		}
+		
+		
     public function addComment (Request $request)
     {
     	$content = $request->input('content');
