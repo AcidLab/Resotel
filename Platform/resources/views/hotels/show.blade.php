@@ -11,49 +11,34 @@
             <div class="container">
                     <div class="row title-row">
                         <div class="col-md-2">
-                            <h4 class="shop">Shop</h4>
+                            <h4 class="shop"></h4>
                         </div>
                         <div class="col-md-4 offset-md-6">
                             
                         </div>
                     </div>
                     <div class="row">
+                        @if(count($hotel->pictures) > 0)
                         <div class="col-md-7 col-sm-6">
 
                             <div id="carousel">
 								<div class="card page-carousel">
 									<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 									    <ol class="carousel-indicators">
-										    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-										    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-											<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-											<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                                            @foreach($hotel->pictures as $key=>$row)
+										    <li data-target="#carouselExampleIndicators" data-slide-to="{{$key}}" class="{{$key == 0 ? 'active' : ''}}"></li>
+                                            @endforeach
+										    
 									    </ol>
 			                            <div class="carousel-inner" role="listbox">
-				                            <div class="carousel-item active">
-				                                <img class="d-block img-fluid" src="{{asset('assets/img/jacket-1.jpg')}}" alt="Awesome Item">
+                                            @foreach($hotel->pictures as $key=>$row)
+				                            <div class="carousel-item {{$key == 0 ? 'active' : ''}}" style="height : 400px !important;  ">
+				                                <img class="d-block img-fluid" src="{{$row->path}}" alt="Awesome Item" style="height : 400px !important; width:100% !important;">
 				                            	<div class="carousel-caption d-none d-md-block">
-				                                    <p>Somewhere</p>
+				                                    <p></p>
 				                                </div>
 				                            </div>
-				                            <div class="carousel-item">
-				                                <img class="d-block img-fluid" src="{{asset('assets/img/jacket-2.jpg')}}" alt="Awesome Item">
-				                            	<div class="carousel-caption d-none d-md-block">
-				                            	    <p>Somewhere else</p>
-				                            	</div>
-				                            </div>
-				                            <div class="carousel-item">
-				                                <img class="d-block img-fluid" src="{{asset('assets/img/jacket-3.jpg')}}" alt="Awesome Item">
-				                            	<div class="carousel-caption d-none d-md-block">
-				                            	    <p>Here it is</p>
-				                            	</div>
-				                            </div>
-											<div class="carousel-item">
-				                                <img class="d-block img-fluid" src="{{asset('assets/img/jacket-4.jpg')}}" alt="Awesome Item">
-				                            	<div class="carousel-caption d-none d-md-block">
-				                            	    <p>Here it is</p>
-				                            	</div>
-				                            </div>
+                                            @endforeach
 			                            </div>
 
 			                            <a class="left carousel-control carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -69,6 +54,7 @@
                             </div> <!-- end carousel -->
 
                         </div>
+                        @endif
                         <div class="col-md-5 col-sm-6">
                         <?php $res = 0; $star = ''; ?>
                         @for($i = 0;$i < $hotel->local_stars_number;$i++)
@@ -217,48 +203,33 @@
         </div>
         
     </div>
-
-
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                      <h3 class="text-center">Ajouter un commentaire</h3>
+                      <form action="" method="POST">
+                        {{csrf_field()}}
+                          <div class="media media-post">
+                              <a class="pull-left author" href="#paper-kit">
+                                  <div class="avatar">
+                                        
+                                  </div>
+                              </a>
+                              <div class="media-body">
+                                    <textarea class="form-control border-input" placeholder="" rows="6"></textarea>
+                                    <div class="media-footer">
+                                         <button type="submit" class="btn btn-info btn-wd pull-right">Poster</button>
+                                    </div>
+                              </div>
+                          </div>
+                    </form>
+            </div>
+        </div>
 
             <div class="section landing-section register" id="result">
                 <div class="" style="padding-left: 150px;padding-right: 150px;">
                 <div class="container">
 			<div class="row" >
-                @if(count($hotel->pictures) > 0)
-				<div class="col-md-6">
-					<div class="card card-raised page-carousel"  >
-						<div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
-						    <ol class="carousel-indicators">
-                                @foreach($hotel->pictures as $key=>$row)
-							    <li data-target="#carouselExampleIndicators2" data-slide-to="{{$key}}" class="{{$key==0 ? 'active' : ''}}"></li>
-							    
-                                @endforeach
-						    </ol>
-                            <div class="carousel-inner" role="listbox" >
-                                @foreach($hotel->pictures as $key=>$row)
-                                <div class="carousel-item {{$key==0 ? 'active' : ''}}">
-                                    <img class="d-block img-fluid" src="{{$row->path}}" alt="{{$key}} slide">
-                                	<div class="carousel-caption d-none d-md-block">
-                                        <p></p>
-                                    </div>
-                                </div>
-                                @endforeach
-                                
-                                
-                            </div>
-
-                            <a class="left carousel-control carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
-                                <span class="fa fa-angle-left"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="right carousel-control carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
-                                <span class="fa fa-angle-right"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-						</div>
-					</div>
-				</div>
-                @endif
+                
                 
             @if(Session::get('failure'))
             <div class="alert alert-danger alert-with-icon" data-notify="container" style="width: 80%; margin:auto;margin-top : 10px;border-radius : 5px;">

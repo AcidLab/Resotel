@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\BackEnd;
+namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -179,5 +179,30 @@ class BookingsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function showAgencyDrafts(){
+        $drafts = Booking::where([['agency_id','=',Auth::user()->id],['status','=',-1]])->get();
+        $view = View::make('agency.drafts');
+        $view->drafts = $drafts;
+        return $view ;
+    }
+    public function showAgencyBookings(){
+        $bookings = Booking::where([['agency_id','=',Auth::user()->id],['status','<>',-1]])->get();
+        $view = View::make('agency.bookings');
+        $view->bookings = $bookings;
+        return $view ;
+    }
+    public function payBooking(Request $request,$id){
+        $booking = Booking::find($id);
+        $booking->status = 0;
+        $booking->save();
+        return Redirect::to(route('agencybookings'));
+    }
+    public function showInvoice($id){
+        $booking = Booking::find($id);
+        $view = View::make('agency.bookinginvoice');
+        $view->booking = $booking ;
+        return $view ; 
     }
 }

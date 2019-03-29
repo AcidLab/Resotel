@@ -50,8 +50,8 @@
 						<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">{{Auth::user()->name}}</a>
 						<ul class="dropdown-menu dropdown-menu-right">
                      <li class="dropdown-item"><a href="{{route('profil')}}"><i class="nc-icon nc-single-02"></i>&nbsp; Profil</a></li>
-	                  <li class="dropdown-item"><a href="sections.html#blogs"><i class="nc-icon nc-bullet-list-67"></i>&nbsp; Commandes</a></li>
-							<li class="dropdown-item"><a href="sections.html#pricing"><i class="nc-icon nc-basket"></i>&nbsp; Brouillons</a></li>
+	                  <li class="dropdown-item"><a href="{{route('agencybookings')}}"><i class="nc-icon nc-bullet-list-67"></i>&nbsp; Commandes</a></li>
+							<li class="dropdown-item"><a href="{{route('drafts')}}"><i class="nc-icon nc-basket"></i>&nbsp; Brouillons</a></li>
                      <li class="dropdown-item"><a href="{{route('logout')}}"><i class="nc-icon nc-button-power"></i>&nbsp; Déconnexion</a></li>
 	                    </ul>
 					</li>

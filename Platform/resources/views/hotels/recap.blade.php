@@ -10,7 +10,7 @@
                 <div class="col-md-12 ">
                 
                     <h4 class="title"><small>Récapitulation</small></h4>
-                    <form action="#" method="POST">
+                    <form action="{{route('booking.pay',$booking->id)}}" method="POST">
                     {{csrf_field()}}
                     <div class="form-group" hidden>
                         <input type="text" required class="form-control" name="hotel_id" hidden value="{{$booking->hotel_id}}" />
@@ -111,17 +111,22 @@
                                 <td style="text-align:center;">
                                         <div class="form-group">
                                             <select class="form-control" required name="payment_type">
+                                                @if(Auth::user())
                                                 @if(Auth::user()->transfer_option == 1)
                                                 <option value="0">Virement</option>
                                                 @endif
                                                 <option value="1"> En ligne</option>
+                                                @else
+                                                <option value="0">Virement</option>
+                                                <option value="1"> En ligne</option>
+                                                @endif
                                             </select>
                                         </div>
                                 </td>
                                 <td></td>
                                 <td style="text-align : center ; ">
                                     <div class="form-group">
-                                    <button type="button" class="btn btn-info"> <i class="fa fa-check"></i> Payer</button>
+                                    <button type="submit" class="btn btn-info"> <i class="fa fa-check"></i> Payer</button>
                                     </div>
                                 </td>       
                             </tr>
