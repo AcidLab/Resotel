@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+<div class="page-header page-header-xs" style="background-image: url('https://www.tunisienumerique.com/wp-content/uploads/2018/02/banquie.jpg')">
+        <div class="filter"></div>
+    </div>
 <div class="section landing-section register" id="result">
     <div class="" style="padding-left: 150px;padding-right: 150px;">
         <div class="container">
@@ -19,6 +22,7 @@ Date facture
 <div class="card-body">
 <div class="row mb-4">
 <div class="col-sm-6">
+    <br/>
 <h6 class="mb-3">De :</h6>
 <div>
 <strong>RESOTEL</strong>
@@ -30,6 +34,7 @@ Date facture
 </div>
 
 <div class="col-sm-6">
+    <br/>
 <h6 class="mb-3">A :</h6>
 <div>
 <strong>{{Auth::user()->name}}</strong>
@@ -50,30 +55,34 @@ Date facture
 
  <tr>
                                 
-                                <td style="text-align : center;">Hôtel</td>
-                                <td style="text-align : center;">{{$booking->hotel->name}}</td>
+                                <td style="text-align : center;"><h6 class="media-heading">Hôtel</h6></td>
+                                <td style="text-align : center;"><h6 class="media-heading">{{$booking->hotel->name}}</h6></td>
                                 <td style="text-align: center;">
                                 	@if($booking->status == 0)
-                                		<span class="badge badge-pill badge-warning" style="color:white !important;">
+                                		<span class="label label-warning" style="color:white !important;">
                                 			En attente
                                 		</span>
                                 	@elseif($booking->status == 1)
-                                		<span class="badge badge-pill badge-success" style="color:white !important;">
+                                		<span class="label label-success" style="color:white !important;">
                                 			Validée
                                 		</span>
                                 	@elseif($booking->status == 2)
-                                		<span class="badge badge-pill badge-danger" style="color:white !important;">
+                                		<span class="label label-danger" style="color:white !important;">
                                 			Annulée
                                 		</span>
                                 	@endif
                                 </td>
-                                <td style="text-align : center;"><label class="control-label">Date d'arrivée  </label></td>
+                                <td style="text-align : center;"><label class="control-label"><h6 class="media-heading">Date d'arrivée  </h6></label></td>
                                 <td style="text-align : center;">
+                                    <h6 class="media-heading">
                                     {{date('d-m-Y',strtotime($booking->arrival_date))}}
+                                </h6>
                                 </td>
-                                <td style="text-align : center;"><label class="control-label">Date de départ : </label></td>
+                                <td style="text-align : center;"><label class="control-label"><h6 class="media-heading">Date de départ  </h6></label></td>
                                 <td style="text-align:center;">
+                                    <h6 class="media-heading">
                                 {{date('d-m-Y',strtotime($booking->departure_date))}}
+                                    </h6>
                                 </td>
                                 
                             </tr>
@@ -81,13 +90,13 @@ Date facture
                             	
                                 
                                 
-                                <th style="text-align : center;">Type de la chambre</th>
-                                <th style="text-align : center;">Arrangement</th>
-                                <th style="text-align : center;">Suppléments</th>
-                                <th style="text-align : center ; ">Nombre d'adultes</th>
-                                <th style="text-align : center ; ">Nombre d'enfants</th>
-                                <th style="text-align : center ; ">Nombre de bébés</th>
-                                <th style="text-align : center ; ">Prix</th>
+                                <th style="text-align : center;"><h6 class="media-heading">Type de la chambre</h6></th>
+                                <th style="text-align : center;"><h6 class="media-heading">Arrangement</h6></th>
+                                <th style="text-align : center;"><h6 class="media-heading">Suppléments</h6></th>
+                                <th style="text-align : center ; "><h6 class="media-heading">Nombre d'adultes</h6></th>
+                                <th style="text-align : center ; "><h6 class="media-heading">Nombre d'enfants</h6></th>
+                                <th style="text-align : center ; "><h6 class="media-heading">Nombre de bébés</h6></th>
+                                <th style="text-align : center ; "><h6 class="media-heading">Prix</h6></th>
                                 
                                 
                                 
@@ -101,6 +110,7 @@ Date facture
 	<td style="text-align : center;">{{$row->roomType->name}}</td>
 	<td style="text-align:center;">{{$booking->hotel->rooms[0]->arrangement->name}}</td>
 	<td style="text-align : center;">
+        <h6 class="media-heading">
 			@if($row->supplements)
                                             <?php
                                                 $supps = explode(';',$row->supplements); 
@@ -117,13 +127,16 @@ Date facture
                                         @else
                                             Pas de suppléments sur cette chambre
                                         @endif
+                                    </h6>
 
 	</td>
-	<td style="text-align : center;">{{$row->majors_number}}</td>
-	<td style="text-align : center;">{{$row->childrens_number}}</td>
-	<td style="text-align:center;">{{$row->babies_number}}</td>
+	<td style="text-align : center;"><h6 class="media-heading">{{$row->majors_number}}</h6></td>
+	<td style="text-align : center;"><h6 class="media-heading">{{$row->childrens_number}}</h6></td>
+	<td style="text-align:center;"><h6 class="media-heading">{{$row->babies_number}}</h6></td>
 	<td style="text-align : center">
+        <h6 class="media-heading">
         {{$row->roomPriceInSeason()}} Euros
+    </h6>
     </td>
     
 </tr>
@@ -135,7 +148,8 @@ Date facture
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td style="text-align : center;">Prix Total</td>
+                                <td style="text-align : center;">
+                                    <h6 class="media-heading">Prix Total</h6></td>
                                 <td style="text-align : center ; ">
                                     <?php
                                         $total = 0;
@@ -143,7 +157,9 @@ Date facture
                                             $total += $row->roomPriceInSeason();
                                         } 
                                     ?>
+                                    <h6 class="media-heading">
                                     {{$total}} Euros
+                                </h6>
                                 </td>
                             
 </tr>

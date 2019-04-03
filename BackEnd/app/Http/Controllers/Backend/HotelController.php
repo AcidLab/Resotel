@@ -31,7 +31,7 @@ class HotelController extends Controller
         }
         else {
 
-            $hotels = Hotel::all();
+            $hotels = Hotel::where('completed','=',8)->get();
         }
         
        

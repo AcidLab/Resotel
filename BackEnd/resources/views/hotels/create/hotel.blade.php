@@ -83,7 +83,7 @@ Création d'un hôtel
                         <div class="col-md-12">
                             <label class="control-label">Images : </label>
                             <input type="file"  name="pictures[]" multiple accept="image/*" class="form-control" required />
-                            <input type="text" name="agency_id" required value="{{Auth::user()->agency_id}}" class="form-control" />
+                            <input type="text" hidden name="agency_id" required value="{{Auth::user()->agency_id}}" class="form-control" />
                         </div>
                         @else 
                         <div class="col-md-6">
