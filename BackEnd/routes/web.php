@@ -100,6 +100,9 @@ Route::get('delete_comment/{id}',array('as'=>'hotel.deleteComment','uses'=>'Back
 //users routes 
 Route::resource('users','Backend\UsersController');
 //----------------
+//Subcontracting routes
+Route::resource('subcontractings','Backend\SubcontractingController'); 
+//------------------------
 
 
 Route::get('/', function () {

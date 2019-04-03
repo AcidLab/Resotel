@@ -184,6 +184,7 @@
                                 <span class="hide-menu"> Places </span>
                             </a>     
                         </li>
+                        
                             
                         </ul>
                         
@@ -260,6 +261,12 @@
                             <a class=" waves-effect waves-dark {{preg_match('/demand/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('demands.index')}}" aria-expanded="false">
                                 <i class="ti-user"></i>
                                 <span class="hide-menu"> Demandes d'adhésion </span>
+                            </a>     
+                        </li>
+                        <li class="element {{preg_match('/subcontract/',\Request::route()->getName()) ? 'active' : ''}} "> 
+                            <a class=" waves-effect waves-dark {{preg_match('/subcontract/',\Request::route()->getName()) ? 'active' : ''}}" href="{{route('subcontractings.index')}}" aria-expanded="false">
+                                <i class="ti-bag"></i>
+                                <span class="hide-menu"> Agences </span>
                             </a>     
                         </li>
                         <li class="element {{preg_match('/user/',\Request::route()->getName()) ? 'active' : ''}} "> 

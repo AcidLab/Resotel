@@ -21,7 +21,7 @@ Edition d'un utilisateur
                     <hr>
                     {{csrf_field()}}
                     <div class="row">
-                    	<div class="col-md-4">
+                    	<div class="col-md-4" id="name_div">
                     		<div class="form-group">
                                                 <h4 class="card-title">Nom :</h4>
                                                 <input required type="text" value="{{$user->name}}" name="name"  class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="Nom">
@@ -32,7 +32,7 @@ Edition d'un utilisateur
                                                 @endif
                              </div>
                     	</div>
-                    	<div class="col-md-4">
+                    	<div class="col-md-4" id="email_div">
                     		<div class="form-group">
                                                 <h4 class="card-title">Email :</h4>
                                                 <input required type="email" value="{{$user->email}}" name="email"  class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="Email">
@@ -43,12 +43,13 @@ Edition d'un utilisateur
                                                 @endif
                              </div>
                     	</div>
-                    	<div class="col-md-4">
+                    	<div class="col-md-4" id="type_div">
                     		<div class="form-group">
                     			<h4 class="card-title">Type :</h4>
-                    			<select required name="type" class="form-control">
+                    			<select required name="type" id="type_select" class="form-control">
                     				<option value="1" {{$user->type == 1 ?  'selected' : ''}}>Admin</option>
-                    				<option value="2" {{$user->natypeme == 2 ?  'selected' : ''}}>Agence</option>
+                    				<option value="2" {{$user->type == 2 ?  'selected' : ''}}>Agence</option>
+                                    <option value="3" {{$user->type == 3 ?  'selected' : ''}}>Tout</option>
                     			</select>
                     			@if($errors->has('type'))
                                                  <span class="invalid-feedback" role="alert">
@@ -57,6 +58,21 @@ Edition d'un utilisateur
                                                 @endif
                     		</div>
                     	</div>
+                        <div class="col-md-3" id="agency_div" style="display: none;">
+                            <div class="form-group">
+                                <h4 class="card-title">Agence</h4>
+                                <select name="agency_id" class="form-control" id="agency_select">
+                                    @foreach(Agencytoadd::all() as $row)
+                                        <option value="{{$row->id}}" {{$row->id == $user->agency_id ? 'selected' : ''}}>{{$row->name}}</option>
+                                    @endforeach
+                                </select>
+                                @if($errors->has('agency_id'))
+                                                 <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('agency_id') }}</strong>
+                                                 </span>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                     
 
@@ -73,4 +89,55 @@ Edition d'un utilisateur
 </diV>
 @endsection
 @section('js-includes')
+<script>
+
+    $('#type_select').change(function(){
+        if($(this).val() == 2){
+            $('#name_div').removeClass('col-md-4');
+            $('#name_div').addClass('col-md-3');
+            $('#email_div').removeClass('col-md-4');
+            $('#email_div').addClass('col-md-3');
+            $('#type_div').removeClass('col-md-4');
+            $('#type_div').addClass('col-md-3');
+            $('#agency_select').prop('required',true);
+            $('#agency_div').show();
+        }
+        else {
+
+            $('#name_div').removeClass('col-md-3');
+            $('#name_div').addClass('col-md-4');
+            $('#email_div').removeClass('col-md-3');
+            $('#email_div').addClass('col-md-4');
+            $('#type_div').removeClass('col-md-3');
+            $('#type_div').addClass('col-md-4');
+            $('#agency_select').prop('required',false);
+            $('#agency_div').hide();
+        }
+    });
+
+    $(document).ready(function(){
+        if($('#type_select').val() == 2){
+
+            $('#name_div').removeClass('col-md-4');
+            $('#name_div').addClass('col-md-3');
+            $('#email_div').removeClass('col-md-4');
+            $('#email_div').addClass('col-md-3');
+            $('#type_div').removeClass('col-md-4');
+            $('#type_div').addClass('col-md-3');
+            $('#agency_select').prop('required',true);
+            $('#agency_div').show();
+        }
+        else {
+
+            $('#name_div').removeClass('col-md-3');
+            $('#name_div').addClass('col-md-4');
+            $('#email_div').removeClass('col-md-3');
+            $('#email_div').addClass('col-md-4');
+            $('#type_div').removeClass('col-md-3');
+            $('#type_div').addClass('col-md-4');
+            $('#agency_select').prop('required',false);
+            $('#agency_div').hide();
+        }
+    });
+</script>
 @endsection

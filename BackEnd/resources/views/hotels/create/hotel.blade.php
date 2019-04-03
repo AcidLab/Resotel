@@ -79,10 +79,27 @@ Création d'un hôtel
                         </div>
                     </div>
                     <div class="row">
+                        @if(Auth::user()->type == 2)
                         <div class="col-md-12">
                             <label class="control-label">Images : </label>
                             <input type="file"  name="pictures[]" multiple accept="image/*" class="form-control" required />
+                            <input type="text" name="agency_id" required value="{{Auth::user()->agency_id}}" class="form-control" />
                         </div>
+                        @else 
+                        <div class="col-md-6">
+                            <label class="control-label">Images : </label>
+                            <input type="file"  name="pictures[]" multiple accept="image/*" class="form-control" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="label-control">Agence </label>
+                            <select name="agency_id" required class = "form-control">
+                                @foreach(Agencytoadd::all() as $row)
+                                    <option value="{{$row->id}}">{{$row->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @endif
+                        
                     </div>
 
 

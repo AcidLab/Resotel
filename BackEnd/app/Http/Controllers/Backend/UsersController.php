@@ -66,6 +66,14 @@ class UsersController extends Controller
             $user->name = $request->input('name');
             $user->email = $request->input('email');
             $user->type = $request->input('type');
+            if($request->input('type') == 2){
+
+                $user->agency_id = $request->input('agency_id');
+            }
+            else {
+
+                $user->agency_id = 0 ;
+            }
             $user->password = Hash::make($request->input('password'));
             $user->save();
             $request->session()->flash('success','Utilisateur crée avec succés ! ');
@@ -94,6 +102,14 @@ class UsersController extends Controller
             $user->name = $request->input('name');
             $user->email = $request->input('email');
             $user->type = $request->input('type');
+            if($request->input('type') == 2){
+                
+                $user->agency_id = $request->input('agency_id');
+            }
+            else {
+
+                $user->agency_id = 0 ;
+            }
             $user->save();
             $request->session()->flash('success','Utilisateur modifié avec succés ! ');
             return Redirect::to(route('users.index'));

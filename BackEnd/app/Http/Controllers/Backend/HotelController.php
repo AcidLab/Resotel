@@ -16,6 +16,7 @@ use App\Models\Hotelservice;
 use App\Models\Service;
 use App\Models\Picture;
 use App\Http\Controllers\Controller;
+use Auth; 
 use View;
 use Session;
 use Redirect;
@@ -24,7 +25,15 @@ class HotelController extends Controller
 {
 
     public function index(){
-        $hotels = Hotel::where('completed','=',8)->get();
+        if(Auth::user()->agency_id != 0){
+
+            $hotels = Hotel::where([['completed','=',8],['agency_id','=',Auth::user()->agency_id]])->get();
+        }
+        else {
+
+            $hotels = Hotel::all();
+        }
+        
        
         $view = View::make('hotels.index');
         $view->hotels = $hotels;
@@ -319,6 +328,7 @@ class HotelController extends Controller
         $hotel->local_stars_number = $request->input('local_stars_number');
         $hotel->to_stars_number = $request->input('to_stars_number');
         $hotel->beds_number = $request->input('beds_number');
+        $hotel->agency_id = $request->input('agency_id');
         $hotel->save();
         while(!$hotel){}
         $hotel->keywords = $hotel->name.' '.$hotel->postal_code.' '.$hotel->city->label.' '.$hotel->address.' '.$hotel->local_stars_number.' '.$hotel->to_stars_number.' '.$hotel->beds_number ;
