@@ -90,6 +90,8 @@ Route::get('partners',array('as'=>'partners','uses'=>function(){
 Route::get('contact',array('as'=>'contact','uses'=>function(){
     return view('showcase.contact');
 }));
+Route::post('testreg',array('as'=>'reg.test','uses'=>'Auth\RegisterController@test'));
+
 
 
 
