@@ -72,7 +72,7 @@ class SearchController extends Controller
 
         
         else {
-            $all = Hotel::all();
+            $all = Hotel::where('completed','=',8)->get();
         }
         $roomtypes = Roomtype::all();
         $supplements = Arrangement::where('type','=',0)->get();
@@ -210,13 +210,22 @@ class SearchController extends Controller
 
     public function filter(Request $request){
 
-        $types = explode(';',$request->get('types'));
-        $supplements = explode(';',$request->get('supplements'));
-        $stars = explode(';',$request->get('stars'));
-        $services = explode(';',$request->get('services'));
-        $equipements = explode(';',$request->get('equipements'));
+
+        $request->get('types') != null ? $types = explode(';',$request->get('types')) : $types = [];
+        $request->get('supplements') != null ? $supplements = explode(';',$request->get('supplements')) : $supplements = [];
+        $request->get('stars') != null ? $stars = explode(';',$request->get('stars')) : $stars = [];
+        $request->get('services') != null ? $services = explode(';',$request->get('services')) : $services = [];
+        $request->get('equipements') != null ? $equipements = explode(';',$request->get('equipements')) : $equipements = [];
         $arrival_date = $request->get('arrival_date');
         $departure_date = $request->get('departure_date');
+
+        $view = View::make('platform.filter_results');
+        $view->arrival_date = $arrival_date;
+        $view->departure_date = $departure_date;
+        if(count($types) == 0 && count($supplements) == 0 && count($stars) == 0 && count($services) == 0 && count($equipements) == 0  ){
+            $view->all = Hotel::where('completed',8)->get();
+            return $view ; 
+        }
         $types_results = $this->filterByTypes($types);
         $supplements_results = $this->filterBySupplements($supplements);
         $stars_results = $this->filterByStars($stars);
@@ -225,11 +234,10 @@ class SearchController extends Controller
         $all_in_one = $this->makeAllInOne($types_results,$supplements_results,$stars_results,$services_results,$equipements_results);
         $orderedAll = $this->orderAll($all_in_one);
         $all_without_redundancy = $this->eliminateRedundancy($orderedAll);
-        $view = View::make('platform.filter_results');
         $view->all = $all_without_redundancy;
-        $view->arrival_date = $arrival_date;
-        $view->departure_date = $departure_date;
-        return $view ; 
+        return $view ;  
+        
+         
     }
 }
    

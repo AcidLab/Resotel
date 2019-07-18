@@ -267,7 +267,7 @@
                             </div>
 							@endforeach
                             @else 
-                            Aucun hôtel trouvé
+                            <center>Aucun hôtel trouvé</center>
                             @endif
                             
                             

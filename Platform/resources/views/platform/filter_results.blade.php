@@ -28,6 +28,9 @@
                                 </div>
                             </div>
 							@endforeach
+							
 							@else 
 							<center>Aucun Résultat</center>
+							
 							@endif
+							
