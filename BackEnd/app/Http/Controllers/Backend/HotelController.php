@@ -344,7 +344,7 @@ class HotelController extends Controller
                 for($i=0;$i<count($request->file('pictures'));$i++){
                     $picture = new Picture;
                     $file = $request->file('pictures')[$i];
-                    $filename = $file->store(config('hotels_pictures_path'),'public');
+                    $filename = $file->store(config('files.hotels_pictures_path'),'public');
                     $picture->path = asset($filename);
                     $picture->hotel_id = $hotel->id;
                     $picture->save();  
